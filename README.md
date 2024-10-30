@@ -1,10 +1,10 @@
 # LuckyCoin Wallet
 
-The only wallet you need to store, send, and receive LuckyCoin! 🍀
+The only wallet you need to store, send, and receive LuckyCoin!
 
 ---
 
-## Downloading Prebuilt Releases 📥
+## Downloading Prebuilt Releases
 
 For an easy setup, check the **Releases** section on GitHub. Prebuilt ZIP files are available for both Chrome and Firefox, so you can get started without building the project. Here’s how:
 
@@ -64,4 +64,4 @@ yarn install
 
 ---
 
-Whether you’re a user or a developer, LuckyCoin Wallet has everything you need to get started with managing your LuckyCoins. Welcome to the future of LuckyCoin! ✨
+Whether you’re a user or a developer, LuckyCoin Wallet has everything you need to get started with managing your LuckyCoins. Welcome to the future of LuckyCoin!
