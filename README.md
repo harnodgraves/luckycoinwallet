@@ -8,11 +8,7 @@ LuckyCoin Wallet - The only wallet you need to store, send, and receive LuckyCoi
 
 ### Installation
 
-#### Step 1: Install Yarn (if not already installed)
-
-```bash
-curl -o- -L https://yarnpkg.com/install.sh | bash
-```
+#### Step 1: [Install Yarn (if not already installed)](https://yarnpkg.com/getting-started/install)
 
 #### Step 2: Install Dependencies
 
