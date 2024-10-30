@@ -1,10 +1,10 @@
 import { browserTabsCreate } from "@/shared/utils/browser";
 import { CheckIcon } from "@heroicons/react/24/outline";
 
-import s from "./styles.module.scss";
+import { LUCKYCOINURL } from "@/shared/constant";
 import { t } from "i18next";
-import { NINTONDO_URL } from "@/shared/constant";
 import { Link, useParams } from "react-router-dom";
+import s from "./styles.module.scss";
 
 const FinalleSend = () => {
   const { txId } = useParams();
@@ -12,7 +12,7 @@ const FinalleSend = () => {
   const onClick = async () => {
     await browserTabsCreate({
       active: true,
-      url: `${NINTONDO_URL}/explorer/tx/${txId}`,
+      url: `${LUCKYCOINURL}/explorer/tx/${txId}`,
     });
   };
 

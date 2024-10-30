@@ -1,17 +1,21 @@
+import { EVENTS } from "@/shared/constant";
+import eventBus from "@/shared/eventBus";
+import type {
+  IAccount,
+  IAppStateBase,
+  IPrivateWallet,
+  IWallet,
+  IWalletStateBase,
+} from "@/shared/interfaces";
+import { excludeKeysFromObj, pickKeysFromObj } from "@/shared/utils";
 import {
   browserStorageLocalGet,
   browserStorageLocalSet,
 } from "@/shared/utils/browser";
 import * as encryptorUtils from "nintondo-browser-passworder";
-import type { IAccount, IPrivateWallet, IWallet } from "@/shared/interfaces";
-import type { DecryptedSecrets, StorageInterface } from "./types";
-import type { IAppStateBase, IWalletStateBase } from "@/shared/interfaces";
-import { emptyAppState, emptyWalletState } from "./utils";
 import { keyringService, permissionService, storageService } from "..";
-import { excludeKeysFromObj, pickKeysFromObj } from "@/shared/utils";
-import eventBus from "@/shared/eventBus";
-import { EVENTS } from "@/shared/constant";
-import { Network, networks } from "belcoinjs-lib";
+import type { DecryptedSecrets, StorageInterface } from "./types";
+import { emptyAppState, emptyWalletState } from "./utils";
 
 interface SaveWallets {
   password: string;
@@ -69,7 +73,6 @@ class StorageService {
       ...pickKeysFromObj(data.cache, [
         "addressBook",
         "pendingWallet",
-        "network",
         "language",
       ]),
     };
@@ -125,8 +128,7 @@ class StorageService {
     if (
       state.addressBook !== undefined ||
       state.pendingWallet !== undefined ||
-      state.language !== undefined ||
-      state.network !== undefined
+      state.language !== undefined
     ) {
       const localState = await this.getLocalValues();
       const cache: StorageInterface["cache"] = {
@@ -138,7 +140,6 @@ class StorageService {
       if (state.pendingWallet !== undefined)
         cache.pendingWallet = state.pendingWallet;
       if (state.language !== undefined) cache.language = state.language;
-      if (state.network !== undefined) cache.network = state.network;
 
       const payload: StorageInterface = {
         cache: cache,
@@ -280,7 +281,6 @@ class StorageService {
           wallets: [],
           connectedSites: [],
           unpushedHexes: [],
-          network: networks.bellcoin,
         },
         enc: undefined,
       };
@@ -290,7 +290,7 @@ class StorageService {
 
   async importWallets(
     password: string
-  ): Promise<{ network?: Network; wallets: IPrivateWallet[] }> {
+  ): Promise<{ wallets: IPrivateWallet[] }> {
     const encrypted = await this.getLocalValues();
     if (!encrypted) return { wallets: [] };
 
@@ -319,7 +319,6 @@ class StorageService {
           data: current?.data,
         };
       }),
-      network: encrypted.cache.network,
     };
   }
 

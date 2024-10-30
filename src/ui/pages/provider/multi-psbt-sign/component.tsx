@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { KeyIcon } from "@heroicons/react/24/outline";
-import Layout from "../layout";
-import { TailSpin } from "react-loading-icons";
 import { IField } from "@/shared/interfaces/provider";
-import { useDecodePsbtInputs as useGetPsbtFields } from "@/ui/hooks/provider";
-import { t } from "i18next";
 import Modal from "@/ui/components/modal";
 import SignPsbtFileds from "@/ui/components/sign-psbt-fileds";
+import { useDecodePsbtInputs as useGetPsbtFields } from "@/ui/hooks/provider";
 import { useControllersState } from "@/ui/states/controllerState";
 import { ss } from "@/ui/utils";
+import { KeyIcon } from "@heroicons/react/24/outline";
+import { t } from "i18next";
+import { TailSpin } from "react-loading-icons";
+import Layout from "../layout";
 
 const MultiPsbtSign = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -32,7 +32,7 @@ const MultiPsbtSign = () => {
       return;
     }
     setFields(resultFields.fields);
-    setFee(resultFields.fee + " BEL");
+    setFee(resultFields.fee + " LKY");
     setLoading(false);
   }, [getPsbtFields, fields, notificationController]);
 

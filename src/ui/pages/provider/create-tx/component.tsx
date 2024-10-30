@@ -1,11 +1,11 @@
 import { useControllersState } from "@/ui/states/controllerState";
 import { useEffect, useState } from "react";
 
-import { KeyIcon } from "@heroicons/react/24/outline";
-import Layout from "../layout";
 import type { CreateTxProps } from "@/shared/interfaces/notification";
-import { t } from "i18next";
 import { ss } from "@/ui/utils";
+import { KeyIcon } from "@heroicons/react/24/outline";
+import { t } from "i18next";
+import Layout from "../layout";
 
 const CreateTx = () => {
   const [psbt, setPsbt] = useState<CreateTxProps>();
@@ -35,7 +35,7 @@ const CreateTx = () => {
     },
     {
       label: "Amount",
-      value: `${psbt.amount / 10 ** 8} BEL`,
+      value: `${psbt.amount / 10 ** 8} LKY`,
     },
     {
       label: "Fee Rate",

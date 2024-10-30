@@ -1,27 +1,23 @@
-import { useEffect } from "react";
-import s from "./styles.module.scss";
-import InscriptionCard from "@/ui/components/inscription-card";
-import Pagination from "@/ui/components/pagination";
-import { t } from "i18next";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { useGetCurrentAccount } from "@/ui/states/walletState";
 import { useInscriptionManagerContext } from "@/ui/utils/inscriptions-ctx";
+import { useEffect } from "react";
 import { TailSpin } from "react-loading-icons";
+import s from "./styles.module.scss";
 
 const Inscriptions = () => {
   const {
     inscriptions,
     currentPage,
-    setCurrentPage,
+    // setCurrentPage,
     loading: managerLoading,
-    searchInscriptions,
+    // searchInscriptions,
     updateInscriptions,
   } = useInscriptionManagerContext();
   const currentAccount = useGetCurrentAccount();
 
-  const changePage = async (page: number) => {
-    if (!managerLoading) setCurrentPage(page);
-  };
+  // const changePage = async (page: number) => {
+  //   if (!managerLoading) setCurrentPage(page);
+  // };
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -34,6 +30,15 @@ const Inscriptions = () => {
   )
     return <TailSpin className="animate-spin" />;
 
+  return (
+    <div className={s.inscriptionDiv}>
+      <div className="flex w-full h-4/5 bottom-0 items-center justify-center absolute">
+        <p>Not yet implemented</p>
+      </div>
+    </div>
+  );
+
+  /*
   return (
     <div className={s.inscriptionDiv}>
       <div className="flex flex-col h-full w-full overflow-hidden pb-8 standard:pb-16">
@@ -72,6 +77,7 @@ const Inscriptions = () => {
       )}
     </div>
   );
+  */
 };
 
 export default Inscriptions;

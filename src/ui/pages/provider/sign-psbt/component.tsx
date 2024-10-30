@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { KeyIcon } from "@heroicons/react/24/outline";
-import Layout from "../layout";
-import { TailSpin } from "react-loading-icons";
+import notificationController from "@/background/controllers/notificationController";
 import { IField } from "@/shared/interfaces/provider";
-import { useDecodePsbtInputs as useGetPsbtFields } from "@/ui/hooks/provider";
-import { t } from "i18next";
 import Modal from "@/ui/components/modal";
 import SignPsbtFileds from "@/ui/components/sign-psbt-fileds";
-import notificationController from "@/background/controllers/notificationController";
+import { useDecodePsbtInputs as useGetPsbtFields } from "@/ui/hooks/provider";
+import { KeyIcon } from "@heroicons/react/24/outline";
+import { t } from "i18next";
 import toast from "react-hot-toast";
+import { TailSpin } from "react-loading-icons";
+import Layout from "../layout";
 
 const SignPsbt = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -28,7 +28,7 @@ const SignPsbt = () => {
       return;
     }
     setFields(resultFields.fields[0]);
-    setFee(resultFields.fee + " BEL");
+    setFee(resultFields.fee + " LKY");
     setLoading(false);
   }, [getPsbtFields, fields]);
 

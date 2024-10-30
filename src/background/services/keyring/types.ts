@@ -1,6 +1,6 @@
 import type { ApiUTXO } from "@/shared/interfaces/api";
 import { ApiOrdUTXO } from "@/shared/interfaces/inscriptions";
-import { Network } from "belcoinjs-lib";
+import { Network } from "luckycoinjs-lib";
 
 export type Json = any;
 export type Hex = string;

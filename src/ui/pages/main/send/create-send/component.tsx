@@ -1,27 +1,27 @@
+import { Inscription } from "@/shared/interfaces/inscriptions";
+import SplitWarn from "@/ui/components/split-warn";
+import Switch from "@/ui/components/switch";
 import {
   useCreateBellsTxCallback,
   useCreateOrdTx,
 } from "@/ui/hooks/transactions";
+import { useGetCurrentAccount } from "@/ui/states/walletState";
+import { normalizeAmount } from "@/ui/utils";
+import cn from "classnames";
+import { t } from "i18next";
 import {
-  useEffect,
-  useState,
   ChangeEventHandler,
   MouseEventHandler,
+  useEffect,
   useId,
+  useState,
 } from "react";
-import s from "./styles.module.scss";
-import cn from "classnames";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
-import FeeInput from "./fee-input";
-import Switch from "@/ui/components/switch";
 import AddressBookModal from "./address-book-modal";
 import AddressInput from "./address-input";
-import { normalizeAmount } from "@/ui/utils";
-import { t } from "i18next";
-import { Inscription } from "@/shared/interfaces/inscriptions";
-import { useGetCurrentAccount } from "@/ui/states/walletState";
-import SplitWarn from "@/ui/components/split-warn";
+import FeeInput from "./fee-input";
+import s from "./styles.module.scss";
 
 interface FormType {
   address: string;
@@ -62,7 +62,7 @@ const CreateSend = () => {
   }: FormType) => {
     try {
       setLoading(true);
-      const balance = currentAccount?.balance ?? 0;
+      const balance = Number(currentAccount?.balance ?? 0);
       const amount = parseFloat(amountStr);
 
       if (amount < 0.00000001 && !inscriptionTransaction) {
@@ -77,7 +77,7 @@ const CreateSend = () => {
       if (typeof feeRate !== "number" || !feeRate || feeRate < 1) {
         return toast.error(t("send.create_send.not_enough_fee_error"));
       }
-      if (amount > balance / 10 ** 8) {
+      if (amount > balance) {
         return toast.error(t("send.create_send.not_enough_money_error"));
       }
 
@@ -141,7 +141,7 @@ const CreateSend = () => {
             if (location.state.save) {
               setIsSaveAddress(true);
             }
-            if (currentAccount.balance! / 10 ** 8 <= location.state.amount)
+            if (currentAccount.balance! <= location.state.amount)
               setIncludeFeeLocked(true);
 
             return {
@@ -169,7 +169,7 @@ const CreateSend = () => {
       ...prev,
       amount: normalizeAmount(e.target.value),
     }));
-    if (currentAccount.balance / 10 ** 8 > Number(e.target.value)) {
+    if (currentAccount.balance > Number(e.target.value)) {
       setIncludeFeeLocked(false);
     } else {
       setIncludeFeeLocked(true);
@@ -185,7 +185,7 @@ const CreateSend = () => {
     if (currentAccount?.balance) {
       setFormData((prev) => ({
         ...prev,
-        amount: (currentAccount.balance! / 10 ** 8).toString(),
+        amount: currentAccount.balance!.toString(),
         includeFeeInAmount: true,
       }));
       setIncludeFeeLocked(true);
@@ -277,7 +277,7 @@ const CreateSend = () => {
               "wallet_page.amount_in_transactions"
             )}`}</div>
             <span className="text-sm font-medium">
-              {`${((currentAccount?.balance ?? 0) / 10 ** 8).toFixed(8)} BEL`}
+              {`${Number(currentAccount?.balance ?? 0).toFixed(5)} LKY`}
             </span>
           </div>
         )}

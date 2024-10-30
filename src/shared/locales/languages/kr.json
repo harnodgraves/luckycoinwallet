@@ -23,7 +23,7 @@
       "change_address_type": "주소 유형 변경",
       "create_new_account": "새 계정 생성",
       "change_password": "비밀번호 변경",
-      "receive_bel": "BEL 받기",
+      "receive_lky": "LKY 받기",
       "switch_wallet": "지갑 전환",
       "transaction_info": "거래 정보",
       "settings": "설정",
@@ -115,7 +115,7 @@
       "confirm": "확인"
     },
     "create_send": {
-      "minimum_amount_error": "최소 금액은 0.00000001 BEL입니다",
+      "minimum_amount_error": "최소 금액은 0.00000001 LKY입니다",
       "address_error": "수신자의 주소 입력",
       "not_enough_money_error": "계정에 잔액이 부족합니다",
       "not_enough_fee_error": "수수료를 늘려주세요",
@@ -181,8 +181,8 @@
   "hooks": {
     "transaction": {
       "insufficient_balance_0": "잔액이 부족합니다. 비등기 잔액",
-      "insufficient_balance_1": "BEL)는 다음보다 낮습니다",
-      "insufficient_balance_2": "BEL"
+      "insufficient_balance_1": "LKY)는 다음보다 낮습니다",
+      "insufficient_balance_2": "LKY"
     },
     "wallet": {
       "last_wallet_error": "마지막 지갑을 삭제할 수 없습니다"

@@ -1,19 +1,17 @@
 import { ITransferToken } from "@/shared/interfaces/token";
 import { inscribe } from "bells-inscriber";
-import { useControllersState } from "../states/controllerState";
-import toast from "react-hot-toast";
-import { t } from "i18next";
-import { isValidTXID, ss } from "../utils";
-import { useAppState } from "../states/appState";
-import { useGetCurrentAccount } from "../states/walletState";
 import { ApiUTXO } from "bells-inscriber/lib/types";
+import { t } from "i18next";
+import toast from "react-hot-toast";
+import { useControllersState } from "../states/controllerState";
+import { useGetCurrentAccount } from "../states/walletState";
+import { isValidTXID, ss } from "../utils";
 
 export const useInscribeTransferToken = () => {
   const { apiController, keyringController } = useControllersState(
     ss(["apiController", "keyringController"])
   );
   const currentAccount = useGetCurrentAccount();
-  const { network } = useAppState(ss(["network"]));
 
   const getUtxos = async (amount: number): Promise<ApiUTXO[]> => {
     return (
@@ -42,7 +40,6 @@ export const useInscribeTransferToken = () => {
       ),
       signPsbt: keyringController.signPsbtBase64,
       getUtxos,
-      network,
     });
 
     const txIds: string[] = [];

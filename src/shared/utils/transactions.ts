@@ -1,18 +1,18 @@
 import type { ITransaction } from "@/shared/interfaces/api";
-import { payments } from "belcoinjs-lib";
-import { AddressType } from "bellhdw/src/hd/types";
+import { AddressType } from "luckycoinhdw/src/hd/types";
+import { payments } from "luckycoinjs-lib";
 
 export const getTransactionValue = (
   transaction: ITransaction,
   targetAddress: string,
   fixed: number = 2
 ) => {
-  const outputsSum = transaction.vout
-    .filter((i) => i.scriptpubkey_address === targetAddress)
-    .reduce((acc, cur) => acc + cur.value, 0);
-  const inputsSum = transaction.vin
-    .filter((i) => i.prevout?.scriptpubkey_address === targetAddress)
-    .reduce((acc, cur) => acc + cur.prevout!.value, 0);
+  const outputsSum = transaction.tx.vout
+    .filter((i) => i.addresses === targetAddress)
+    .reduce((acc, cur) => acc + cur.amount, 0);
+  const inputsSum = transaction.tx.vin
+    .filter((i) => i.addresses === targetAddress)
+    .reduce((acc, cur) => acc + cur.amount, 0);
 
   const value = Math.abs(outputsSum - inputsSum) / 10 ** 8;
 
@@ -27,12 +27,12 @@ export const isIncomeTx = (
   transaction: ITransaction,
   targetAddress: string
 ) => {
-  const outputsSum = transaction.vout
-    .filter((i) => i.scriptpubkey_address === targetAddress)
-    .reduce((acc, cur) => acc + cur.value, 0);
-  const inputsSum = transaction.vin
-    .filter((i) => i.prevout?.scriptpubkey_address === targetAddress)
-    .reduce((acc, cur) => acc + cur.prevout!.value, 0);
+  const outputsSum = transaction.tx.vout
+    .filter((i) => i.addresses === targetAddress)
+    .reduce((acc, cur) => acc + cur.amount, 0);
+  const inputsSum = transaction.tx.vin
+    .filter((i) => i.addresses === targetAddress)
+    .reduce((acc, cur) => acc + cur.amount, 0);
   return outputsSum - inputsSum > 0;
 };
 

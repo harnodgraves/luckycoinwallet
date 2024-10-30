@@ -1,4 +1,3 @@
-import { Network, networks } from "belcoinjs-lib";
 import { Dispatch, SetStateAction, useCallback } from "react";
 import { useShallow } from "zustand/react/shallow";
 
@@ -34,23 +33,6 @@ export function gptFeeCalculate(
   const fee = Math.ceil((transactionWeight / 4) * feeRate);
 
   return fee;
-}
-
-export function calcBalanceLength(balance: number) {
-  return balance.toFixed(
-    balance.toFixed(0).toString().length >= 4
-      ? 8 - balance.toFixed(0)?.toString().length < 0
-        ? 0
-        : 8 - balance.toFixed(0)?.toString().length
-      : 8
-  );
-}
-
-export function isTestnet(network: Network) {
-  return (
-    network.pubKeyHash === networks.testnet.pubKeyHash &&
-    network.scriptHash === networks.testnet.scriptHash
-  );
 }
 
 export function ss<T extends Record<string, any>, K extends keyof T = keyof T>(

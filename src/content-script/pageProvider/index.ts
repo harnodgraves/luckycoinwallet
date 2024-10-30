@@ -3,17 +3,17 @@ import { EventEmitter } from "events";
 
 import BroadcastChannelMessage from "@/shared/utils/message/broadcastChannelMessage";
 
-import PushEventHandlers from "./pushEventHandlers";
-import ReadyPromise from "./readyPromise";
-import { $, domReadyCall } from "./utils";
 import type {
   SendBEL,
   SignPsbtOptions,
 } from "@/background/services/keyring/types";
-import { INintondoProvider, NetworkType } from "nintondo-sdk";
+import { INintondoProvider } from "nintondo-sdk";
+import PushEventHandlers from "./pushEventHandlers";
+import ReadyPromise from "./readyPromise";
+import { $, domReadyCall } from "./utils";
 
 const script = document.currentScript;
-const channelName = script?.getAttribute("channel") || "NINTONDOWALLET";
+const channelName = script?.getAttribute("channel") || "LUCKYCOINWALLET";
 
 export interface Interceptor {
   onRequest?: (data: any) => any;
@@ -33,12 +33,8 @@ interface NintondoProviderProps {
   onInit?: () => void;
 }
 
-export class NintondoProvider
-  extends EventEmitter
-  implements INintondoProvider
-{
+export class NintondoProvider extends EventEmitter {
   _selectedAddress: string | null = null;
-  _network: string | null = null;
   _isConnected = false;
   _initialized = false;
   _isUnlocked = false;
@@ -96,7 +92,7 @@ export class NintondoProvider
     });
 
     try {
-      const { network, accounts, isUnlocked }: any = await this._request({
+      const { accounts, isUnlocked }: any = await this._request({
         // @ts-expect-error method is hidden
         method: "getProviderState",
       });
@@ -105,9 +101,6 @@ export class NintondoProvider
         this._state.isUnlocked = true;
       }
       this.emit("connect", {});
-      this._pushEventHandlers.networkChanged({
-        network,
-      });
 
       this._pushEventHandlers.accountsChanged(accounts);
     } catch {
@@ -252,19 +245,6 @@ export class NintondoProvider
       method: "getVersion",
     });
   };
-
-  switchNetwork = async (network: NetworkType) => {
-    return this._request({
-      method: "switchNetwork",
-      params: [network],
-    });
-  };
-
-  getNetwork = async () => {
-    return this._request({
-      method: "getNetwork",
-    });
-  };
 }
 
 declare global {
@@ -275,12 +255,12 @@ declare global {
 
 const provider = new NintondoProvider({
   onInit: () => {
-    Object.defineProperty(window, "nintondo", {
+    Object.defineProperty(window, "luckycoin", {
       value: new Proxy(provider, {
         deleteProperty: () => true,
       }),
       writable: false,
     });
-    window.dispatchEvent(new Event("nintondo#initialized"));
+    window.dispatchEvent(new Event("luckycoin#initialized"));
   },
 });

@@ -1,4 +1,5 @@
-import { sessionService, storageService } from "@/background/services";
+import { storageService } from "@/background/services";
+import keyringService from "@/background/services/keyring";
 import type {
   DeleteWalletResult,
   IAccount,
@@ -7,12 +8,9 @@ import type {
   IWalletController,
   SaveWalletsPayload,
 } from "@/shared/interfaces";
-import keyringService from "@/background/services/keyring";
 import { excludeKeysFromObj } from "@/shared/utils";
+import { AddressType, HDPrivateKey } from "luckycoinhdw";
 import * as bip39 from "nintondo-bip39";
-import { AddressType, HDPrivateKey } from "bellhdw";
-import { Network } from "belcoinjs-lib";
-import { isTestnet } from "@/ui/utils";
 
 class WalletController implements IWalletController {
   async isVaultEmpty() {
@@ -119,20 +117,6 @@ class WalletController implements IWalletController {
 
   async toggleRootAccount(): Promise<string[]> {
     return await keyringService.toggleRootAcc();
-  }
-
-  async switchNetwork(network: Network) {
-    keyringService.switchNetwork(network);
-    const updatedWallets: IWallet[] = [];
-    for (const wallet of storageService.walletState.wallets) {
-      const keyring = keyringService.getKeyringByIndex(wallet.id);
-      updatedWallets.push({ ...wallet, accounts: keyring.getAccounts().map((f, i) => ({ ...wallet.accounts[i], address: f })) });
-    }
-    await storageService.updateAppState({ network });
-    await storageService.updateWalletState({ wallets: updatedWallets });
-    sessionService.broadcastEvent("networkChanged",
-      { network: isTestnet(network) ? "testnet" : "mainnet", }
-    )
   }
 }
 

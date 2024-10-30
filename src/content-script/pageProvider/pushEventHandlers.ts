@@ -55,13 +55,6 @@ class PushEventHandlers {
       : null;
     this._emit("accountsChanged", accounts);
   };
-
-  networkChanged = ({ network }: { network: string }) => {
-    if (network !== this.provider._network) {
-      this.provider._network = network;
-      this._emit("networkChanged", network);
-    }
-  };
 }
 
 export default PushEventHandlers;

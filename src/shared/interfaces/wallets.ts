@@ -1,7 +1,7 @@
-import type { AddressType } from "bellhdw/src/hd/types";
-import type { IAccount } from "./accounts";
-import { Network } from "belcoinjs-lib";
 import { DecryptedSecrets } from "@/background/services/storage/types";
+import type { AddressType } from "luckycoinhdw/src/hd/types";
+import { Network } from "luckycoinjs-lib";
+import type { IAccount } from "./accounts";
 
 export interface IWallet {
   id: number;

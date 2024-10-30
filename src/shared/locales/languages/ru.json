@@ -23,7 +23,7 @@
       "change_address_type": "Сменить тип адреса",
       "create_new_account": "Создать новый аккаунт",
       "change_password": "Сменить пароль",
-      "receive_bel": "Получить BEL",
+      "receive_lky": "Получить LKY",
       "switch_wallet": "Переключить кошелек",
       "transaction_info": "Информация о транзакции",
       "settings": "Настройки",
@@ -120,7 +120,7 @@
       "confirm": "Подтвердить"
     },
     "create_send": {
-      "minimum_amount_error": "Минимальная сумма - 0.00000001 BEL",
+      "minimum_amount_error": "Минимальная сумма - 0.00000001 LKY",
       "fee_exceeds_amount_error": "Сбор превышает сумму",
       "address_error": "Введите адрес получателя",
       "not_enough_money_error": "На вашем счету недостаточно средств",
@@ -187,8 +187,8 @@
   "hooks": {
     "transaction": {
       "insufficient_balance_0": "Недостаточный баланс. Неинскрибированный баланс",
-      "insufficient_balance_1": "BEL) ниже чем",
-      "insufficient_balance_2": "BEL"
+      "insufficient_balance_1": "LKY) ниже чем",
+      "insufficient_balance_2": "LKY"
     },
     "wallet": {
       "last_wallet_error": "Вы не можете удалить ваш последний кошелек"

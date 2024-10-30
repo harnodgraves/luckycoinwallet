@@ -1,18 +1,17 @@
-import s from "./styles.module.scss";
-import { useCreateNewWallet } from "@/ui/hooks/wallet";
-import { useMemo, useState } from "react";
-import cn from "classnames";
-import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
-import SwitchAddressType from "@/ui/components/switch-address-type";
-import SelectWithHint from "@/ui/components/select-hint/component";
-import { t } from "i18next";
-import { TailSpin } from "react-loading-icons";
-import Switch from "@/ui/components/switch";
-import { useAppState } from "@/ui/states/appState";
-import { ss } from "@/ui/utils";
 import { ADDRESS_TYPES, DEFAULT_HD_PATH } from "@/shared/constant";
 import Select from "@/ui/components/select";
+import SelectWithHint from "@/ui/components/select-hint/component";
+import Switch from "@/ui/components/switch";
+import SwitchAddressType from "@/ui/components/switch-address-type";
+import { useCreateNewWallet } from "@/ui/hooks/wallet";
+import cn from "classnames";
+import { t } from "i18next";
+import { networks } from "luckycoinjs-lib";
+import { useMemo, useState } from "react";
+import toast from "react-hot-toast";
+import { TailSpin } from "react-loading-icons";
+import { useNavigate } from "react-router-dom";
+import s from "./styles.module.scss";
 
 const selectOptions = [
   {
@@ -48,7 +47,6 @@ const RestoreMnemonic = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const [showRootAcc, setShowRootAcc] = useState<boolean>(false);
-  const { network } = useAppState(ss(["network"]));
 
   const setMnemonic = (v: string, index: number) => {
     if (!v) {
@@ -78,7 +76,7 @@ const RestoreMnemonic = () => {
         walletType: "root",
         addressType,
         hideRoot: !showRootAcc,
-        network,
+        network: networks.luckycoin,
         hdPath,
         passphrase,
       });

@@ -1,6 +1,6 @@
-import { Network } from "belcoinjs-lib";
-import type { ConnectedSite } from "../permission";
 import type { IWallet } from "@/shared/interfaces";
+import { Network } from "luckycoinjs-lib";
+import type { ConnectedSite } from "../permission";
 
 interface StorageAccountItem {
   id: number;

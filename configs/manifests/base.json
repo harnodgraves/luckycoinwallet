@@ -1,8 +1,8 @@
 {
-  "short_name": "Nintondo Wallet",
-  "author": "Nintondo",
+  "short_name": "LuckyCoin Wallet",
+  "author": "LuckyCoin",
   "manifest_version": 3,
-  "name": "Nintondo Wallet",
+  "name": "LuckyCoin Wallet",
   "icons": {
     "48": "/logo-48.png",
     "128": "/logo-128.png"

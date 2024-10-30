@@ -1,19 +1,19 @@
-import { KeyringServiceError } from "./consts";
-import type { Hex, Json, SendBEL, SendOrd, UserToSignInput } from "./types";
 import { storageService } from "@/background/services";
-import { Network, payments, Psbt } from "belcoinjs-lib";
+import { INewWalletProps } from "@/shared/interfaces";
+import { ApiUTXO } from "@/shared/interfaces/api";
+import { ApiOrdUTXO, OrdUTXO } from "@/shared/interfaces/inscriptions";
 import { getScriptForAddress, toXOnly } from "@/shared/utils/transactions";
 import {
   createMultisendOrd,
   createSendBEL,
   createSendOrd,
 } from "bel-ord-utils";
-import { SimpleKey, HDPrivateKey, AddressType } from "bellhdw";
-import HDSimpleKey from "bellhdw/src/hd/simple";
-import type { Keyring } from "bellhdw/src/hd/types";
-import { INewWalletProps } from "@/shared/interfaces";
-import { ApiOrdUTXO, OrdUTXO } from "@/shared/interfaces/inscriptions";
-import { ApiUTXO } from "@/shared/interfaces/api";
+import { AddressType, HDPrivateKey, SimpleKey } from "luckycoinhdw";
+import HDSimpleKey from "luckycoinhdw/src/hd/simple";
+import type { Keyring } from "luckycoinhdw/src/hd/types";
+import { payments, Psbt } from "luckycoinjs-lib";
+import { KeyringServiceError } from "./consts";
+import type { Hex, Json, SendBEL, SendOrd, UserToSignInput } from "./types";
 
 export const KEYRING_SDK_TYPES = {
   SimpleKey,
@@ -28,14 +28,13 @@ class KeyringService {
   }
 
   async init(password: string) {
-    const { wallets, network } = await storageService.importWallets(password);
+    const { wallets } = await storageService.importWallets(password);
     for (const i of wallets) {
       if (typeof i.data === "undefined") continue;
 
       const params = {
         addressType:
           i.data.addressType === undefined ? i.data.addressType : i.addressType,
-        network,
       };
 
       let wallet: HDPrivateKey | SimpleKey;
@@ -65,7 +64,6 @@ class KeyringService {
     restoreFrom,
     hdPath,
     passphrase,
-    network,
   }: INewWalletProps) {
     let keyring: HDPrivateKey | HDSimpleKey;
     if (walletType === "root") {
@@ -85,7 +83,6 @@ class KeyringService {
     }
     keyring.addressType =
       typeof addressType === "number" ? addressType : AddressType.P2PKH;
-    keyring.setNetwork(network);
     this.keyrings.push(keyring);
     if (!keyring.getAccounts().length)
       return (keyring as HDPrivateKey).addAccounts(1)[0];
@@ -149,7 +146,6 @@ class KeyringService {
         );
         const { output } = payments.p2tr({
           internalPubkey: tapInternalKey,
-          network: storageService.appState.network,
         });
         if (v.witnessUtxo?.script.toString("hex") == output?.toString("hex")) {
           v.tapInternalKey = tapInternalKey;
@@ -227,7 +223,6 @@ class KeyringService {
       signTransaction: this.signPsbt.bind(this) as (
         psbt: Psbt
       ) => Promise<void>,
-      network: data.network,
       changeAddress: account.address,
       receiverToPayFee: data.receiverToPayFee,
       pubkey: this.exportPublicKey(account.address),
@@ -288,7 +283,6 @@ class KeyringService {
       signTransaction: this.signPsbt.bind(this) as (
         psbt: Psbt
       ) => Promise<void>,
-      network: data.network,
       changeAddress: account.address,
       pubkey: this.exportPublicKey(account.address),
       feeRate: data.feeRate,
@@ -305,8 +299,7 @@ class KeyringService {
     toAddress: string,
     feeRate: number,
     ordUtxos: OrdUTXO[],
-    utxos: ApiUTXO[],
-    network: Network
+    utxos: ApiUTXO[]
   ) {
     if (!storageService.currentAccount?.address)
       throw new Error("Error when trying to get the current account or wallet");
@@ -340,7 +333,6 @@ class KeyringService {
           ],
         })),
       ],
-      network,
       publicKey: this.exportPublicKey(storageService.currentAccount!.address!),
     });
   }
@@ -422,7 +414,6 @@ class KeyringService {
           );
           const { output } = payments.p2tr({
             internalPubkey: tapInternalKey,
-            network: storageService.appState.network,
           });
           if (
             psbt_input.witnessUtxo?.script.toString("hex") ==
@@ -461,10 +452,6 @@ class KeyringService {
       message,
       signatureHex
     );
-  }
-
-  switchNetwork(network: Network) {
-    this.keyrings.map((f) => f.setNetwork(network));
   }
 }
 

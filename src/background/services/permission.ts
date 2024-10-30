@@ -1,4 +1,4 @@
-import { NINTONDO_URL } from "@/shared/constant";
+import { LUCKYCOINURL } from "@/shared/constant";
 
 export interface ConnectedSite {
   origin: string;
@@ -25,7 +25,7 @@ class PermissionService {
   }
 
   siteIsConnected(origin: string): boolean {
-    if (origin === NINTONDO_URL) return true;
+    if (origin === LUCKYCOINURL) return true;
     const site = this._sites.find((f) => f.origin === origin);
     return site ? site.isConnected : false;
   }

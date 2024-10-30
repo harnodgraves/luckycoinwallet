@@ -1,16 +1,15 @@
-import { useEffect } from "react";
-import s from "./styles.module.scss";
-import { useNavigate } from "react-router-dom";
+import PasswordInput from "@/ui/components/password-input";
 import { useAppState } from "@/ui/states/appState";
-import { useWalletState } from "@/ui/states/walletState";
 import { useControllersState } from "@/ui/states/controllerState";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+import { useWalletState } from "@/ui/states/walletState";
 import { isNotification, ss } from "@/ui/utils";
 import cn from "classnames";
-import PasswordInput from "@/ui/components/password-input";
 import { t } from "i18next";
-import LogoIcon from "@/ui/icons/Logo";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import s from "./styles.module.scss";
 
 interface FormType {
   password: string;
@@ -61,11 +60,7 @@ const Login = () => {
     >
       <div className="flex flex-col gap-7 items-center w-full">
         <div className="flex justify-center p-2 rounded-xl">
-          <LogoIcon
-            className={
-              "text-white w-14 h-14 hover:scale-110 duration-100 transition-transform"
-            }
-          />
+          <img src="/logo-128.png" width={70} height={70} />
         </div>
         <div className="text-lg text-center font-[Roboto] uppercase tracking-widest">
           {t("login.welcome_back")}

@@ -1,10 +1,10 @@
-import { Network, Psbt } from "belcoinjs-lib";
+import type { IPrivateWallet } from "@/shared/interfaces";
+import { ApiUTXO } from "@/shared/interfaces/api";
+import { OrdUTXO } from "@/shared/interfaces/inscriptions";
+import type { AddressType } from "luckycoinhdw";
+import { Network, Psbt } from "luckycoinjs-lib";
 import { keyringService } from "../services";
 import type { Hex, SendBEL, SendOrd } from "../services/keyring/types";
-import type { IPrivateWallet } from "@/shared/interfaces";
-import type { AddressType } from "bellhdw";
-import { OrdUTXO } from "@/shared/interfaces/inscriptions";
-import { ApiUTXO } from "@/shared/interfaces/api";
 
 export interface IKeyringController {
   init(password: string): Promise<IPrivateWallet[]>;
@@ -135,16 +135,9 @@ class KeyringController implements IKeyringController {
     toAddress: string,
     feeRate: number,
     ordUtxos: OrdUTXO[],
-    utxos: ApiUTXO[],
-    network: Network
+    utxos: ApiUTXO[]
   ): Promise<string> {
-    return keyringService.sendMultiOrd(
-      toAddress,
-      feeRate,
-      ordUtxos,
-      utxos,
-      network
-    );
+    return keyringService.sendMultiOrd(toAddress, feeRate, ordUtxos, utxos);
   }
 }
 

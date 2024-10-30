@@ -1,3 +1,4 @@
+import { DEFAULT_FEES } from "@/shared/constant";
 import type {
   ApiUTXO,
   IAccountStats,
@@ -10,8 +11,6 @@ import {
 } from "@/shared/interfaces/inscriptions";
 import { IToken } from "@/shared/interfaces/token";
 import { customFetch, fetchProps } from "@/shared/utils";
-import { storageService } from "../services";
-import { DEFAULT_FEES } from "@/shared/constant";
 import { isValidTXID } from "@/ui/utils";
 
 export interface UtxoQueryParams {
@@ -30,8 +29,8 @@ export interface IApiController {
     address: string,
     txid: string
   ): Promise<ITransaction[] | undefined>;
-  getBELPrice(): Promise<{ bellscoin?: { usd: number } } | undefined>;
-  getLastBlockBEL(): Promise<number | undefined>;
+  getLKYPrice(): Promise<{ usd: number } | undefined>;
+  getLastBlockLKY(): Promise<number | undefined>;
   getFees(): Promise<{ fast: number; slow: number } | undefined>;
   getAccountStats(address: string): Promise<IAccountStats | undefined>;
   getTokens(address: string): Promise<IToken[] | undefined>;
@@ -58,16 +57,13 @@ export interface IApiController {
   }): Promise<FindInscriptionsByOutpointResponseItem[] | undefined>;
 }
 
-type FetchType = <T>(
-  props: Omit<fetchProps, "network">
-) => Promise<T | undefined>;
+type FetchType = <T>(props: fetchProps) => Promise<T | undefined>;
 
 class ApiController implements IApiController {
-  private fetch: FetchType = async (p: Omit<fetchProps, "network">) => {
+  private fetch: FetchType = async (p) => {
     try {
       return await customFetch({
         ...p,
-        network: storageService.appState.network,
       });
     } catch {
       return;
@@ -78,7 +74,7 @@ class ApiController implements IApiController {
     const data = await this.fetch<ApiUTXO[]>({
       path: `/address/${address}/utxo`,
       params: params as Record<string, string>,
-      service: "electrs",
+      service: "content",
     });
     if (Array.isArray(data)) {
       return data;
@@ -88,7 +84,7 @@ class ApiController implements IApiController {
   async getFees() {
     const data = await this.fetch<Record<string, number>>({
       path: "/fee-estimates",
-      service: "electrs",
+      service: "content",
     });
     if (data) {
       return {
@@ -108,7 +104,7 @@ class ApiController implements IApiController {
       },
       json: false,
       body: rawTx,
-      service: "electrs",
+      service: "content",
     });
     if (isValidTXID(data) && data) {
       return {
@@ -122,10 +118,40 @@ class ApiController implements IApiController {
   }
 
   async getTransactions(address: string): Promise<ITransaction[] | undefined> {
-    return await this.fetch<ITransaction[]>({
-      path: `/address/${address}/txs`,
-      service: "electrs",
-    });
+    try {
+      const res = await fetch(
+        `https://luckycoinexplorer.com/ext/getaddresstxs/${address}/0/20` // 20 latest transactions
+      );
+
+      if (!res.ok) return undefined;
+
+      const transactions = (await res.json()) as {
+        timestamp: number;
+        txid: string;
+        sent: number;
+        received: number;
+        balance: number;
+      }[];
+
+      const transactionPromises = transactions.map(async (tx) => {
+        const txRes = await fetch(
+          `https://luckycoinexplorer.com/ext/gettx/${tx.txid}`
+        );
+
+        if (!txRes.ok) return undefined;
+
+        return (await txRes.json()) as ITransaction;
+      });
+
+      const resolvedTransactions = await Promise.all(transactionPromises);
+
+      return resolvedTransactions.filter(
+        (tx): tx is ITransaction => tx !== undefined
+      );
+    } catch (error) {
+      console.error("Error fetching transactions:", error);
+      return undefined;
+    }
   }
 
   async getPaginatedTransactions(
@@ -135,44 +161,72 @@ class ApiController implements IApiController {
     try {
       return await this.fetch<ITransaction[]>({
         path: `/address/${address}/txs/chain/${txid}`,
-        service: "electrs",
+        service: "content",
       });
     } catch (e) {
       return undefined;
     }
   }
 
-  async getLastBlockBEL() {
-    const data = await this.fetch<string>({
-      path: "/blocks/tip/height",
-      service: "electrs",
-    });
-    if (data) {
-      return Number(data);
-    }
-  }
+  async getLastBlockLKY() {
+    const res = await fetch(`https://luckycoinexplorer.com/ext/getsummary`);
 
-  async getBELPrice() {
-    const data = await this.fetch<{ price_usd: number }>({
-      path: "/last-price",
-      service: "electrs",
-    });
-    if (!data) {
+    if (!res.ok) {
       return undefined;
     }
+
+    const data = (await res.json()) as {
+      blockcount: number;
+    };
+
+    return data.blockcount;
+  }
+
+  async getLKYPrice() {
+    const res = await fetch(
+      `https://api.coinmarketcap.com/data-api/v3/cryptocurrency/market-pairs/latest?slug=luckycoin&start=1&limit=10&category=spot&centerType=all&sort=cmc_rank_advanced&direction=desc&spotUntracked=true`
+    );
+
+    if (!res.ok) {
+      return undefined;
+    }
+
+    const data = (await res.json()) as {
+      data: {
+        marketPairs: {
+          price: number;
+        }[];
+      };
+    };
+
     return {
-      bellscoin: {
-        usd: data.price_usd,
-      },
+      usd: data.data.marketPairs[0].price,
     };
   }
 
   async getAccountStats(address: string): Promise<IAccountStats | undefined> {
     try {
-      return await this.fetch({
-        path: `/address/${address}/stats`,
-        service: "electrs",
-      });
+      const res = await fetch(
+        `https://luckycoinexplorer.com/ext/getaddress/${address}`
+      );
+
+      if (!res.ok) throw new Error("Failed to fetch account stats");
+
+      const data = (await res.json()) as
+        | {
+            balance: number;
+          }
+        | {
+            error: string;
+          };
+
+      if ("error" in data) throw new Error(data.error);
+
+      return {
+        amount: 0, // TODO: implement
+        count: 0, // TODO: implement
+        balance: data.balance,
+      };
     } catch {
       return { amount: 0, count: 0, balance: 0 };
     }
@@ -181,14 +235,14 @@ class ApiController implements IApiController {
   async getTokens(address: string): Promise<IToken[] | undefined> {
     return await this.fetch<IToken[]>({
       path: `/address/${address}/tokens`,
-      service: "electrs",
+      service: "content",
     });
   }
 
   async getTransaction(txid: string) {
     return await this.fetch<ITransaction>({
       path: "/tx/" + txid,
-      service: "electrs",
+      service: "content",
     });
   }
 
@@ -196,7 +250,7 @@ class ApiController implements IApiController {
     return await this.fetch<string>({
       path: "/tx/" + txid + "/hex",
       json: false,
-      service: "electrs",
+      service: "content",
     });
   }
 
@@ -205,7 +259,7 @@ class ApiController implements IApiController {
       path: "/prev",
       body: JSON.stringify({ locations: outpoints }),
       method: "POST",
-      service: "electrs",
+      service: "content",
     });
     return result?.values;
   }
@@ -237,7 +291,7 @@ class ApiController implements IApiController {
   async getLocationByInscriptionId(inscriptionId: string) {
     return await this.fetch<{ location: string; owner: string }>({
       path: `/location/${inscriptionId}`,
-      service: "electrs",
+      service: "content",
     });
   }
 
@@ -247,7 +301,7 @@ class ApiController implements IApiController {
   }) {
     return await this.fetch<FindInscriptionsByOutpointResponseItem[]>({
       path: `/find_meta/${data.outpoint}?address=${data.address}`,
-      service: "electrs",
+      service: "content",
     });
   }
 }

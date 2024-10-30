@@ -1,16 +1,16 @@
 import type { ITransaction } from "@/shared/interfaces/api";
 import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useContext,
   createContext,
   FC,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
 } from "react";
-import { useControllersState } from "../states/controllerState";
-import { useUpdateCurrentAccountBalance } from "../hooks/wallet";
-import { useGetCurrentAccount } from "../states/walletState";
 import { ss, useUpdateFunction } from ".";
+import { useUpdateCurrentAccountBalance } from "../hooks/wallet";
+import { useControllersState } from "../states/controllerState";
+import { useGetCurrentAccount } from "../states/walletState";
 
 const isProxy = (obj: any) => {
   return "__isProxy" in obj;
@@ -34,11 +34,11 @@ const useTransactionManager = (): TransactionManagerContextType | undefined => {
   const updateTransactions = useUpdateFunction(
     setTransactions,
     apiController.getTransactions,
-    "txid"
+    "tx"
   );
 
   const updateLastBlock = useCallback(async () => {
-    const data = await apiController.getLastBlockBEL();
+    const data = await apiController.getLastBlockLKY();
     if (data) setLastBlock(data);
   }, [apiController]);
 
@@ -51,7 +51,7 @@ const useTransactionManager = (): TransactionManagerContextType | undefined => {
     if (transactions.length < 50) return;
     const additionalTransactions = await apiController.getPaginatedTransactions(
       currentAccount.address,
-      transactions[transactions.length - 1]?.txid
+      transactions[transactions.length - 1]?.tx.txid
     );
     if (!additionalTransactions) return;
     if (additionalTransactions.length > 0) {
@@ -73,14 +73,14 @@ const useTransactionManager = (): TransactionManagerContextType | undefined => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     (async () => {
       const [data] = await Promise.all([
-        apiController.getBELPrice(),
+        apiController.getLKYPrice(),
         updateLastBlock(),
       ]);
-      if (data?.bellscoin) {
-        setCurrentPrice(data.bellscoin.usd);
+      if (data?.usd) {
+        setCurrentPrice(data.usd);
       }
     })();
-  }, [updateLastBlock, apiController.getBELPrice, currentPrice]);
+  }, [updateLastBlock, apiController.getLKYPrice, currentPrice]);
 
   useEffect(() => {
     if (!currentAccount?.address) return;

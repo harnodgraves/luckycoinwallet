@@ -1,8 +1,8 @@
-import s from "./styles.module.scss";
 import { ADDRESS_TYPES } from "@/shared/constant";
+import { AddressType } from "luckycoinhdw";
 import { FC } from "react";
-import { AddressType } from "bellhdw";
 import Tile from "../tile";
+import s from "./styles.module.scss";
 
 interface Props {
   handler: (type: AddressType) => void;

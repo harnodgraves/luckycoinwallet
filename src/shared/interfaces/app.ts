@@ -1,5 +1,3 @@
-import { Network } from "belcoinjs-lib";
-
 export interface IAppStateBase {
   isReady: boolean;
   isUnlocked: boolean;
@@ -7,5 +5,4 @@ export interface IAppStateBase {
   addressBook: string[];
   pendingWallet?: string;
   language: string;
-  network: Network;
 }

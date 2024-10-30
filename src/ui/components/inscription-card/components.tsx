@@ -1,9 +1,7 @@
+import { getContentUrl } from "@/shared/constant";
+import { shortAddress } from "@/shared/utils/transactions";
 import { FC, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { shortAddress } from "@/shared/utils/transactions";
-import { useAppState } from "@/ui/states/appState";
-import { ss } from "@/ui/utils";
-import { getContentUrl } from "@/shared/constant";
 
 interface Props {
   inscriptionId: string;
@@ -19,7 +17,6 @@ const applyPixelation = (img?: HTMLImageElement) => {
 
 const InscriptionCard: FC<Props> = ({ inscriptionId }) => {
   const navigate = useNavigate();
-  const { network } = useAppState(ss(["network"]));
 
   const imageRef = useRef<HTMLImageElement>(null);
 
@@ -48,7 +45,7 @@ const InscriptionCard: FC<Props> = ({ inscriptionId }) => {
         <div className="rounded-xl w-full bg-slate-950 bg-opacity-50">
           <img
             ref={imageRef}
-            src={`${getContentUrl(network)}/preview/${inscriptionId}`}
+            src={`${getContentUrl()}/preview/${inscriptionId}`}
             alt="content"
             className="object-cover rounded-xl h-38 w-38"
             style={{

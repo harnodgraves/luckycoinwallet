@@ -1,19 +1,20 @@
+import { ADDRESS_TYPES } from "@/shared/constant";
+import CopyBtn from "@/ui/components/copy-btn";
+import Switch from "@/ui/components/switch";
+import SwitchAddressType from "@/ui/components/switch-address-type";
+import { useCreateNewWallet } from "@/ui/hooks/wallet";
+import { useAppState } from "@/ui/states/appState";
+import { useControllersState } from "@/ui/states/controllerState";
+import { ss } from "@/ui/utils";
+import cn from "classnames";
+import { t } from "i18next";
+import { AddressType } from "luckycoinhdw";
+import { networks } from "luckycoinjs-lib";
 import { useCallback, useEffect, useState } from "react";
-import s from "./styles.module.scss";
+import toast from "react-hot-toast";
 import { TailSpin } from "react-loading-icons";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useControllersState } from "@/ui/states/controllerState";
-import { useCreateNewWallet } from "@/ui/hooks/wallet";
-import cn from "classnames";
-import { useAppState } from "@/ui/states/appState";
-import CopyBtn from "@/ui/components/copy-btn";
-import toast from "react-hot-toast";
-import SwitchAddressType from "@/ui/components/switch-address-type";
-import { t } from "i18next";
-import { AddressType } from "bellhdw";
-import Switch from "@/ui/components/switch";
-import { ss } from "@/ui/utils";
-import { ADDRESS_TYPES } from "@/shared/constant";
+import s from "./styles.module.scss";
 
 const NewMnemonic = () => {
   const location = useLocation();
@@ -21,9 +22,7 @@ const NewMnemonic = () => {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [savedPhrase, setSavedPhrase] = useState(false);
-  const { updateAppState, network } = useAppState(
-    ss(["updateAppState", "network"])
-  );
+  const { updateAppState } = useAppState(ss(["updateAppState"]));
   const { walletController, stateController } = useControllersState(
     ss(["walletController", "stateController"])
   );
@@ -70,7 +69,7 @@ const NewMnemonic = () => {
         walletType: "root",
         addressType,
         hideRoot: true,
-        network,
+        network: networks.luckycoin,
       });
     } catch (e) {
       console.error(e);

@@ -1,15 +1,13 @@
 import type { INewWalletProps, IWallet } from "@/shared/interfaces";
-import { useControllersState } from "../states/controllerState";
-import { useWalletState } from "../states/walletState";
+import { excludeKeysFromObj } from "@/shared/utils";
+import { t } from "i18next";
+import { produce } from "immer";
+import { useCallback } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { t } from "i18next";
-import { Network } from "belcoinjs-lib";
+import { useControllersState } from "../states/controllerState";
+import { useWalletState } from "../states/walletState";
 import { ss } from "../utils";
-import { useCallback } from "react";
-import { useTransactionManagerContext } from "../utils/tx-ctx";
-import { produce } from "immer";
-import { excludeKeysFromObj } from "@/shared/utils";
 
 export const useClearSelectedAccountStats = () => {
   const { wallets, updateWalletState } = useWalletState(
@@ -255,17 +253,5 @@ export const useDeleteWallet = () => {
       selectedWallet,
     });
     await notificationController.changedAccount();
-  };
-};
-
-export const useSwitchNetwork = () => {
-  const navigate = useNavigate();
-  const { selectedWallet } = useWalletState(ss(["selectedWallet"]));
-  const { walletController } = useControllersState(ss(["walletController"]));
-
-  return async (network: Network) => {
-    if (selectedWallet === undefined) return;
-    await walletController.switchNetwork(network);
-    navigate("/");
   };
 };

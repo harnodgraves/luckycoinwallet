@@ -1,8 +1,8 @@
-import s from "./styles.module.scss";
-import config from "../../../../package.json";
-import { FC, ReactNode } from "react";
+import { LUCKYCOINURL } from "@/shared/constant";
 import { browserTabsCreate } from "@/shared/utils/browser";
-import { NINTONDO_URL } from "@/shared/constant";
+import { FC, ReactNode } from "react";
+import config from "../../../../package.json";
+import s from "./styles.module.scss";
 
 interface SettingsLayoutProps {
   children: ReactNode;
@@ -18,12 +18,12 @@ const SettingsLayout: FC<SettingsLayoutProps> = ({ children }) => {
           href="#"
           onClick={async () => {
             await browserTabsCreate({
-              url: NINTONDO_URL,
+              url: LUCKYCOINURL,
               active: true,
             });
           }}
         >
-          Nintondo team
+          LuckyCoin team
         </a>
       </div>
     </div>

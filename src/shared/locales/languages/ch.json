@@ -23,7 +23,7 @@
       "change_address_type": "更改地址类型",
       "create_new_account": "创建新的账户",
       "change_password": "更改密码",
-      "receive_bel": "接收 BEL",
+      "receive_lky": "接收 LKY",
       "switch_wallet": "切换钱包",
       "transaction_info": "交易信息",
       "settings": "设置",
@@ -115,7 +115,7 @@
       "confirm": "确认"
     },
     "create_send": {
-      "minimum_amount_error": "最小金额 - 0.00000001 BEL",
+      "minimum_amount_error": "最小金额 - 0.00000001 LKY",
       "address_error": "请输入收件人地址",
       "not_enough_money_error": "你的账户资金不足",
       "not_enough_fee_error": "请提升费用",
@@ -181,8 +181,8 @@
   "hooks": {
     "transaction": {
       "insufficient_balance_0": "余额不足. 非注册余额",
-      "insufficient_balance_1": "BEL) 小于",
-      "insufficient_balance_2": "BEL"
+      "insufficient_balance_1": "LKY) 小于",
+      "insufficient_balance_2": "LKY"
     },
     "wallet": {
       "last_wallet_error": "你不能删除你的最后一个钱包"

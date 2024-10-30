@@ -1,10 +1,13 @@
-import { notificationService, storageService } from "@/background/services";
+import {
+  notificationService,
+  permissionService,
+  storageService,
+} from "@/background/services";
 import PromiseFlow, { underline2Camelcase } from "@/background/utils";
 import { EVENTS } from "@/shared/constant";
 import eventBus from "@/shared/eventBus";
 import { ethErrors } from "eth-rpc-errors";
 import providerController from "./controller";
-import { permissionService } from "@/background/services";
 
 const isSignApproval = (type: string) => {
   const SIGN_APPROVALS = [
@@ -13,7 +16,6 @@ const isSignApproval = (type: string) => {
     "SignAllPsbtInputs",
     "InscribeTransfer",
     "multiPsbtSign",
-    "switchNetwork",
     "CreateTx",
   ];
   return SIGN_APPROVALS.includes(type);

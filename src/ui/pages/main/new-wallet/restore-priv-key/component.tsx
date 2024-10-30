@@ -2,10 +2,9 @@ import PasswordInput from "@/ui/components/password-input";
 import Select from "@/ui/components/select";
 import SwitchAddressType from "@/ui/components/switch-address-type";
 import { useCreateNewWallet } from "@/ui/hooks/wallet";
-import { useAppState } from "@/ui/states/appState";
-import { ss } from "@/ui/utils";
-import { AddressType } from "bellhdw";
 import { t } from "i18next";
+import { AddressType } from "luckycoinhdw";
+import { networks } from "luckycoinjs-lib";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -38,7 +37,6 @@ const RestorePrivKey = () => {
   const createNewWallet = useCreateNewWallet();
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
-  const { network } = useAppState(ss(["network"]));
 
   const recoverWallet = async ({ privKey }: FormType) => {
     setLoading(true);
@@ -47,7 +45,7 @@ const RestorePrivKey = () => {
         payload: privKey,
         walletType: "simple",
         restoreFrom: selectedWayToRestore.name,
-        network,
+        network: networks.luckycoin,
         addressType,
       });
       navigate("/");

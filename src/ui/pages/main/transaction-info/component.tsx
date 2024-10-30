@@ -1,20 +1,19 @@
-import s from "./styles.module.scss";
-import { TailSpin } from "react-loading-icons";
-import { browserTabsCreate } from "@/shared/utils/browser";
-import { useLocation, useParams } from "react-router-dom";
 import { ITransaction } from "@/shared/interfaces/api";
-import { LinkIcon } from "@heroicons/react/24/outline";
-import { FC, useEffect, useId, useState } from "react";
-import Modal from "@/ui/components/modal";
-import cn from "classnames";
+import { browserTabsCreate } from "@/shared/utils/browser";
 import { shortAddress } from "@/shared/utils/transactions";
-import toast from "react-hot-toast";
-import { t } from "i18next";
-import { useGetCurrentAccount } from "@/ui/states/walletState";
-import { NINTONDO_URL } from "@/shared/constant";
+import Modal from "@/ui/components/modal";
 import { useControllersState } from "@/ui/states/controllerState";
+import { useGetCurrentAccount } from "@/ui/states/walletState";
 import { ss } from "@/ui/utils";
 import { useTransactionManagerContext } from "@/ui/utils/tx-ctx";
+import { LinkIcon } from "@heroicons/react/24/outline";
+import cn from "classnames";
+import { t } from "i18next";
+import { FC, useEffect, useId, useState } from "react";
+import toast from "react-hot-toast";
+import { TailSpin } from "react-loading-icons";
+import { useLocation, useParams } from "react-router-dom";
+import s from "./styles.module.scss";
 
 const TransactionInfo = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -23,15 +22,15 @@ const TransactionInfo = () => {
 
   const { state } = useLocation();
   const { txId } = useParams();
-  const { lastBlock, transactions } = useTransactionManagerContext();
+  const { transactions } = useTransactionManagerContext();
   const [tx, setTx] = useState(
     (state?.transaction as ITransaction | undefined) ??
-      transactions?.find((i) => i.txid === txId)
+      transactions?.find((i) => i.tx.txid === txId)
   );
 
   const onOpenExplorer = async () => {
     await browserTabsCreate({
-      url: `${NINTONDO_URL}/explorer/tx/${txId}`,
+      url: `https://luckycoinexplorer.com/tx/${txId}`,
       active: true,
     });
   };
@@ -53,30 +52,25 @@ const TransactionInfo = () => {
             <div className={s.group}>
               <p className={s.transactionP}>{t("transaction_info.txid")}</p>
 
-              <span>{tx.txid}</span>
+              <span>{tx.tx.txid}</span>
             </div>
             <div className={s.group}>
               <p className={s.transactionP}>
                 {t("transaction_info.confirmations_label")}
               </p>
               <span>
-                {tx.status.confirmed && lastBlock
-                  ? lastBlock - tx.status.block_height + 1
+                {tx.confirmations >= 0
+                  ? `${tx.confirmations} Confirmations`
                   : "Unconfirmed"}
               </span>
-            </div>
-            <div className={s.group}>
-              <p className={s.transactionP}>
-                {t("transaction_info.fee_label")}
-              </p>
-              <span>{tx.fee / 10 ** 8} BEL</span>
             </div>
             <div className={s.group}>
               <p className={s.transactionP}>
                 {t("transaction_info.value_label")}
               </p>
               <span>
-                {tx.vout.reduce((acc, cur) => cur.value + acc, 0) / 10 ** 8} BEL
+                {tx.tx.vout.reduce((acc, cur) => cur.amount + acc, 0) / 10 ** 8}{" "}
+                LKY
               </span>
             </div>
 
@@ -93,17 +87,18 @@ const TransactionInfo = () => {
                 <TableItem
                   label={t("transaction_info.inputs")}
                   currentAddress={currentAccount?.address}
-                  items={tx.vin
-                    .filter((i) => typeof i.prevout !== "undefined")
-                    .map((i) => ({
-                      scriptpubkey_address: i.prevout!.scriptpubkey_address,
-                      value: i.prevout!.value,
-                    }))}
+                  items={tx.tx.vin.map((i) => ({
+                    scriptpubkey_address: i.addresses,
+                    value: i.amount,
+                  }))}
                 />
                 <TableItem
                   label={t("transaction_info.outputs")}
                   currentAddress={currentAccount?.address}
-                  items={tx.vout}
+                  items={tx.tx.vout.map((i) => ({
+                    scriptpubkey_address: i.addresses,
+                    value: i.amount,
+                  }))}
                 />
               </div>
             </Modal>
@@ -151,7 +146,7 @@ const TableItem: FC<ITableItem> = ({ items, currentAddress, label }) => {
             <div className={s.tableGroup}>
               <span>#{idx}</span>
               <span className={s.tableSecond}>
-                {(i.value / 10 ** 8).toFixed(8)} BEL
+                {(i.value / 10 ** 8).toFixed(8)} LKY
               </span>
             </div>
 

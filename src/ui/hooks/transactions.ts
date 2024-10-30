@@ -1,14 +1,13 @@
-import { useGetCurrentAccount, useWalletState } from "../states/walletState";
-import { useControllersState } from "../states/controllerState";
-import { satoshisToAmount } from "@/shared/utils/transactions";
-import { Psbt, Transaction } from "belcoinjs-lib";
 import type { Hex } from "@/background/services/keyring/types";
-import { t } from "i18next";
 import { Inscription, OrdUTXO } from "@/shared/interfaces/inscriptions";
 import { ITransfer } from "@/shared/interfaces/token";
+import { satoshisToAmount } from "@/shared/utils/transactions";
+import { t } from "i18next";
+import { networks, Psbt, Transaction } from "luckycoinjs-lib";
 import toast from "react-hot-toast";
+import { useControllersState } from "../states/controllerState";
+import { useGetCurrentAccount, useWalletState } from "../states/walletState";
 import { gptFeeCalculate, ss } from "../utils";
-import { useAppState } from "../states/appState";
 
 export function useCreateBellsTxCallback() {
   const { selectedAccount, selectedWallet } = useWalletState(
@@ -18,7 +17,6 @@ export function useCreateBellsTxCallback() {
   const { apiController, keyringController } = useControllersState(
     ss(["apiController", "keyringController"])
   );
-  const { network } = useAppState(ss(["network"]));
 
   return async (
     toAddress: Hex,
@@ -84,7 +82,7 @@ export function useCreateBellsTxCallback() {
       utxos,
       receiverToPayFee,
       feeRate,
-      network,
+      network: networks.luckycoin,
     });
     const psbt = Psbt.fromHex(psbtHex);
     const tx = psbt.extractTransaction(true);
@@ -104,7 +102,6 @@ export function useCreateOrdTx() {
   const { apiController, keyringController } = useControllersState(
     ss(["apiController", "keyringController"])
   );
-  const { network } = useAppState(ss(["network"]));
 
   return async (toAddress: Hex, feeRate: number, inscription: Inscription) => {
     if (
@@ -136,7 +133,7 @@ export function useCreateOrdTx() {
       utxos: [...utxos, { ...inscription, isOrd: true }],
       receiverToPayFee: false,
       feeRate,
-      network,
+      network: networks.luckycoin,
     });
     const psbt = Psbt.fromHex(psbtHex);
     const tx = psbt.extractTransaction(true);
@@ -153,7 +150,6 @@ export const useSendTransferTokens = () => {
     ss(["apiController", "keyringController"])
   );
   const currentAccount = useGetCurrentAccount();
-  const { network } = useAppState(ss(["network"]));
 
   return async (toAddress: string, txIds: ITransfer[], feeRate: number) => {
     if (!currentAccount || !currentAccount.address) return;
@@ -194,7 +190,7 @@ export const useSendTransferTokens = () => {
       feeRate,
       inscriptions,
       utxos as any,
-      network
+      networks.luckycoin
     );
     const result = await apiController.pushTx(tx);
     if (result.txid !== undefined)

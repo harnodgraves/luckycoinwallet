@@ -1,8 +1,8 @@
-import { create } from "zustand";
-import { setupStateProxy } from "../utils/setup";
 import type { IAppStateBase } from "@/shared/interfaces";
-import { networks } from "belcoinjs-lib";
+import { networks } from "luckycoinjs-lib";
+import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
+import { setupStateProxy } from "../utils/setup";
 
 const proxy = setupStateProxy();
 
@@ -21,7 +21,7 @@ export const useAppState = create<IAppState>()(
     addressBook: [],
     language: "en",
     activeTabs: [],
-    network: networks.bellcoin,
+    network: networks.luckycoin,
     updateAppState: async (app: Partial<IAppState>, updateBack = true) => {
       if (updateBack) {
         await proxy.updateAppState(app);

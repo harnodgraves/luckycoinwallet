@@ -1,11 +1,11 @@
+import { ADDRESS_TYPES } from "@/shared/constant";
 import SwitchAddressType from "@/ui/components/switch-address-type";
 import { useControllersState } from "@/ui/states/controllerState";
 import { useGetCurrentWallet, useWalletState } from "@/ui/states/walletState";
-import { AddressType } from "bellhdw";
-import { useNavigate } from "react-router-dom";
 import { ss } from "@/ui/utils";
+import { AddressType } from "luckycoinhdw";
 import toast from "react-hot-toast";
-import { ADDRESS_TYPES } from "@/shared/constant";
+import { useNavigate } from "react-router-dom";
 
 const ChangeAddrType = () => {
   const { keyringController, notificationController } = useControllersState(

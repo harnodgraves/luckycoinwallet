@@ -6,7 +6,6 @@ import type {
   IWallet,
   SaveWalletsPayload,
 } from "./wallets";
-import { Network } from "belcoinjs-lib";
 
 export interface IWalletController {
   createNewWallet(props: INewWalletProps): Promise<IWallet>;
@@ -18,5 +17,4 @@ export interface IWalletController {
   generateMnemonicPhrase(): Promise<string>;
   deleteWallet(id: number): Promise<DeleteWalletResult>;
   toggleRootAccount(): Promise<string[]>;
-  switchNetwork(network: Network): Promise<void>;
 }

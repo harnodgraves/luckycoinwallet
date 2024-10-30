@@ -1,23 +1,22 @@
-import s from "../styles.module.scss";
 import {
-  shortAddress,
-  isIncomeTx,
   getTransactionValue,
+  isIncomeTx,
+  shortAddress,
 } from "@/shared/utils/transactions";
-import { t } from "i18next";
-import { Link } from "react-router-dom";
+import DateComponent from "@/ui/components/date";
+import { useGetCurrentAccount } from "@/ui/states/walletState";
 import { useTransactionManagerContext } from "@/ui/utils/tx-ctx";
 import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/24/outline";
 import cn from "classnames";
-import { useInView } from "react-intersection-observer";
+import { t } from "i18next";
 import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import LoadingIcons, { TailSpin } from "react-loading-icons";
-import { useGetCurrentAccount } from "@/ui/states/walletState";
-import DateComponent from "@/ui/components/date";
-import { Circle } from "rc-progress";
+import { Link } from "react-router-dom";
+import s from "../styles.module.scss";
 
 const TransactionList = () => {
-  const { lastBlock, transactions, loadMoreTransactions, currentPrice } =
+  const { transactions, loadMoreTransactions, currentPrice } =
     useTransactionManagerContext();
   const currentAccount = useGetCurrentAccount();
   const { ref, inView } = useInView();
@@ -30,7 +29,7 @@ const TransactionList = () => {
     }
   }, [inView, loadMoreTransactions]);
 
-  if (!transactions || !lastBlock || !currentAccount || !currentAccount.address)
+  if (!transactions || !currentAccount || !currentAccount.address)
     return (
       <div className="min-h-[50vh] w-full flex justify-center items-center">
         <TailSpin className="animate-spin" />
@@ -46,10 +45,10 @@ const TransactionList = () => {
     <div className={s.transactionsDiv}>
       {Object.entries(
         Object.groupBy(transactions, (i) => {
-          if (!i.status.block_time) {
+          if (!i.tx.timestamp) {
             return "0";
           }
-          const date = new Date(i.status.block_time * 1000);
+          const date = new Date(i.tx.timestamp * 1000);
 
           date.setHours(0, 0, 0, 0);
 
@@ -72,14 +71,13 @@ const TransactionList = () => {
                 t,
                 currentAccount.address ?? ""
               );
-              const percent = getPercent(lastBlock, t.status.block_height);
-              const isConfirmed = percent === 100;
+              const isConfirmed = t.confirmations >= 0;
 
               return (
                 <Link
                   className={s.transaction}
                   key={key + ":" + txidx}
-                  to={`/pages/transaction-info/${t.txid}`}
+                  to={`/pages/transaction-info/${t.tx.txid}`}
                   state={{
                     transaction: t,
                   }}
@@ -105,31 +103,25 @@ const TransactionList = () => {
                           }
                         )}
                       >
-                        <Circle
-                          className={cn("absolute inset-0", {
-                            hidden: percent === 100 || percent === 0,
-                          })}
-                          percent={percent}
-                          strokeWidth={4}
-                          trailWidth={3}
-                          trailColor="rgb(107, 114, 128)"
-                          strokeColor={"white"}
-                        />
                         {isConfirmed ? (
                           !isIncome ? (
                             <ArrowUpIcon className="size-5" />
                           ) : (
                             <ArrowDownIcon className="size-5" />
                           )
-                        ) : t.status.confirmed ? (
+                        ) : t.confirmations >= 0 ? (
                           <span className="text-base font-medium leading-3">
-                            {lastBlock - t.status.block_height + 1}
+                            {t.confirmations} Confirmations
                           </span>
-                        ) : undefined}
+                        ) : (
+                          <span className="text-base font-medium leading-3">
+                            Unconfirmed
+                          </span>
+                        )}
                       </div>
                     </div>
                     <div className="font-mono text-opacity-80 pt-1">
-                      {shortAddress(t.txid)}
+                      {shortAddress(t.tx.txid)}
                     </div>
                   </div>
                   <div>
@@ -141,7 +133,7 @@ const TransactionList = () => {
                       })}
                     >
                       {isIncome ? "+ " : "- "}
-                      {value} BEL
+                      {value} LKY
                     </div>
                     <div className="text-xs text-gray-400 text-right">
                       {parseFloat((currentPrice! * Number(value)).toFixed(6))} $
@@ -161,14 +153,3 @@ const TransactionList = () => {
 };
 
 export default TransactionList;
-
-const REQUIRED_CONFIRMATIONS = 6;
-
-const getPercent = (lastBlock: number, currentBlock?: number) => {
-  if (!currentBlock) return 0;
-  if (lastBlock - currentBlock + 1 > REQUIRED_CONFIRMATIONS) return 100;
-  if (lastBlock < currentBlock) return 0;
-  return Math.floor(
-    ((lastBlock - currentBlock + 1) / REQUIRED_CONFIRMATIONS) * 100
-  );
-};

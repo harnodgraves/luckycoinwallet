@@ -1,16 +1,14 @@
-import { CompletedInscription } from "@/shared/interfaces/inscriptions";
-import { useCallback, useEffect, useState } from "react";
-import { t } from "i18next";
-import { browserTabsCreate } from "@/shared/utils/browser";
-import { useLocation, useNavigate } from "react-router-dom";
-import { TailSpin } from "react-loading-icons";
-import s from "./styles.module.scss";
-import Iframe from "@/ui/components/iframe";
-import { useAppState } from "@/ui/states/appState";
-import { ss } from "@/ui/utils";
-import { useControllersState } from "@/ui/states/controllerState";
-import { parseLocation } from "@/shared/utils";
 import { getContentUrl } from "@/shared/constant";
+import { CompletedInscription } from "@/shared/interfaces/inscriptions";
+import { parseLocation } from "@/shared/utils";
+import { browserTabsCreate } from "@/shared/utils/browser";
+import Iframe from "@/ui/components/iframe";
+import { useControllersState } from "@/ui/states/controllerState";
+import { t } from "i18next";
+import { useCallback, useEffect, useState } from "react";
+import { TailSpin } from "react-loading-icons";
+import { useLocation, useNavigate } from "react-router-dom";
+import s from "./styles.module.scss";
 
 type PathOf<T> = T extends object
   ? {
@@ -75,7 +73,6 @@ const InscriptionDetails = () => {
   const [inscription, setInscription] = useState<
     CompletedInscription | undefined
   >(undefined);
-  const { network } = useAppState(ss(["network"]));
   const { apiController } = useControllersState((v) => ({
     apiController: v.apiController,
   }));
@@ -171,9 +168,7 @@ const InscriptionDetails = () => {
       <div className="px-4">
         <div className="flex justify-center w-[318px] h-[318px] rounded-xl overflow-hidden">
           <Iframe
-            preview={`${getContentUrl(network)}/html/${
-              inscription.inscription_id
-            }`}
+            preview={`${getContentUrl()}/html/${inscription.inscription_id}`}
             size="big"
           />
         </div>
@@ -190,7 +185,7 @@ const InscriptionDetails = () => {
               <div
                 onClick={async () => {
                   await openContent(
-                    `${getContentUrl(network)}/${
+                    `${getContentUrl()}/${
                       f.key === "content" ? "content" : "preview"
                     }/${inscription.inscription_id}`
                   );

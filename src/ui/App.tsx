@@ -1,7 +1,7 @@
-import { RouterProvider } from "react-router-dom";
-import { Router } from "@remix-run/router";
-import { useCallback, useEffect, useState } from "react";
-import { Toaster } from "react-hot-toast";
+import { LUCKYCOINURL } from "@/shared/constant";
+import { browserTabsCreate } from "@/shared/utils/browser";
+import PortMessage from "@/shared/utils/message/portMessage";
+import { authenticatedRouter, guestRouter } from "@/ui/pages/router";
 import {
   setupKeyringProxy,
   setupNotificationProxy,
@@ -9,17 +9,17 @@ import {
   setupStateProxy,
   setupWalletProxy,
 } from "@/ui/utils/setup";
-import { useAppState } from "./states/appState";
-import { useWalletState } from "./states/walletState";
-import { guestRouter, authenticatedRouter } from "@/ui/pages/router";
-import { useControllersState } from "./states/controllerState";
+import { Router } from "@remix-run/router";
+import { useCallback, useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
+import { TailSpin } from "react-loading-icons";
+import { RouterProvider } from "react-router-dom";
 import i18n from "../shared/locales/i18n";
-import PortMessage from "@/shared/utils/message/portMessage";
+import { useAppState } from "./states/appState";
+import { useControllersState } from "./states/controllerState";
+import { useWalletState } from "./states/walletState";
 import { ss } from "./utils";
 import { useInscriptionManagerContext } from "./utils/inscriptions-ctx";
-import { TailSpin } from "react-loading-icons";
-import { NINTONDO_URL } from "@/shared/constant";
-import { browserTabsCreate } from "@/shared/utils/browser";
 
 export default function App() {
   const [router, setRouter] = useState<Router>(authenticatedRouter);
@@ -103,9 +103,9 @@ export default function App() {
     resetProvider();
   }, [selectedAccount, selectedWallet, resetProvider]);
 
-  const onOpenNintondo = async () => {
+  const onOpenLuckycoin = async () => {
     await browserTabsCreate({
-      url: NINTONDO_URL,
+      url: LUCKYCOINURL,
       active: true,
     });
   };
@@ -113,10 +113,10 @@ export default function App() {
   return (
     <div>
       <div
-        onClick={onOpenNintondo}
+        onClick={onOpenLuckycoin}
         className="uppercase text-center hidden standard:block font-medium text-xl mb-6 select-none cursor-pointer hover:underline"
       >
-        nintondo
+        Luckycoin
       </div>
       <div className="app">
         {isReady ? (

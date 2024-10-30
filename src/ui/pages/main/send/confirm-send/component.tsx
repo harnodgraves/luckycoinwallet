@@ -1,14 +1,14 @@
-import { usePushBellsTxCallback } from "@/ui/hooks/transactions";
-import s from "./styles.module.scss";
-import cn from "classnames";
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
 import { useUpdateAddressBook } from "@/ui/hooks/app";
-import { t } from "i18next";
+import { usePushBellsTxCallback } from "@/ui/hooks/transactions";
 import { useUpdateCurrentAccountBalance } from "@/ui/hooks/wallet";
-import { useTransactionManagerContext } from "@/ui/utils/tx-ctx";
 import { useGetCurrentAccount } from "@/ui/states/walletState";
+import { useTransactionManagerContext } from "@/ui/utils/tx-ctx";
+import cn from "classnames";
+import { t } from "i18next";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router-dom";
+import s from "./styles.module.scss";
 
 const ConfirmSend = () => {
   const location = useLocation();
@@ -64,11 +64,11 @@ const ConfirmSend = () => {
       ),
       value:
         location.state.amount +
-        (location.state.inscriptionTransaction ? "" : " BEL"),
+        (location.state.inscriptionTransaction ? "" : " LKY"),
     },
     {
       label: t("send.confirm_send.fee"),
-      value: `${location.state.feeAmount / 10 ** 8} BEL (${
+      value: `${location.state.feeAmount / 10 ** 8} LKY (${
         location.state.includeFeeInAmount
           ? t("send.confirm_send.included")
           : t("send.confirm_send.not_included")

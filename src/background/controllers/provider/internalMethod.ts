@@ -10,7 +10,6 @@ export const getProviderState = async () => {
     }
   }
   return {
-    network: "NINTONDO",
     isUnlocked,
     accounts,
   };

@@ -1,32 +1,30 @@
-import s from "../styles.module.scss";
+import { shortAddress } from "@/shared/utils/transactions";
+import CopyBtn from "@/ui/components/copy-btn";
+import SplitWarn from "@/ui/components/split-warn";
+import {
+  useGetCurrentAccount,
+  useGetCurrentWallet,
+} from "@/ui/states/walletState";
+import { useTransactionManagerContext } from "@/ui/utils/tx-ctx";
 import {
   ArrowDownLeftIcon,
   ArrowUpRightIcon,
   ListBulletIcon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
-import { useTransactionManagerContext } from "@/ui/utils/tx-ctx";
-import { shortAddress } from "@/shared/utils/transactions";
-import CopyBtn from "@/ui/components/copy-btn";
-import { t } from "i18next";
 import cn from "classnames";
-import { calcBalanceLength } from "@/ui/utils";
-import {
-  useGetCurrentAccount,
-  useGetCurrentWallet,
-} from "@/ui/states/walletState";
-import SplitWarn from "@/ui/components/split-warn";
+import { t } from "i18next";
+import { Link } from "react-router-dom";
+import s from "../styles.module.scss";
 
 const AccountPanel = () => {
   const { currentPrice } = useTransactionManagerContext();
   const currentAccount = useGetCurrentAccount();
   const currentWallet = useGetCurrentWallet();
 
-  const cardinalBalance = currentAccount?.balance ?? 0;
-  const ordinalBalance = currentAccount?.inscriptionBalance ?? 0;
-  const balance = cardinalBalance / 10 ** 8 + ordinalBalance;
-  const [integerPartBalance, decimalPartBalance] =
-    calcBalanceLength(balance).split(".");
+  const cardinalBalance = Number(currentAccount?.balance ?? 0);
+  const cardinalBalanceStr = cardinalBalance.toFixed(5);
+  const cardinalBalanceAfterDot = cardinalBalanceStr.split(".")[1];
+  // const ordinalBalance = currentAccount?.inscriptionBalance ?? 0; // TODO: Implement inscription balance
 
   return (
     <div className={s.accPanel}>
@@ -39,22 +37,20 @@ const AccountPanel = () => {
               </div>
             ) : (
               <div>
-                <span>{integerPartBalance}</span>
-                {decimalPartBalance?.length ? (
-                  <span className="text-2xl text-gray-400">
-                    .{decimalPartBalance}
-                  </span>
-                ) : undefined}
+                <span>{cardinalBalance}</span>
+                <span className="text-2xl text-gray-400">
+                  .{cardinalBalanceAfterDot}
+                </span>
               </div>
             )}
-            <span className="text-xl pb-0.5 text-slate-300">BEL</span>
+            <span className="text-xl pb-0.5 text-slate-300">LKY</span>
           </div>
         </div>
 
         {currentAccount?.balance !== undefined ? (
           currentPrice !== undefined ? (
             <div className="text-gray-500 text-sm">
-              ~{(balance * currentPrice)?.toFixed(3)}$
+              ~{(cardinalBalance * currentPrice)?.toFixed(3)}$
             </div>
           ) : undefined
         ) : undefined}

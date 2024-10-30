@@ -6,7 +6,6 @@ import {
   storageService,
 } from "../services";
 import type { ConnectedSite } from "../services/permission";
-import { Network } from "belcoinjs-lib";
 
 class NotificationController implements INotificationController {
   async getApproval() {
@@ -39,12 +38,6 @@ class NotificationController implements INotificationController {
   async changedAccount(): Promise<void> {
     permissionService.disconnectSites();
     sessionService.broadcastEvent("accountsChanged");
-  }
-
-  async switchedNetwork(network: Network): Promise<void> {
-    sessionService.broadcastEvent("networkChanged", {
-      network,
-    });
   }
 
   async getConnectedSites(): Promise<ConnectedSite[]> {

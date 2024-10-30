@@ -31,10 +31,9 @@ Step into a world where your financial journey is intertwined with the charm and
 
 Ready to embark on this enchanting crypto adventure? Download Nintondo Wallet for Bells and turn your cryptocurrency experience into an idyllic escapade. Let's make our financial journey not just profitable, but also delightful!
 
-*Note: Nintondo Wallet is not affiliated with Nintendo or the Animal Crossing franchise. Bells is a meme cryptocurrency and should be enjoyed as part of a balanced financial portfolio.*
+_Note: Nintondo Wallet is not affiliated with Nintendo or the Animal Crossing franchise. Bells is a meme cryptocurrency and should be enjoyed as part of a balanced financial portfolio._
 
 Happy Bell Hunting! 🛎️
-
 
 ## Testing
 
@@ -45,6 +44,7 @@ curl -fsSL https://bun.sh/install | bash
 ```
 
 ##### Install dependencies:
+
 ```bash
 bun i
 ```
@@ -52,21 +52,24 @@ bun i
 #### Chrome
 
 1. Build extension using command
+
 ```
 bun chrome
 ```
+
 2. Go to extensions in your browser and click on "Manage Extensions"
 3. In top right corner activate "developer mode"
-4. In top left corner click on  "Load unpacked"
+4. In top left corner click on "Load unpacked"
 5. Select `dist/chrome` folder from the project folder
 
 #### Firefox
 
 1. Build extension using command
+
 ```
 bun firefox
 ```
+
 2. Go to `about:debugging#/runtime/this-firefox`
 3. Click on the button "Load temporary Add-on..."
 4. Select `dist/firefox` folder from the project folder
-

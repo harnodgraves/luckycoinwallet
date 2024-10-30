@@ -27,7 +27,7 @@
       "create_new_account": "Create New Account",
       "change_password": "Change Password",
       "network_settings": "Network Settings",
-      "receive_bel": "Receive BEL",
+      "receive_lky": "Receive LKY",
       "switch_wallet": "Switch Wallet",
       "transaction_info": "Transaction Info",
       "settings": "Settings",
@@ -36,7 +36,6 @@
       "restore_from_mnemonic": "Restore from mnemonic",
       "restore_from_private_key": "Restore from private key",
       "security": "Security",
-      "advanced": "Advanced",
       "discover": "Discover",
       "inscriptions": "Inscriptions",
       "wallet_settings": "Wallet Settings"
@@ -160,7 +159,7 @@
       "inscription_id": "Inscription Id"
     },
     "create_send": {
-      "minimum_amount_error": "Minimum amount is 0.00000001 BEL",
+      "minimum_amount_error": "Minimum amount is 0.00000001 LKY",
       "fee_exceeds_amount_error": "Fee exceeds amount",
       "address_error": "Insert receiver's address",
       "not_enough_money_error": "There's not enough money in your account",
@@ -231,8 +230,8 @@
   "hooks": {
     "transaction": {
       "insufficient_balance_0": "Insufficient balance. Non-Inscription balance",
-      "insufficient_balance_1": "BEL) is lower than",
-      "insufficient_balance_2": "BEL",
+      "insufficient_balance_1": "LKY) is lower than",
+      "insufficient_balance_2": "LKY",
       "too_many_utxos": "Too many UTXOs. You must consolidate them or use smaller amount to send",
       "too_long_mempool_chain": "Too long mempool chain. You must wait until it's confirmed"
     },

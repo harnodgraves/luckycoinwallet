@@ -1,17 +1,16 @@
-import { useNavigate } from "react-router-dom";
-import { useControllersState } from "../states/controllerState";
-import { useCallback, useEffect } from "react";
-import { isNotification, ss } from "../utils";
 import {
   IField,
   IFieldValue,
   LocationValue,
   SignPsbtOptions,
 } from "@/shared/interfaces/provider";
-import { Psbt } from "belcoinjs-lib";
 import { toFixed } from "@/shared/utils/transactions";
+import { Psbt } from "luckycoinjs-lib";
+import { useCallback, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useControllersState } from "../states/controllerState";
 import { useGetCurrentAccount } from "../states/walletState";
-import { useAppState } from "../states/appState";
+import { isNotification, ss } from "../utils";
 
 export const useApproval = () => {
   const navigate = useNavigate();
@@ -72,7 +71,6 @@ export const useDecodePsbtInputs = () => {
     ss(["apiController", "notificationController"])
   );
   const currentAccount = useGetCurrentAccount();
-  const { network } = useAppState((v) => ({ network: v.network }));
 
   return useCallback(async (): Promise<
     { fields: IField[][]; fee: string } | undefined
@@ -90,7 +88,7 @@ export const useDecodePsbtInputs = () => {
     const psbtsToApprove: [Psbt, SignPsbtOptions?][] = [];
     if (approval.approvalComponent !== "multiPsbtSign") {
       psbtsToApprove.push([
-        Psbt.fromBase64(approval.params.data[0], { network }),
+        Psbt.fromBase64(approval.params.data[0]),
         approval.params.data[1],
       ]);
     } else {
@@ -127,7 +125,7 @@ export const useDecodePsbtInputs = () => {
           label: `Output #${i}`,
           value: {
             text: `${f.address}`,
-            value: `${toFixed(f.value / 10 ** 8)} BEL`,
+            value: `${toFixed(f.value / 10 ** 8)} LKY`,
           },
         });
       });
@@ -154,19 +152,19 @@ export const useDecodePsbtInputs = () => {
             value = {
               anyonecanpay: true,
               inscriptions: foundInscriptions.map((i) => i.genesis),
-              value: `${toFixed(inputValue)} BEL`,
+              value: `${toFixed(inputValue)} LKY`,
             };
           } else {
             value = {
               anyonecanpay: true,
               text: `${outpoint.split("i")[0]}`,
-              value: `${toFixed(inputValue)} BEL`,
+              value: `${toFixed(inputValue)} LKY`,
             };
           }
         } else {
           value = {
             text: `${outpoint.split("i")[0]}`,
-            value: `${toFixed(inputValue)} BEL`,
+            value: `${toFixed(inputValue)} LKY`,
           };
         }
 
@@ -186,5 +184,5 @@ export const useDecodePsbtInputs = () => {
       fields,
       fee: fee < 0 ? "0" : toFixed(fee / 10 ** 8),
     };
-  }, [apiController, currentAccount, notificationController, network]);
+  }, [apiController, currentAccount, notificationController]);
 };

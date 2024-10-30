@@ -1,19 +1,19 @@
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import s from "./styles.module.scss";
-import cn from "classnames";
+import { useCreateNewAccount } from "@/ui/hooks/wallet";
+import { useControllersState } from "@/ui/states/controllerState";
+import { useGetCurrentAccount, useWalletState } from "@/ui/states/walletState";
+import { ss } from "@/ui/utils";
 import {
+  ArrowsUpDownIcon,
   ChevronLeftIcon,
   PlusCircleIcon,
-  ArrowsUpDownIcon,
 } from "@heroicons/react/24/outline";
-import { useMemo } from "react";
-import { useGetCurrentAccount, useWalletState } from "@/ui/states/walletState";
-import { useControllersState } from "@/ui/states/controllerState";
+import cn from "classnames";
 import { t } from "i18next";
-import SearchInscriptions from "../search-inscriptions";
-import { useCreateNewAccount } from "@/ui/hooks/wallet";
+import { useMemo } from "react";
 import toast from "react-hot-toast";
-import { ss } from "@/ui/utils";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import SearchInscriptions from "../search-inscriptions";
+import s from "./styles.module.scss";
 
 interface IRouteTitle {
   route: string | RegExp;
@@ -94,10 +94,6 @@ export default function PagesLayout() {
           title: t("components.layout.settings"),
         },
         {
-          route: "/pages/advanced",
-          title: t("components.layout.advanced"),
-        },
-        {
           route: "/pages/show-mnemonic/@",
           title: t("components.layout.show_mnemonic"),
         },
@@ -120,10 +116,6 @@ export default function PagesLayout() {
         {
           route: "/pages/wallet-settings",
           title: t("components.layout.wallet_settings"),
-        },
-        {
-          route: "/pages/network-settings",
-          title: t("components.layout.network_settings"),
         },
         {
           route: "/pages/create-send",
