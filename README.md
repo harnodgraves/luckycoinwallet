@@ -4,14 +4,6 @@ LuckyCoin Wallet - The only wallet you need to store, send, and receive LuckyCoi
 
 ---
 
-## Version 0.0.1 - Simplifying Your LuckyCoin Experience
-
-### Welcome to LuckyCoin Wallet
-
-We’re excited to present LuckyCoin Wallet, your go-to tool for everything LuckyCoin. Designed with user experience and security in mind, LuckyCoin Wallet isn’t just about transactions; it’s about making digital assets easy and accessible.
-
----
-
 ## Getting Started
 
 ### Installation
