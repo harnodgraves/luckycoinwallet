@@ -8,16 +8,16 @@ LuckyCoin Wallet - The only wallet you need to store, send, and receive LuckyCoi
 
 ### Installation
 
-#### Step 1: Install `bun.sh` (if not already installed)
+#### Step 1: Install Yarn (if not already installed)
 
 ```bash
-curl -fsSL https://bun.sh/install | bash
+curl -o- -L https://yarnpkg.com/install.sh | bash
 ```
 
 #### Step 2: Install Dependencies
 
 ```bash
-bun i
+yarn install
 ```
 
 ---
@@ -28,7 +28,7 @@ bun i
 
 1. Build the extension for Chrome:
    ```bash
-   bun chrome
+   yarn chrome
    ```
 2. In Chrome, navigate to **chrome://extensions**.
 3. Enable **Developer mode** in the top right corner.
@@ -38,7 +38,7 @@ bun i
 
 1. Build the extension for Firefox:
    ```bash
-   bun firefox
+   yarn firefox
    ```
 2. Go to **about:debugging#/runtime/this-firefox** in Firefox.
 3. Click on **Load Temporary Add-on** and select the `dist/firefox` folder from the project directory.
