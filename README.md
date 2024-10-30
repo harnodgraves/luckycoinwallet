@@ -21,7 +21,7 @@ For an easy setup, check the **Releases** section on GitHub. Prebuilt ZIP files 
    - Go to **about:debugging#/runtime/this-firefox** in your Firefox browser.
    - Click on **Load Temporary Add-on…** and select the folder you extracted from the ZIP file.
 
-With this prebuilt version, your LuckyCoin Wallet will be up and running in seconds. 🚀
+With this prebuilt version, your LuckyCoin Wallet will be up and running in seconds.
 
 ---
 
