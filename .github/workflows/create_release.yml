@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
+        id: checkout_code
         uses: actions/checkout@v4
 
       - uses: actions/setup-node@v3
