@@ -200,7 +200,8 @@ const CreateSend = () => {
         className={cn("form", s.send)}
         onSubmit={async (e) => {
           e.preventDefault();
-          await send(formData);
+          // await send(formData); // TODO: Do the send
+          toast.error("This feature is not available yet.");
         }}
       >
         <div className={s.inputs}>
