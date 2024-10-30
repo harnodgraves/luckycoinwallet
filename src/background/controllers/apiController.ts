@@ -169,17 +169,13 @@ class ApiController implements IApiController {
   }
 
   async getLastBlockLKY() {
-    const res = await fetch(`https://luckycoinexplorer.com/ext/getsummary`);
+    const res = await fetch(`https://luckycoinexplorer.com/api/getblockcount`);
 
     if (!res.ok) {
       return undefined;
     }
 
-    const data = (await res.json()) as {
-      blockcount: number;
-    };
-
-    return data.blockcount;
+    return Number(await res.text());
   }
 
   async getLKYPrice() {
