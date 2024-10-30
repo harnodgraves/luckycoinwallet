@@ -962,6 +962,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@remix-run/router@npm:1.20.0":
+  version: 1.20.0
+  resolution: "@remix-run/router@npm:1.20.0"
+  checksum: 10c0/2e017dea530717a6e93a16d478714c4c9165313a1c48e39172ec609bc20324ca6362e8ee2243602df6343644c9268d82a3f50f154d3bb8a17dddde6c37be6e83
+  languageName: node
+  linkType: hard
+
 "@svgr/babel-plugin-add-jsx-attribute@npm:8.0.0":
   version: 8.0.0
   resolution: "@svgr/babel-plugin-add-jsx-attribute@npm:8.0.0"
@@ -4312,6 +4319,7 @@ __metadata:
     react-hot-toast: "npm:2.4.1"
     react-intersection-observer: "npm:9.13.0"
     react-loading-icons: "npm:1.1.0"
+    react-router: "npm:^6.27.0"
     react-router-dom: "npm:6.26.0"
     reflect-metadata: "npm:0.2.2"
     sass: "npm:^1.69.7"
@@ -5229,6 +5237,17 @@ __metadata:
   peerDependencies:
     react: ">=16.8"
   checksum: 10c0/498b97cac077170096715609e65e0039b64e497612ed585b8d3b88733310d23e7ca76ce189b09b6fbc65ca8df1595ca20ccac05a84006803843dfa05107d9540
+  languageName: node
+  linkType: hard
+
+"react-router@npm:^6.27.0":
+  version: 6.27.0
+  resolution: "react-router@npm:6.27.0"
+  dependencies:
+    "@remix-run/router": "npm:1.20.0"
+  peerDependencies:
+    react: ">=16.8"
+  checksum: 10c0/440d6ee00890cec92a0c2183164149fbb96363efccf52bb132a964f44e51aec2f4b5a0520c67f6f17faddaa4097090fd76f7efe58263947532fceeb11dd4cdf3
   languageName: node
   linkType: hard
 
