@@ -1,5 +1,6 @@
 {
   "short_name": "LuckyCoin Wallet",
+  "description": "The only wallet you need to store, send and receive LuckyCoin!",
   "author": "LuckyCoin",
   "manifest_version": 3,
   "name": "LuckyCoin Wallet",
