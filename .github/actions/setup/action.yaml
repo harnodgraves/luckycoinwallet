@@ -15,3 +15,15 @@ runs:
 
     - run: yarn set version stable
       shell: bash
+
+    - uses: actions/cache@v3
+      id: install-cache
+      with:
+        path: node_modules/
+        key: ${{ runner.os }}-install-${{ hashFiles('**/yarn.lock') }}
+
+    - if: steps.install-cache.outputs.cache-hit != 'true'
+      run: yarn install --frozen-lockfile
+      shell: bash
+
+    - uses: gradle/gradle-build-action@v2
