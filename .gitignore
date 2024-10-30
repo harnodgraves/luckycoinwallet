@@ -6,4 +6,5 @@ dist
 .idea
 package-lock.json
 .env
+yarn.lock
 .yarn
