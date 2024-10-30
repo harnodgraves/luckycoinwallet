@@ -10,19 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
-        id: checkout_code
-        uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 22
-          registry-url: https://registry.npmjs.org
-
-      - run: corepack enable
-        shell: bash
-
-      - run: yarn set version stable
-        shell: bash
+        uses: actions/checkout@v2
+      - uses: ./.github/actions/setup
 
       - name: Get Version Name
         uses: actions/github-script@v3
@@ -32,9 +21,6 @@ jobs:
             const str=process.env.GITHUB_REF;
             return str.substring(str.indexOf("v") + 1);
           result-encoding: string
-
-      - name: Install Dependencies
-        run: yarn install
 
       - name: Build Extension
         run: |
