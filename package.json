@@ -1,6 +1,7 @@
 {
   "name": "luckycoinwallet",
   "version": "0.0.1",
+  "description": "The only wallet you need to store, send and receive LuckyCoin!",
   "private": true,
   "scripts": {
     "clean": "rm -rf dist",
