@@ -29,11 +29,10 @@ jobs:
 
       - name: Zip Extension
         run: |
-          cd dist/chrome
-          zip -qq -r ./chrome-v${{steps.get-version.outputs.result}}.zip .
-          cd ../../dist/firefox
-          zip -qq -r ./firefox-v${{steps.get-version.outputs.result}}.zip .
-          cd ../..
+          cd dist
+          zip -r chrome-v${{steps.get-version.outputs.result}}.zip chrome
+          zip -r firefox-v${{steps.get-version.outputs.result}}.zip firefox
+          cd ..
 
       - name: Create Release
         id: create_release
