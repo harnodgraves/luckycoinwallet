@@ -6,7 +6,7 @@ The only wallet you need to store, send, and receive LuckyCoin!
 
 ## Downloading Prebuilt Releases
 
-For an easy setup, check the **Releases** section on GitHub. Prebuilt ZIP files are available for both Chrome and Firefox, so you can get started without building the project. Here’s how:
+For an easy setup, check the [Releases](https://github.com/impredmet/luckycoinwallet/releases) section on GitHub. Prebuilt ZIP files are available for both Chrome and Firefox, so you can get started without building the project. Here’s how:
 
 1. **Download** the latest release ZIP file for **Chrome** or **Firefox** from the Releases section.
 2. **Extract** the ZIP file to a convenient location on your device.
@@ -51,7 +51,7 @@ yarn install
    ```
 2. In Chrome, navigate to **chrome://extensions**.
 3. Enable **Developer mode** in the top right corner.
-4. Select **Load unpacked** and choose the 8dist/chrome8 folder from the project directory.
+4. Select **Load unpacked** and choose the `dist/chrome` folder from the project directory.
 
 #### Firefox
 
@@ -60,7 +60,7 @@ yarn install
    yarn firefox
    ```
 2. Go to **about:debugging#/runtime/this-firefox** in Firefox.
-3. Click on **Load Temporary Add-on** and select the 8dist/firefox8 folder from the project directory.
+3. Click on **Load Temporary Add-on** and select the `dist/firefox` folder from the project directory.
 
 ---
 
