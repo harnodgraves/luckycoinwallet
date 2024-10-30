@@ -1,0 +1,76 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      - name: Get Version Name
+        uses: actions/github-script@v3
+        id: get-version
+        with:
+          script: |
+            const str=process.env.GITHUB_REF;
+            return str.substring(str.indexOf("v") + 1);
+          result-encoding: string
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install Dependencies
+        run: bun install
+
+      - name: Build Extension
+        run: |
+          bun chrome
+          bun firefox
+
+      - name: Zip Extension
+        run: |
+          cd dist/chrome
+          zip -qq -r ./chrome-v${{steps.get-version.outputs.result}}.zip .
+          cd ../../dist/firefox
+          zip -qq -r ./firefox-v${{steps.get-version.outputs.result}}.zip .
+          cd ../..
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Firefox Asset
+        id: upload_firefox
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: dist/firefox-v${{steps.get-version.outputs.result}}.zip
+          asset_name: firefox-v${{steps.get-version.outputs.result}}.zip
+          asset_content_type: application/zip
+
+      - name: Upload Chrome Asset
+        id: upload_chrome
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: dist/chrome-v${{steps.get-version.outputs.result}}.zip
+          asset_name: chrome-v${{steps.get-version.outputs.result}}.zip
+          asset_content_type: application/zip
