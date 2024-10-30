@@ -13,12 +13,12 @@ For an easy setup, check the [Releases](https://github.com/impredmet/luckycoinwa
 3. **Follow the steps below** for installation based on your browser:
 
    ### Chrome
-   - Go to **chrome://extensions** in your Chrome browser.
+   - Go to `chrome://extensions` in your Chrome browser.
    - Enable **Developer mode** in the top right corner.
    - Select **Load unpacked** and choose the folder you extracted from the ZIP file.
 
    ### Firefox
-   - Go to **about:debugging#/runtime/this-firefox** in your Firefox browser.
+   - Go to `about:debugging#/runtime/this-firefox` in your Firefox browser.
    - Click on **Load Temporary Add-on…** and select the folder you extracted from the ZIP file.
 
 With this prebuilt version, your LuckyCoin Wallet will be up and running in seconds.
@@ -49,7 +49,7 @@ yarn install
    ```bash
    yarn chrome
    ```
-2. In Chrome, navigate to **chrome://extensions**.
+2. In Chrome, navigate to `chrome://extensions`.
 3. Enable **Developer mode** in the top right corner.
 4. Select **Load unpacked** and choose the `dist/chrome` folder from the project directory.
 
@@ -59,7 +59,7 @@ yarn install
    ```bash
    yarn firefox
    ```
-2. Go to **about:debugging#/runtime/this-firefox** in Firefox.
+2. Go to `about:debugging#/runtime/this-firefox` in Firefox.
 3. Click on **Load Temporary Add-on** and select the `dist/firefox` folder from the project directory.
 
 ---
