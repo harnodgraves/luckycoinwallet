@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
+      - uses: ./.github/actions/setup
 
       - name: Get Version Name
         uses: actions/github-script@v3
@@ -21,18 +22,13 @@ jobs:
             return str.substring(str.indexOf("v") + 1);
           result-encoding: string
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
-
       - name: Install Dependencies
-        run: bun install
+        run: yarn install
 
       - name: Build Extension
         run: |
-          bun chrome
-          bun firefox
+          yarn chrome
+          yarn firefox
 
       - name: Zip Extension
         run: |
