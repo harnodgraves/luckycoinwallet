@@ -1,4 +1,3 @@
-import { DEFAULT_FEES } from "@/shared/constant";
 import type {
   ApiUTXO,
   IAccountStats,
@@ -31,7 +30,6 @@ export interface IApiController {
   ): Promise<ITransaction[] | undefined>;
   getLKYPrice(): Promise<{ usd: number } | undefined>;
   getLastBlockLKY(): Promise<number | undefined>;
-  getFees(): Promise<{ fast: number; slow: number } | undefined>;
   getAccountStats(address: string): Promise<IAccountStats | undefined>;
   getTokens(address: string): Promise<IToken[] | undefined>;
   getTransactionHex(txid: string): Promise<string | undefined>;
@@ -78,20 +76,6 @@ class ApiController implements IApiController {
     });
     if (Array.isArray(data)) {
       return data;
-    }
-  }
-
-  async getFees() {
-    const data = await this.fetch<Record<string, number>>({
-      path: "/fee-estimates",
-      service: "content",
-    });
-    if (data) {
-      return {
-        slow: "6" in data ? Number(data["6"].toFixed(0)) : DEFAULT_FEES.slow,
-        fast:
-          "2" in data ? Number(data["2"].toFixed(0)) + 1 : DEFAULT_FEES.fast,
-      };
     }
   }
 

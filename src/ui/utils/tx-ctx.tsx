@@ -20,10 +20,6 @@ const useTransactionManager = (): TransactionManagerContextType | undefined => {
   const currentAccount = useGetCurrentAccount();
   const [lastBlock, setLastBlock] = useState<number>();
   const { apiController } = useControllersState(ss(["apiController"]));
-  const [feeRates, setFeeRates] = useState<{
-    fast: number;
-    slow: number;
-  }>();
 
   const [transactions, setTransactions] = useState<ITransaction[] | undefined>(
     undefined
@@ -40,10 +36,6 @@ const useTransactionManager = (): TransactionManagerContextType | undefined => {
   const updateLastBlock = useCallback(async () => {
     const data = await apiController.getLastBlockLKY();
     if (data) setLastBlock(data);
-  }, [apiController]);
-
-  const updateFeeRates = useCallback(async () => {
-    setFeeRates(await apiController.getFees());
   }, [apiController]);
 
   const loadMoreTransactions = useCallback(async () => {
@@ -91,7 +83,6 @@ const useTransactionManager = (): TransactionManagerContextType | undefined => {
       await Promise.all([
         updateTransactions(currentAccount.address!),
         updateLastBlock(),
-        updateFeeRates(),
       ]);
     }, 10000);
     return () => {
@@ -101,10 +92,6 @@ const useTransactionManager = (): TransactionManagerContextType | undefined => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentAccount?.address]);
 
-  useEffect(() => {
-    updateFeeRates();
-  }, [updateFeeRates]);
-
   if (!currentAccount) return undefined;
 
   return {
@@ -112,7 +99,6 @@ const useTransactionManager = (): TransactionManagerContextType | undefined => {
     transactions,
     currentPrice,
     loadMoreTransactions,
-    feeRates,
     updateTransactions,
   };
 };
