@@ -1,4 +1,4 @@
-import { LUCKYCOINURL } from "@/shared/constant";
+import { LUCKYCOIN_URL } from "@/shared/constant";
 import { browserTabsCreate } from "@/shared/utils/browser";
 import { FC, ReactNode } from "react";
 import config from "../../../../package.json";
@@ -13,17 +13,17 @@ const SettingsLayout: FC<SettingsLayoutProps> = ({ children }) => {
     <div className={s.wrapper}>
       <div className={s.settings}>{children}</div>
       <div className={s.version}>
-        Version <span>{config.version}</span> | By{" "}
+        Version <span>{config.version}</span> | By the{" "}
         <a
           href="#"
           onClick={async () => {
             await browserTabsCreate({
-              url: LUCKYCOINURL,
+              url: LUCKYCOIN_URL,
               active: true,
             });
           }}
         >
-          LuckyCoin team
+          LuckyCoin Community
         </a>
       </div>
     </div>

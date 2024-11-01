@@ -1,4 +1,4 @@
-import { LUCKYCOINURL } from "@/shared/constant";
+import { LUCKYCOIN_URL } from "@/shared/constant";
 
 export interface ConnectedSite {
   origin: string;
@@ -25,7 +25,7 @@ class PermissionService {
   }
 
   siteIsConnected(origin: string): boolean {
-    if (origin === LUCKYCOINURL) return true;
+    if (origin.startsWith(LUCKYCOIN_URL)) return true;
     const site = this._sites.find((f) => f.origin === origin);
     return site ? site.isConnected : false;
   }

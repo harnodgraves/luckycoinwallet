@@ -1,7 +1,7 @@
 import { browserTabsCreate } from "@/shared/utils/browser";
 import { CheckIcon } from "@heroicons/react/24/outline";
 
-import { LUCKYCOINURL } from "@/shared/constant";
+import { EXPLORER_URL } from "@/shared/constant";
 import { t } from "i18next";
 import { Link, useParams } from "react-router-dom";
 import s from "./styles.module.scss";
@@ -12,7 +12,7 @@ const FinalleSend = () => {
   const onClick = async () => {
     await browserTabsCreate({
       active: true,
-      url: `${LUCKYCOINURL}/explorer/tx/${txId}`,
+      url: `${EXPLORER_URL}/tx/${txId}`,
     });
   };
 

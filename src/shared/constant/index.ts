@@ -42,8 +42,9 @@ const CONTENT_URL =
 const HISTORY_URL =
   process.env.HISTORY_URL ?? "https://history.nintondo.io/pub";
 
-export const LUCKYCOINURL = "https://luckycoinblockchain.com/";
-export const SPLITTER_URL = LUCKYCOINURL + "/belinals/splitter";
+export const EXPLORER_URL = "https://luckycoinexplorer.com";
+export const LUCKYCOIN_URL = "https://luckycoinfoundation.org";
+export const SPLITTER_URL = LUCKYCOIN_URL + "/belinals/splitter";
 
 export const getContentUrl = () => CONTENT_URL;
 
@@ -56,4 +57,4 @@ export const DEFAULT_FEES = {
 
 export const DEFAULT_SERVICE_FEE = 1_000_000;
 
-export const DEFAULT_HD_PATH = "m/44'/0'/0'/0";
+export const DEFAULT_HD_PATH = ADDRESS_TYPES[0].hdPath;
