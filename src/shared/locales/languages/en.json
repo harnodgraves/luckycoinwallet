@@ -297,7 +297,7 @@
     "resolve": "Resolve",
     "reject": "Reject",
     "sign_request": "Sign request",
-    "send_bells": "Send bells",
+    "send_lky": "Send LKY",
     "sign": "Sign",
     "create_transaction": "Create transaction",
     "connecting": "Connecting",

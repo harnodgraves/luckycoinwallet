@@ -1,9 +1,9 @@
-import s from "./styles.module.scss";
+import { useGetCurrentAccount } from "@/ui/states/walletState";
 import { TailSpin } from "react-loading-icons";
+import AccountPanel from "./account-panel";
+import s from "./styles.module.scss";
 import TransactionList from "./transactions-list";
 import WalletPanel from "./wallet-panel";
-import AccountPanel from "./account-panel";
-import { useGetCurrentAccount } from "@/ui/states/walletState";
 
 const Wallet = () => {
   const currentAccount = useGetCurrentAccount();
