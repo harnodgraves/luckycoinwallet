@@ -18,7 +18,7 @@ const selectOptions = [
     label: "Default",
     value: DEFAULT_HD_PATH,
     lecacyDerivation: false,
-    passphrase: "bells",
+    passphrase: "lky",
   },
   {
     label: "Ordinals",

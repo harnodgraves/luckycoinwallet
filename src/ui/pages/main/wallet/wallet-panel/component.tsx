@@ -1,12 +1,11 @@
-import s from "../styles.module.scss";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { Cog6ToothIcon } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
-import cn from "classnames";
 import {
   useGetCurrentAccount,
   useGetCurrentWallet,
 } from "@/ui/states/walletState";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { Cog6ToothIcon } from "@heroicons/react/24/solid";
+import { Link } from "react-router-dom";
+import s from "../styles.module.scss";
 
 const stringToColor = (str: string) => {
   let hash = 0;
@@ -57,13 +56,14 @@ const WalletPanel = () => {
       </Link>
 
       <div className="flex gap-3 items-center">
-        <Link
+        {/* TODO: Add NFT page */}
+        {/* <Link
           to={"/pages/inscriptions"}
           className="cursor-pointer flex items-center justify-center"
         >
           <img src="/nft.png" alt="nft" className={cn("w-12", s.nftImage)} />
         </Link>
-        <div className="w-[1px] bg-white bg-opacity-25 h-5" />
+        <div className="w-[1px] bg-white bg-opacity-25 h-5" /> */}
         <Link to={"/pages/settings"} className="cursor-pointer">
           <Cog6ToothIcon className="w-6 h-6 hover:rotate-90 transition-transform" />
         </Link>
