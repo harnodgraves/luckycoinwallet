@@ -2,7 +2,7 @@ import { Inscription } from "@/shared/interfaces/inscriptions";
 import SplitWarn from "@/ui/components/split-warn";
 import Switch from "@/ui/components/switch";
 import {
-  useCreateBellsTxCallback,
+  useCreateLuckyTxCallback,
   useCreateOrdTx,
 } from "@/ui/hooks/transactions";
 import { useGetCurrentAccount } from "@/ui/states/walletState";
@@ -39,11 +39,11 @@ const CreateSend = () => {
     address: "",
     amount: "",
     includeFeeInAmount: false,
-    feeAmount: 10,
+    feeAmount: 10000,
   });
   const [includeFeeLocked, setIncludeFeeLocked] = useState<boolean>(false);
   const currentAccount = useGetCurrentAccount();
-  const createTx = useCreateBellsTxCallback();
+  const createTx = useCreateLuckyTxCallback();
   const createOrdTx = useCreateOrdTx();
   const navigate = useNavigate();
   const location = useLocation();
@@ -200,8 +200,7 @@ const CreateSend = () => {
         className={cn("form", s.send)}
         onSubmit={async (e) => {
           e.preventDefault();
-          // await send(formData); // TODO: Do the send
-          toast.error("This feature is not available yet.");
+          await send(formData);
         }}
       >
         <div className={s.inputs}>

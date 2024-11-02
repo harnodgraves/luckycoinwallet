@@ -1,3 +1,4 @@
+import { EXPLORER_URL } from "@/shared/constant";
 import { ITransaction } from "@/shared/interfaces/api";
 import { browserTabsCreate } from "@/shared/utils/browser";
 import { shortAddress } from "@/shared/utils/transactions";
@@ -30,7 +31,7 @@ const TransactionInfo = () => {
 
   const onOpenExplorer = async () => {
     await browserTabsCreate({
-      url: `https://luckycoinexplorer.com/tx/${txId}`,
+      url: `${EXPLORER_URL}/tx/${txId}`,
       active: true,
     });
   };

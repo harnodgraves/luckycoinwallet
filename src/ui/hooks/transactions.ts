@@ -9,7 +9,7 @@ import { useControllersState } from "../states/controllerState";
 import { useGetCurrentAccount, useWalletState } from "../states/walletState";
 import { gptFeeCalculate, ss } from "../utils";
 
-export function useCreateBellsTxCallback() {
+export function useCreateLuckyTxCallback() {
   const { selectedAccount, selectedWallet } = useWalletState(
     ss(["selectedAccount", "selectedWallet"])
   );
@@ -59,7 +59,7 @@ export function useCreateBellsTxCallback() {
       throw new Error(t("hooks.transaction.too_many_utxos"));
     }
 
-    const safeBalance = utxos.reduce((pre, cur) => pre + cur.value, 0);
+    const safeBalance = utxos.reduce((pre, cur) => pre + Number(cur.amount), 0);
 
     if (receiverToPayFee && fee > toAmount) {
       toast.error(t("send.create_send.fee_exceeds_amount_error"));
@@ -76,7 +76,7 @@ export function useCreateBellsTxCallback() {
       );
     }
 
-    const psbtHex = await keyringController.sendBEL({
+    const psbtHex = await keyringController.sendLKY({
       to: toAddress,
       amount: toAmount,
       utxos,
@@ -202,7 +202,7 @@ export const useSendTransferTokens = () => {
   };
 };
 
-export function usePushBellsTxCallback() {
+export function usePushLkyTxCallback() {
   const { apiController } = useControllersState(ss(["apiController"]));
 
   return async (rawtx: string) => {

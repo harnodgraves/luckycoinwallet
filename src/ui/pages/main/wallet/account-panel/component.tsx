@@ -37,7 +37,7 @@ const AccountPanel = () => {
               </div>
             ) : (
               <div>
-                <span>{cardinalBalance}</span>
+                <span>{Math.floor(cardinalBalance)}</span>
                 <span className="text-2xl text-gray-400">
                   .{cardinalBalanceAfterDot}
                 </span>

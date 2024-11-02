@@ -4,6 +4,7 @@ import { ethErrors } from "eth-rpc-errors";
 import { networks, Psbt } from "luckycoinjs-lib";
 import { INintondoProvider } from "nintondo-sdk";
 import "reflect-metadata/lite";
+import config from "../../../../package.json";
 import { keyringService, storageService } from "../../services";
 import apiController from "../apiController";
 
@@ -35,7 +36,7 @@ class ProviderController implements IProviderController {
 
   @Reflect.metadata("SAFE", true)
   getVersion = async () => {
-    return process.env.VERSION ?? "0.0.1";
+    return config.version;
   };
 
   @Reflect.metadata("CONNECTED", true)
@@ -154,7 +155,7 @@ class ProviderController implements IProviderController {
 
     if (!utxos?.length) throw new Error("Not enough utxos");
 
-    const tx = await keyringService.sendBEL({
+    const tx = await keyringService.sendLKY({
       ...payload,
       utxos,
       network,

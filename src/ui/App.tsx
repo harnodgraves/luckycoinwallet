@@ -1,4 +1,4 @@
-import { LUCKYCOINURL } from "@/shared/constant";
+import { LUCKYCOIN_URL } from "@/shared/constant";
 import { browserTabsCreate } from "@/shared/utils/browser";
 import PortMessage from "@/shared/utils/message/portMessage";
 import { authenticatedRouter, guestRouter } from "@/ui/pages/router";
@@ -105,7 +105,7 @@ export default function App() {
 
   const onOpenLuckycoin = async () => {
     await browserTabsCreate({
-      url: LUCKYCOINURL,
+      url: LUCKYCOIN_URL,
       active: true,
     });
   };

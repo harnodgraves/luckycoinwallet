@@ -4,7 +4,7 @@ import { EventEmitter } from "events";
 import BroadcastChannelMessage from "@/shared/utils/message/broadcastChannelMessage";
 
 import type {
-  SendBEL,
+  SendLKY,
   SignPsbtOptions,
 } from "@/background/services/keyring/types";
 import { INintondoProvider } from "nintondo-sdk";
@@ -196,7 +196,7 @@ export class NintondoProvider extends EventEmitter {
     });
   };
 
-  createTx = async (data: SendBEL) => {
+  createTx = async (data: SendLKY) => {
     return this._request({
       method: "createTx",
       params: [data],

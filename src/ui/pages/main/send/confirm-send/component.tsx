@@ -1,5 +1,5 @@
 import { useUpdateAddressBook } from "@/ui/hooks/app";
-import { usePushBellsTxCallback } from "@/ui/hooks/transactions";
+import { usePushLkyTxCallback } from "@/ui/hooks/transactions";
 import { useUpdateCurrentAccountBalance } from "@/ui/hooks/wallet";
 import { useGetCurrentAccount } from "@/ui/states/walletState";
 import { useTransactionManagerContext } from "@/ui/utils/tx-ctx";
@@ -12,7 +12,7 @@ import s from "./styles.module.scss";
 
 const ConfirmSend = () => {
   const location = useLocation();
-  const pushTx = usePushBellsTxCallback();
+  const pushTx = usePushLkyTxCallback();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const updateAddressBook = useUpdateAddressBook();

@@ -1,9 +1,10 @@
-import { context, build, BuildOptions, Plugin } from "esbuild";
+import { build, BuildOptions, context, Plugin } from "esbuild";
 import { copy } from "esbuild-plugin-copy";
-import { sassPlugin, postcssModules } from "esbuild-sass-plugin";
 import { nodeModulesPolyfillPlugin } from "esbuild-plugins-node-modules-polyfill";
+import { postcssModules, sassPlugin } from "esbuild-sass-plugin";
 import svgPlugin from "esbuild-svg";
 import postcss from "postcss";
+import config from "./package.json";
 
 const autoprefixer = require("autoprefixer");
 const tailwindcss = require("tailwindcss");
@@ -24,7 +25,7 @@ const extraManifest = await readJsonFile(
   chrome ? chromeManifestPath : firefoxManifestPath
 );
 
-const version = process.env.npm_package_version ?? "0.0.1";
+const version = config.version;
 const isDev = Bun.argv.includes("--watch") || Bun.argv.includes("-w");
 
 function mergeManifests(): Plugin {
@@ -54,7 +55,7 @@ function mergeManifests(): Plugin {
 console.log(
   `\n🔨 Building extension... \n` +
     `💻 Browser: ${chrome ? "Chrome" : "Firefox"}\n` +
-    `💡 Version: ${process.env.npm_package_version}\n` +
+    `💡 Version: ${version}\n` +
     `♻️  Environment: ${isDev ? "Development" : "Production"}`
 );
 
@@ -66,7 +67,6 @@ function dotenvPlugin(): Plugin {
       const isExists = await envFile.exists();
 
       let env: Record<string, string> = {};
-      env["process.env.VERSION"] = JSON.stringify(version);
 
       if (isExists) {
         let content = await envFile.text();
@@ -105,7 +105,7 @@ const buildOptions: BuildOptions = {
     "import.meta.url": '""',
     "process.browser": "false",
   },
-  target: ["chrome58", "firefox57"],
+  target: ["chrome80", "firefox72"],
   treeShaking: true,
   platform: "browser",
   sourcemap: Bun.argv.includes("--sourcemap") || Bun.argv.includes("-s"),
@@ -143,29 +143,11 @@ const buildOptions: BuildOptions = {
       modules: {
         buffer: true,
         process: true,
+        stream: true,
       },
     }),
     mergeManifests(),
   ],
-};
-
-const makeArchive = () => {
-  Bun.spawnSync({
-    cmd: [
-      "zip",
-      "-r",
-      `../${chrome ? "chrome" : "firefox"}-${
-        process.env.npm_package_version
-      }.zip`,
-      ".",
-    ],
-    cwd: `./dist/${chrome ? "chrome" : "firefox"}`,
-  });
-
-  Bun.spawnSync({
-    cmd: ["rm", "-rf", `./${chrome ? "chrome" : "firefox"}`],
-    cwd: "./dist",
-  });
 };
 
 if (isDev) {
@@ -174,7 +156,4 @@ if (isDev) {
   await ctx.watch();
 } else {
   await build(buildOptions);
-  if (Bun.argv.includes("--compress") || Bun.argv.includes("-c")) {
-    makeArchive();
-  }
 }

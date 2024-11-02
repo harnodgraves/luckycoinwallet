@@ -1,3 +1,4 @@
+import { EXPLORER_URL, RPC_URL } from "@/shared/constant";
 import type {
   ApiUTXO,
   IAccountStats,
@@ -69,34 +70,33 @@ class ApiController implements IApiController {
   };
 
   async getUtxos(address: string, params?: UtxoQueryParams) {
-    const data = await this.fetch<ApiUTXO[]>({
-      path: `/address/${address}/utxo`,
-      params: params as Record<string, string>,
-      service: "content",
-    });
+    const res = await fetch(
+      `${RPC_URL}/utxos/fetch_by_address/${address}/${params?.amount}`
+    );
+
+    const data = await res.json();
+
     if (Array.isArray(data)) {
       return data;
     }
   }
 
   async pushTx(rawTx: string) {
-    const data = await this.fetch<string>({
-      path: "/tx",
+    const res = await fetch(`${RPC_URL}/transaction/broadcast`, {
       method: "POST",
       headers: {
-        "content-type": "text/plain",
+        "content-type": "application/json",
       },
-      json: false,
-      body: rawTx,
-      service: "content",
+      body: JSON.stringify({ signedtxhex: rawTx }),
     });
-    if (isValidTXID(data) && data) {
-      return {
-        txid: data,
-      };
+
+    const data = await res.json();
+
+    if (isValidTXID(data.txid) && data.txid) {
+      return data;
     } else {
       return {
-        error: data,
+        error: data.error?.message ?? "unknown error",
       };
     }
   }
@@ -104,7 +104,7 @@ class ApiController implements IApiController {
   async getTransactions(address: string): Promise<ITransaction[] | undefined> {
     try {
       const res = await fetch(
-        `https://luckycoinexplorer.com/ext/getaddresstxs/${address}/0/20` // 20 latest transactions
+        `${EXPLORER_URL}/ext/getaddresstxs/${address}/0/20` // 20 latest transactions
       );
 
       if (!res.ok) return undefined;
@@ -118,9 +118,7 @@ class ApiController implements IApiController {
       }[];
 
       const transactionPromises = transactions.map(async (tx) => {
-        const txRes = await fetch(
-          `https://luckycoinexplorer.com/ext/gettx/${tx.txid}`
-        );
+        const txRes = await fetch(`${EXPLORER_URL}/ext/gettx/${tx.txid}`);
 
         if (!txRes.ok) return undefined;
 
@@ -153,7 +151,7 @@ class ApiController implements IApiController {
   }
 
   async getLastBlockLKY() {
-    const res = await fetch(`https://luckycoinexplorer.com/api/getblockcount`);
+    const res = await fetch(`${EXPLORER_URL}/api/getblockcount`);
 
     if (!res.ok) {
       return undefined;
@@ -186,9 +184,7 @@ class ApiController implements IApiController {
 
   async getAccountStats(address: string): Promise<IAccountStats | undefined> {
     try {
-      const res = await fetch(
-        `https://luckycoinexplorer.com/ext/getaddress/${address}`
-      );
+      const res = await fetch(`${EXPLORER_URL}/ext/getaddress/${address}`);
 
       if (!res.ok) throw new Error("Failed to fetch account stats");
 

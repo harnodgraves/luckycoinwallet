@@ -32,7 +32,7 @@ const MintTransferModal: FC<MintTransferModalProps> = ({
     useForm<FormType>({
       defaultValues: {
         amount: "",
-        feeRate: 10,
+        feeRate: 10000,
       },
     });
 

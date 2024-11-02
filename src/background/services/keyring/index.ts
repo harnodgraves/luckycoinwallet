@@ -1,19 +1,15 @@
 import { storageService } from "@/background/services";
 import { INewWalletProps } from "@/shared/interfaces";
-import { ApiUTXO } from "@/shared/interfaces/api";
-import { ApiOrdUTXO, OrdUTXO } from "@/shared/interfaces/inscriptions";
+//import { ApiUTXO } from "@/shared/interfaces/api";
+//import { ApiOrdUTXO, OrdUTXO } from "@/shared/interfaces/inscriptions";
 import { getScriptForAddress, toXOnly } from "@/shared/utils/transactions";
-import {
-  createMultisendOrd,
-  createSendBEL,
-  createSendOrd,
-} from "bel-ord-utils";
+import { createSendLKY } from "lky-ord-utils";
 import { AddressType, HDPrivateKey, SimpleKey } from "luckycoinhdw";
 import HDSimpleKey from "luckycoinhdw/src/hd/simple";
 import type { Keyring } from "luckycoinhdw/src/hd/types";
-import { payments, Psbt } from "luckycoinjs-lib";
+import { payments, Psbt, networks } from "luckycoinjs-lib";
 import { KeyringServiceError } from "./consts";
-import type { Hex, Json, SendBEL, SendOrd, UserToSignInput } from "./types";
+import type { Hex, Json, SendLKY, SendOrd, UserToSignInput } from "./types";
 
 export const KEYRING_SDK_TYPES = {
   SimpleKey,
@@ -189,7 +185,7 @@ class KeyringService {
     return keyring.exportPublicKey(address);
   }
 
-  async sendBEL(data: SendBEL) {
+  async sendLKY(data: SendLKY) {
     const account = storageService.currentAccount;
     const wallet = storageService.currentWallet;
     if (!account?.address || !wallet)
@@ -206,18 +202,20 @@ class KeyringService {
     if (!scriptPk)
       throw new Error("Internal error: Failed to get script for address");
 
-    const psbt = await createSendBEL({
+    const psbt = await createSendLKY({
       utxos: data.utxos.map((v) => {
         return {
           txId: v.txid,
           outputIndex: v.vout,
-          satoshis: v.value,
+          satoshis: Number(v.amount),
           scriptPk: scriptPk.toString("hex"),
           addressType: wallet?.addressType,
           address: account.address!,
+          rawHex: v.hex,
           ords: [],
         };
       }),
+      network: networks.luckycoin,
       toAddress: data.to,
       toAmount: data.amount,
       signTransaction: this.signPsbt.bind(this) as (
@@ -230,11 +228,14 @@ class KeyringService {
       enableRBF: false,
     });
 
+    console.dir(psbt.extractTransaction());
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore We are really dont know what is it but we still copy working code
     psbt.__CACHE.__UNSAFE_SIGN_NONSEGWIT = false;
     return psbt.toHex();
   }
+  /* DISABLED FOR NOW
+
 
   async sendOrd(data: Omit<SendOrd, "amount">) {
     const account = storageService.currentAccount;
@@ -336,6 +337,7 @@ class KeyringService {
       publicKey: this.exportPublicKey(storageService.currentAccount!.address!),
     });
   }
+    */
 
   changeAddressType(index: number, addressType: AddressType): string[] {
     this.keyrings[index].addressType = addressType;

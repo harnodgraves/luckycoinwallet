@@ -4,7 +4,7 @@ import { OrdUTXO } from "@/shared/interfaces/inscriptions";
 import type { AddressType } from "luckycoinhdw";
 import { Network, Psbt } from "luckycoinjs-lib";
 import { keyringService } from "../services";
-import type { Hex, SendBEL, SendOrd } from "../services/keyring/types";
+import type { Hex, SendLKY, SendOrd } from "../services/keyring/types";
 
 export interface IKeyringController {
   init(password: string): Promise<IPrivateWallet[]>;
@@ -21,7 +21,7 @@ export interface IKeyringController {
     from: string;
     data: string;
   }): Promise<string>;
-  sendBEL(data: SendBEL): Promise<string>;
+  sendLKY(data: SendLKY): Promise<string>;
   sendOrd(data: Omit<SendOrd, "amount">): Promise<string>;
   changeAddressType(
     walletIndex: number,
@@ -105,11 +105,11 @@ class KeyringController implements IKeyringController {
 
   /**
    * Method should be used to create hex of transaction and sigs all inputs
-   * @param {SendBEL} data Input data for the transaction
+   * @param {SendLKY} data Input data for the transaction
    * @returns {Promise<string>} Hex of transaction to push transaction to the blockchain with
    */
-  async sendBEL(data: SendBEL): Promise<string> {
-    return await keyringService.sendBEL(data);
+  async sendLKY(data: SendLKY): Promise<string> {
+    return await keyringService.sendLKY(data);
   }
 
   async sendOrd(data: Omit<SendOrd, "amount">): Promise<string> {
