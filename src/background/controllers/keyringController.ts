@@ -1,10 +1,8 @@
 import type { IPrivateWallet } from "@/shared/interfaces";
-import { ApiUTXO } from "@/shared/interfaces/api";
-import { OrdUTXO } from "@/shared/interfaces/inscriptions";
 import type { AddressType } from "luckycoinhdw";
 import { Network, Psbt } from "luckycoinjs-lib";
 import { keyringService } from "../services";
-import type { Hex, SendLKY, SendOrd } from "../services/keyring/types";
+import type { Hex, SendLKY } from "../services/keyring/types";
 
 export interface IKeyringController {
   init(password: string): Promise<IPrivateWallet[]>;
@@ -22,20 +20,22 @@ export interface IKeyringController {
     data: string;
   }): Promise<string>;
   sendLKY(data: SendLKY): Promise<string>;
-  sendOrd(data: Omit<SendOrd, "amount">): Promise<string>;
+  // TODO: uncomment when inscription transactions are implemented
+  // sendOrd(data: Omit<SendOrd, "amount">): Promise<string>;
   changeAddressType(
     walletIndex: number,
     addressType: AddressType
   ): Promise<string[]>;
   exportPublicKey(address: string): Promise<string>;
   serializeKeyringById(index: number): Promise<any>;
-  createSendMultiOrd(
-    toAddress: string,
-    feeRate: number,
-    ordUtxos: OrdUTXO[],
-    utxos: ApiUTXO[],
-    network: Network
-  ): Promise<string>;
+  // TODO: uncomment when inscription transactions are implemented
+  // createSendMultiOrd(
+  //   toAddress: string,
+  //   feeRate: number,
+  //   ordUtxos: OrdUTXO[],
+  //   utxos: ApiUTXO[],
+  //   network: Network
+  // ): Promise<string>;
   signPsbtBase64(psbtBase64: string): Promise<string>;
 }
 
@@ -112,9 +112,10 @@ class KeyringController implements IKeyringController {
     return await keyringService.sendLKY(data);
   }
 
-  async sendOrd(data: Omit<SendOrd, "amount">): Promise<string> {
-    return await keyringService.sendOrd(data);
-  }
+  // TODO: uncomment when inscription transactions are implemented
+  // async sendOrd(data: Omit<SendOrd, "amount">): Promise<string> {
+  //   return await keyringService.sendOrd(data);
+  // }
 
   async exportPublicKey(address: string): Promise<string> {
     return keyringService.exportPublicKey(address);
@@ -131,14 +132,15 @@ class KeyringController implements IKeyringController {
     return keyringService.serializeById(index);
   }
 
-  async createSendMultiOrd(
-    toAddress: string,
-    feeRate: number,
-    ordUtxos: OrdUTXO[],
-    utxos: ApiUTXO[]
-  ): Promise<string> {
-    return keyringService.sendMultiOrd(toAddress, feeRate, ordUtxos, utxos);
-  }
+  // TODO: uncomment when inscription transactions are implemented
+  // async createSendMultiOrd(
+  //   toAddress: string,
+  //   feeRate: number,
+  //   ordUtxos: OrdUTXO[],
+  //   utxos: ApiUTXO[]
+  // ): Promise<string> {
+  //   return keyringService.sendMultiOrd(toAddress, feeRate, ordUtxos, utxos);
+  // }
 }
 
 export default new KeyringController();

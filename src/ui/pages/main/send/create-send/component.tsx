@@ -1,10 +1,7 @@
 import { Inscription } from "@/shared/interfaces/inscriptions";
 import SplitWarn from "@/ui/components/split-warn";
 import Switch from "@/ui/components/switch";
-import {
-  useCreateLuckyTxCallback,
-  useCreateOrdTx,
-} from "@/ui/hooks/transactions";
+import { useCreateLuckyTxCallback } from "@/ui/hooks/transactions";
 import { useGetCurrentAccount } from "@/ui/states/walletState";
 import { normalizeAmount } from "@/ui/utils";
 import cn from "classnames";
@@ -44,7 +41,8 @@ const CreateSend = () => {
   const [includeFeeLocked, setIncludeFeeLocked] = useState<boolean>(false);
   const currentAccount = useGetCurrentAccount();
   const createTx = useCreateLuckyTxCallback();
-  const createOrdTx = useCreateOrdTx();
+  // TODO: uncomment when inscription transactions are implemented
+  // const createOrdTx = useCreateOrdTx();
   const navigate = useNavigate();
   const location = useLocation();
   const [inscription, setInscription] = useState<Inscription | undefined>(
@@ -84,14 +82,22 @@ const CreateSend = () => {
       let data;
 
       try {
-        data = !inscriptionTransaction
-          ? await createTx(
-              address,
-              Number((amount * 10 ** 8).toFixed(0)),
-              feeRate,
-              includeFeeInAmount
-            )
-          : await createOrdTx(address, feeRate, inscription!);
+        // TODO: uncomment when inscription transactions are implemented
+        // data = !inscriptionTransaction
+        //   ? await createTx(
+        //       address,
+        //       Number((amount * 10 ** 8).toFixed(0)),
+        //       feeRate,
+        //       includeFeeInAmount
+        //     )
+        //   : await createOrdTx(address, feeRate, inscription!);
+
+        data = await createTx(
+          address,
+          Number((amount * 10 ** 8).toFixed(0)),
+          feeRate,
+          includeFeeInAmount
+        );
       } catch (e) {
         if (e instanceof Error) toast.error(e.message);
       }

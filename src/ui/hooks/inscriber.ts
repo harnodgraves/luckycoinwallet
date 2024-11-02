@@ -2,6 +2,7 @@ import { ITransferToken } from "@/shared/interfaces/token";
 import { inscribe } from "bells-inscriber";
 import { ApiUTXO } from "bells-inscriber/lib/types";
 import { t } from "i18next";
+import { networks } from "luckycoinjs-lib";
 import toast from "react-hot-toast";
 import { useControllersState } from "../states/controllerState";
 import { useGetCurrentAccount } from "../states/walletState";
@@ -22,6 +23,7 @@ export const useInscribeTransferToken = () => {
     ).map((f) => ({
       ...f,
       hex: f.hex!,
+      value: parseFloat(f.amount),
     }));
   };
 
@@ -40,6 +42,7 @@ export const useInscribeTransferToken = () => {
       ),
       signPsbt: keyringController.signPsbtBase64,
       getUtxos,
+      network: networks.luckycoin,
     });
 
     const txIds: string[] = [];

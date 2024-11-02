@@ -31,9 +31,10 @@ const fields: InscField<CompletedInscription>[] = [
   {
     key: "inscription_number",
   },
-  {
-    key: "status.block_height",
-  },
+  // TODO: uncomment when inscription transactions are implemented
+  // {
+  //   key: "status.block_height",
+  // },
   {
     key: "content_type",
   },
@@ -52,19 +53,21 @@ const fields: InscField<CompletedInscription>[] = [
     key: "offset",
     defaultValue: 0,
   },
-  {
-    key: "value",
-    defaultValue: "-",
-  },
+  // TODO: uncomment when inscription transactions are implemented
+  // {
+  //   key: "value",
+  //   defaultValue: "-",
+  // },
   {
     key: "outpoint",
   },
   {
     key: "inscription_id",
   },
-  {
-    key: "status.block_time",
-  },
+  // TODO: uncomment when inscription transactions are implemented
+  // {
+  //   key: "status.block_time",
+  // },
 ];
 
 const InscriptionDetails = () => {
@@ -99,6 +102,7 @@ const InscriptionDetails = () => {
         inscription_number: data.number,
         content: inscription_id,
         preview: inscription_id,
+        // @ts-ignore // TODO: uncomment when inscription transactions are implemented
         value: value ? value[0] : 0,
         owner: location.owner,
         txid: parsedLocation.txid,

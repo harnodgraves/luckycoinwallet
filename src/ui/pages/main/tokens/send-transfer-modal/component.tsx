@@ -1,16 +1,15 @@
 import { IToken, ITransfer } from "@/shared/interfaces/token";
 import Modal from "@/ui/components/modal";
+import cn from "classnames";
 import { t } from "i18next";
 import { FC, useId, useState } from "react";
-import s from "./styles.module.scss";
-import FeeInput from "../../send/create-send/fee-input";
-import { TailSpin } from "react-loading-icons";
-import AddressInput from "../../send/create-send/address-input";
-import AddressBookModal from "../../send/create-send/address-book-modal";
-import cn from "classnames";
 import toast from "react-hot-toast";
-import { useSendTransferTokens } from "@/ui/hooks/transactions";
+import { TailSpin } from "react-loading-icons";
 import { nFormatter } from "../../../../utils/formatter";
+import AddressBookModal from "../../send/create-send/address-book-modal";
+import AddressInput from "../../send/create-send/address-input";
+import FeeInput from "../../send/create-send/fee-input";
+import s from "./styles.module.scss";
 
 interface Props {
   selectedSendToken: IToken | undefined;
@@ -38,7 +37,8 @@ const SendTransferModal: FC<Props> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
 
-  const sendTransferTokens = useSendTransferTokens();
+  // TODO: uncomment when inscription transactions are implemented
+  // const sendTransferTokens = useSendTransferTokens();
 
   const send = async ({ address, txIds: transfers, feeRate }: FormType) => {
     try {
@@ -52,8 +52,10 @@ const SendTransferModal: FC<Props> = ({
       if (transfers.length <= 0) {
         return toast.error(t("inscriptions.0_selected_inscriptions_error"));
       }
-      await sendTransferTokens(address, transfers, feeRate);
-      setSelectedSendToken(undefined);
+      return toast.error("Not implemented");
+      // TODO: uncomment when inscription transactions are implemented
+      // await sendTransferTokens(address, transfers, feeRate);
+      // setSelectedSendToken(undefined);
     } catch (e) {
       toast.error((e as Error).message);
     } finally {
