@@ -3,13 +3,13 @@ import { INewWalletProps } from "@/shared/interfaces";
 //import { ApiUTXO } from "@/shared/interfaces/api";
 //import { ApiOrdUTXO, OrdUTXO } from "@/shared/interfaces/inscriptions";
 import { getScriptForAddress, toXOnly } from "@/shared/utils/transactions";
-import { createSendLKY } from "lky-ord-utils";
+import { createSendLKY } from "luckycoin-ord-utils";
 import { AddressType, HDPrivateKey, SimpleKey } from "luckycoinhdw";
 import HDSimpleKey from "luckycoinhdw/src/hd/simple";
 import type { Keyring } from "luckycoinhdw/src/hd/types";
-import { payments, Psbt, networks } from "luckycoinjs-lib";
+import { networks, payments, Psbt } from "luckycoinjs-lib";
 import { KeyringServiceError } from "./consts";
-import type { Hex, Json, SendLKY, SendOrd, UserToSignInput } from "./types";
+import type { Hex, Json, SendLKY, UserToSignInput } from "./types";
 
 export const KEYRING_SDK_TYPES = {
   SimpleKey,

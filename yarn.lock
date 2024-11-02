@@ -378,7 +378,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint-community/regexpp@npm:^4.10.0, @eslint-community/regexpp@npm:^4.11.0":
+"@eslint-community/regexpp@npm:^4.10.0, @eslint-community/regexpp@npm:^4.12.1":
   version: 4.12.1
   resolution: "@eslint-community/regexpp@npm:4.12.1"
   checksum: 10c0/a03d98c246bcb9109aec2c08e4d10c8d010256538dcb3f56610191607214523d4fb1b00aa81df830b6dffb74c5fa0be03642513a289c567949d3e550ca11cdf6
@@ -420,10 +420,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:9.13.0":
-  version: 9.13.0
-  resolution: "@eslint/js@npm:9.13.0"
-  checksum: 10c0/672257bffe17777b8a98bd80438702904cc7a0b98b9c2e426a8a10929198b3553edf8a3fc20feed4133c02e7c8f7331a0ef1b23e5dab8e4469f7f1791beff1e0
+"@eslint/js@npm:9.14.0":
+  version: 9.14.0
+  resolution: "@eslint/js@npm:9.14.0"
+  checksum: 10c0/a423dd435e10aa3b461599aa02f6cbadd4b5128cb122467ee4e2c798e7ca4f9bb1fce4dcea003b29b983090238cf120899c1af657cf86300b399e4f996b83ddc
   languageName: node
   linkType: hard
 
@@ -475,8 +475,8 @@ __metadata:
   linkType: hard
 
 "@floating-ui/react@npm:^0.26.16":
-  version: 0.26.26
-  resolution: "@floating-ui/react@npm:0.26.26"
+  version: 0.26.27
+  resolution: "@floating-ui/react@npm:0.26.27"
   dependencies:
     "@floating-ui/react-dom": "npm:^2.1.2"
     "@floating-ui/utils": "npm:^0.2.8"
@@ -484,7 +484,7 @@ __metadata:
   peerDependencies:
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
-  checksum: 10c0/9cfc850d2dcb4f9f39b6dd03571b3e158b5cb7a2857c110eef47525dd274babc0fb99915491b939bcd12814f1e231c6fca187f6fb888013a22567243e0f6765b
+  checksum: 10c0/6a27fadeb04862ecdb192f8e5428185ab0217b0c084e5464b2c218697f317a437dbfa47a7fb44332d505f047c17721e00f3705cb20e61b406117fea1ba2995b2
   languageName: node
   linkType: hard
 
@@ -526,7 +526,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@humanfs/node@npm:^0.16.5":
+"@humanfs/node@npm:^0.16.6":
   version: 0.16.6
   resolution: "@humanfs/node@npm:0.16.6"
   dependencies:
@@ -543,10 +543,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@humanwhocodes/retry@npm:^0.3.0, @humanwhocodes/retry@npm:^0.3.1":
+"@humanwhocodes/retry@npm:^0.3.0":
   version: 0.3.1
   resolution: "@humanwhocodes/retry@npm:0.3.1"
   checksum: 10c0/f0da1282dfb45e8120480b9e2e275e2ac9bbe1cf016d046fdad8e27cc1285c45bb9e711681237944445157b430093412b4446c1ab3fc4bb037861b5904101d3b
+  languageName: node
+  linkType: hard
+
+"@humanwhocodes/retry@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "@humanwhocodes/retry@npm:0.4.0"
+  checksum: 10c0/28dcf1ed70b28ae8bc07b268c457a02f6b53fe4591b73e31f6735e7673dfd9e662f24a69e065aada1a64311bf5692d93d4ef35aba849314e8a87a870ba3b47aa
   languageName: node
   linkType: hard
 
@@ -683,58 +690,58 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oven/bun-darwin-aarch64@npm:1.1.33":
-  version: 1.1.33
-  resolution: "@oven/bun-darwin-aarch64@npm:1.1.33"
+"@oven/bun-darwin-aarch64@npm:1.1.34":
+  version: 1.1.34
+  resolution: "@oven/bun-darwin-aarch64@npm:1.1.34"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@oven/bun-darwin-x64-baseline@npm:1.1.33":
-  version: 1.1.33
-  resolution: "@oven/bun-darwin-x64-baseline@npm:1.1.33"
+"@oven/bun-darwin-x64-baseline@npm:1.1.34":
+  version: 1.1.34
+  resolution: "@oven/bun-darwin-x64-baseline@npm:1.1.34"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@oven/bun-darwin-x64@npm:1.1.33":
-  version: 1.1.33
-  resolution: "@oven/bun-darwin-x64@npm:1.1.33"
+"@oven/bun-darwin-x64@npm:1.1.34":
+  version: 1.1.34
+  resolution: "@oven/bun-darwin-x64@npm:1.1.34"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@oven/bun-linux-aarch64@npm:1.1.33":
-  version: 1.1.33
-  resolution: "@oven/bun-linux-aarch64@npm:1.1.33"
+"@oven/bun-linux-aarch64@npm:1.1.34":
+  version: 1.1.34
+  resolution: "@oven/bun-linux-aarch64@npm:1.1.34"
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"@oven/bun-linux-x64-baseline@npm:1.1.33":
-  version: 1.1.33
-  resolution: "@oven/bun-linux-x64-baseline@npm:1.1.33"
+"@oven/bun-linux-x64-baseline@npm:1.1.34":
+  version: 1.1.34
+  resolution: "@oven/bun-linux-x64-baseline@npm:1.1.34"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"@oven/bun-linux-x64@npm:1.1.33":
-  version: 1.1.33
-  resolution: "@oven/bun-linux-x64@npm:1.1.33"
+"@oven/bun-linux-x64@npm:1.1.34":
+  version: 1.1.34
+  resolution: "@oven/bun-linux-x64@npm:1.1.34"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"@oven/bun-windows-x64-baseline@npm:1.1.33":
-  version: 1.1.33
-  resolution: "@oven/bun-windows-x64-baseline@npm:1.1.33"
+"@oven/bun-windows-x64-baseline@npm:1.1.34":
+  version: 1.1.34
+  resolution: "@oven/bun-windows-x64-baseline@npm:1.1.34"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@oven/bun-windows-x64@npm:1.1.33":
-  version: 1.1.33
-  resolution: "@oven/bun-windows-x64@npm:1.1.33"
+"@oven/bun-windows-x64@npm:1.1.34":
+  version: 1.1.34
+  resolution: "@oven/bun-windows-x64@npm:1.1.34"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -1325,11 +1332,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:^22.1.0":
-  version: 22.8.4
-  resolution: "@types/node@npm:22.8.4"
+  version: 22.8.6
+  resolution: "@types/node@npm:22.8.6"
   dependencies:
     undici-types: "npm:~6.19.8"
-  checksum: 10c0/f88d030480630194a9168772462ec09b2d86454f34368c46d2b7fda5dc6e14594b1576fcc5c35cc53b57a4d1e8dd2865a85ae81f34ded0d1af753a0f5d294c25
+  checksum: 10c0/d3a11f2549234a91a4c5d0ff35ab4bdcb7ba34db4d3f1d189be39b8bd41c19aac98d117150a95a9c5a9d45b1014135477ea240b2b8317c86ae3d3cf1c3b3f8f4
   languageName: node
   linkType: hard
 
@@ -1418,11 +1425,11 @@ __metadata:
   linkType: hard
 
 "@types/ws@npm:~8.5.10":
-  version: 8.5.12
-  resolution: "@types/ws@npm:8.5.12"
+  version: 8.5.13
+  resolution: "@types/ws@npm:8.5.13"
   dependencies:
     "@types/node": "npm:*"
-  checksum: 10c0/3fd77c9e4e05c24ce42bfc7647f7506b08c40a40fe2aea236ef6d4e96fc7cb4006a81ed1b28ec9c457e177a74a72924f4768b7b4652680b42dfd52bc380e15f9
+  checksum: 10c0/a5430aa479bde588e69cb9175518d72f9338b6999e3b2ae16fc03d3bdcff8347e486dc031e4ed14601260463c07e1f9a0d7511dfc653712b047c439c680b0b34
   languageName: node
   linkType: hard
 
@@ -1821,17 +1828,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bel-ord-utils@npm:^0.2.11":
-  version: 0.2.11
-  resolution: "bel-ord-utils@npm:0.2.11"
-  dependencies:
-    belcoinjs-lib: "npm:0.1.3"
-    bn.js: "npm:5.2.1"
-    bs58check: "npm:2.1.2"
-  checksum: 10c0/fa4e9182bd3c6f8c70da986da35e58fa9d5308cbe2b78ec883db76416e3b18efd4507a3ffd0a4af38da558bad08dee20bd9d37f7ee93a4dcbbf132f180c4a8e4
-  languageName: node
-  linkType: hard
-
 "belcoinjs-lib@npm:0.1.2":
   version: 0.1.2
   resolution: "belcoinjs-lib@npm:0.1.2"
@@ -1844,21 +1840,6 @@ __metadata:
     typeforce: "npm:1.18.0"
     varuint-bitcoin: "npm:1.1.2"
   checksum: 10c0/5f048b1c652da1710a9d147dd6132067f5efc267d6f9545e99fa1231f573f0becf4d831cfdcb326ab2ca737852c5bc92beff66c90e6670ac71164f2f50782621
-  languageName: node
-  linkType: hard
-
-"belcoinjs-lib@npm:0.1.3":
-  version: 0.1.3
-  resolution: "belcoinjs-lib@npm:0.1.3"
-  dependencies:
-    "@noble/hashes": "npm:1.3.3"
-    bech32: "npm:2.0.0"
-    bells-secp256k1: "npm:0.1.1"
-    bip174: "npm:2.1.1"
-    bs58check: "npm:3.0.1"
-    typeforce: "npm:1.18.0"
-    varuint-bitcoin: "npm:1.1.2"
-  checksum: 10c0/ce5fbe0525a3a3eff3fac381337fde5786b3737cc175e7ec6f0042bbbf4f453cc52633211049b377359ff44838a949fd8b386d340398c4df4a4be3946304ee07
   languageName: node
   linkType: hard
 
@@ -2014,27 +1995,27 @@ __metadata:
   linkType: hard
 
 "bun-types@npm:^1.1.21":
-  version: 1.1.33
-  resolution: "bun-types@npm:1.1.33"
+  version: 1.1.34
+  resolution: "bun-types@npm:1.1.34"
   dependencies:
     "@types/node": "npm:~20.12.8"
     "@types/ws": "npm:~8.5.10"
-  checksum: 10c0/a06597408a5dc2b1f542bfd25de10db488b52b903d46eb45079b9da59ff3b4d214b1ad0f52b67287d3b4e70585bf69a9f8dd9a6bcfdde9e60a0ed084b98b2e4d
+  checksum: 10c0/922552b70f1d43c9990cd440b732793bcd7a4e277a645885532a0e1b605c857aba23ba993df484e053a4699ef1949b5056d9ef7971c9ba409d3c67917216734f
   languageName: node
   linkType: hard
 
 "bun@npm:^1.1.33":
-  version: 1.1.33
-  resolution: "bun@npm:1.1.33"
+  version: 1.1.34
+  resolution: "bun@npm:1.1.34"
   dependencies:
-    "@oven/bun-darwin-aarch64": "npm:1.1.33"
-    "@oven/bun-darwin-x64": "npm:1.1.33"
-    "@oven/bun-darwin-x64-baseline": "npm:1.1.33"
-    "@oven/bun-linux-aarch64": "npm:1.1.33"
-    "@oven/bun-linux-x64": "npm:1.1.33"
-    "@oven/bun-linux-x64-baseline": "npm:1.1.33"
-    "@oven/bun-windows-x64": "npm:1.1.33"
-    "@oven/bun-windows-x64-baseline": "npm:1.1.33"
+    "@oven/bun-darwin-aarch64": "npm:1.1.34"
+    "@oven/bun-darwin-x64": "npm:1.1.34"
+    "@oven/bun-darwin-x64-baseline": "npm:1.1.34"
+    "@oven/bun-linux-aarch64": "npm:1.1.34"
+    "@oven/bun-linux-x64": "npm:1.1.34"
+    "@oven/bun-linux-x64-baseline": "npm:1.1.34"
+    "@oven/bun-windows-x64": "npm:1.1.34"
+    "@oven/bun-windows-x64-baseline": "npm:1.1.34"
   dependenciesMeta:
     "@oven/bun-darwin-aarch64":
       optional: true
@@ -2055,7 +2036,7 @@ __metadata:
   bin:
     bun: bin/bun.exe
     bunx: bin/bun.exe
-  checksum: 10c0/7fc4e18531f168d354ac8921bf983a30d25c09a615d61dbf18d7e055d5a58957a082f59b026169f6cdf3b84fe053c85e0cb66d28b71ca62bf3a162db3220e015
+  checksum: 10c0/d7a69a3e6a7545d7c76edaf86633f23f791641732fb0f5a6378f1503d267d03a3353afcc01e735acb6981b12acc83827d73bca701f8e3f62183bb00ad7e22e9d
   conditions: (os=darwin | os=linux | os=win32) & (cpu=arm64 | cpu=x64)
   languageName: node
   linkType: hard
@@ -2115,9 +2096,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001646, caniuse-lite@npm:^1.0.30001669":
-  version: 1.0.30001675
-  resolution: "caniuse-lite@npm:1.0.30001675"
-  checksum: 10c0/95196bb508a35fa4e2bd1cb2458450cc73a71ed6aea034cd7e8831d569d4f6a2a78d63de75b5a00af5ef4dbf3f1c26b5841d270cb71556fdcd34c3b84c1b164f
+  version: 1.0.30001676
+  resolution: "caniuse-lite@npm:1.0.30001676"
+  checksum: 10c0/53d310d76b5282947c99638a65d7534ac28a80aae1920de085a616ec8ad603358fad67cebacfc0452b1efdea12cce24fd37a50a712d074986b4962110e87d82b
   languageName: node
   linkType: hard
 
@@ -2602,9 +2583,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.41":
-  version: 1.5.49
-  resolution: "electron-to-chromium@npm:1.5.49"
-  checksum: 10c0/7b22141c7ebea2f49b87adcbe2b353919abbe44066c50e5e44dd47759c4ef07f0a802b9fc8ce2eaa832a293945b6d49064c859f0fef36d10c12fb46af2c1005d
+  version: 1.5.50
+  resolution: "electron-to-chromium@npm:1.5.50"
+  checksum: 10c0/8b77b18ae833bfe2173e346ac33b8d66b5b5acf0cf5de65df9799f4d482334c938aa0950e4d01391d5fab8994f46c0e9059f4517843e7b8d861f9b0c49eb4c5d
   languageName: node
   linkType: hard
 
@@ -3012,7 +2993,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-scope@npm:^8.1.0":
+"eslint-scope@npm:^8.2.0":
   version: 8.2.0
   resolution: "eslint-scope@npm:8.2.0"
   dependencies:
@@ -3029,7 +3010,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-visitor-keys@npm:^4.1.0, eslint-visitor-keys@npm:^4.2.0":
+"eslint-visitor-keys@npm:^4.2.0":
   version: 4.2.0
   resolution: "eslint-visitor-keys@npm:4.2.0"
   checksum: 10c0/2ed81c663b147ca6f578312919483eb040295bbab759e5a371953456c636c5b49a559883e2677112453728d66293c0a4c90ab11cab3428cf02a0236d2e738269
@@ -3037,19 +3018,19 @@ __metadata:
   linkType: hard
 
 "eslint@npm:^9.8.0":
-  version: 9.13.0
-  resolution: "eslint@npm:9.13.0"
+  version: 9.14.0
+  resolution: "eslint@npm:9.14.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.2.0"
-    "@eslint-community/regexpp": "npm:^4.11.0"
+    "@eslint-community/regexpp": "npm:^4.12.1"
     "@eslint/config-array": "npm:^0.18.0"
     "@eslint/core": "npm:^0.7.0"
     "@eslint/eslintrc": "npm:^3.1.0"
-    "@eslint/js": "npm:9.13.0"
+    "@eslint/js": "npm:9.14.0"
     "@eslint/plugin-kit": "npm:^0.2.0"
-    "@humanfs/node": "npm:^0.16.5"
+    "@humanfs/node": "npm:^0.16.6"
     "@humanwhocodes/module-importer": "npm:^1.0.1"
-    "@humanwhocodes/retry": "npm:^0.3.1"
+    "@humanwhocodes/retry": "npm:^0.4.0"
     "@types/estree": "npm:^1.0.6"
     "@types/json-schema": "npm:^7.0.15"
     ajv: "npm:^6.12.4"
@@ -3057,9 +3038,9 @@ __metadata:
     cross-spawn: "npm:^7.0.2"
     debug: "npm:^4.3.2"
     escape-string-regexp: "npm:^4.0.0"
-    eslint-scope: "npm:^8.1.0"
-    eslint-visitor-keys: "npm:^4.1.0"
-    espree: "npm:^10.2.0"
+    eslint-scope: "npm:^8.2.0"
+    eslint-visitor-keys: "npm:^4.2.0"
+    espree: "npm:^10.3.0"
     esquery: "npm:^1.5.0"
     esutils: "npm:^2.0.2"
     fast-deep-equal: "npm:^3.1.3"
@@ -3082,11 +3063,11 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 10c0/d3577444152182a9d8ea8c6a6acb073d3a2773ad73a6b646f432746583ec4bfcd6a44fcc2e37d05d276984e583c46c2d289b3b981ca8f8b4052756a152341d19
+  checksum: 10c0/e1cbf571b75519ad0b24c27e66a6575e57cab2671ef5296e7b345d9ac3adc1a549118dcc74a05b651a7a13a5e61ebb680be6a3e04a80e1f22eba1931921b5187
   languageName: node
   linkType: hard
 
-"espree@npm:^10.0.1, espree@npm:^10.2.0":
+"espree@npm:^10.0.1, espree@npm:^10.3.0":
   version: 10.3.0
   resolution: "espree@npm:10.3.0"
   dependencies:
@@ -4223,9 +4204,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"luckycoinhdw@github:impredmet/luckycoinhdw":
+"luckycoin-ord-utils@github:impredmet/luckycoin-ord-utils":
   version: 0.0.1
-  resolution: "luckycoinhdw@https://github.com/impredmet/luckycoinhdw.git#commit=0e68115eef1015a4f0b4b99ece55359995bc9700"
+  resolution: "luckycoin-ord-utils@https://github.com/impredmet/luckycoin-ord-utils.git#commit=1e58bd1cdb3b1e6fd4ccfc023699c71f5320905c"
+  dependencies:
+    bn.js: "npm:5.2.1"
+    bs58check: "npm:2.1.2"
+    luckycoinjs-lib: "github:impredmet/luckycoinjs-lib"
+  checksum: 10c0/2a97722240b02e7b30b984b59336f7b50fdfde6bc87f44e8c96fc6f996d7d37af2fb21cb9e7d2c25ca68dcb796d5929529e48a8b459f1c55db572fa6987d5872
+  languageName: node
+  linkType: hard
+
+"luckycoinhdw@github:impredmet/luckycoinhdw":
+  version: 0.0.2
+  resolution: "luckycoinhdw@https://github.com/impredmet/luckycoinhdw.git#commit=f61af01b43dec1666a56e3ecd7d3c04fecd8ad5d"
   dependencies:
     "@noble/hashes": "npm:1.3.3"
     bells-secp256k1: "npm:0.1.1"
@@ -4234,13 +4226,13 @@ __metadata:
     luckycoinjs-lib: "github:impredmet/luckycoinjs-lib"
     luckycoinpair: "github:impredmet/luckycoinpair"
     nintondo-bip39: "npm:1.0.0"
-  checksum: 10c0/4b4408b60a97be5ad1fdef6d1efbe70d149a660f2b35d68cdb1853a18b51c5dc3120de27da811440e9d73e2b7031fff01287f3294c21360440f9c44e6ce8f7fc
+  checksum: 10c0/addd9b22db26cccb297f2b4526032705f91b6437cf86ba38377433b578f0a0403180350c4b3e60378f2cca9470619a7374644d86b0d929e761dbbb18fcdd1240
   languageName: node
   linkType: hard
 
 "luckycoinjs-lib@github:impredmet/luckycoinjs-lib":
-  version: 0.0.1
-  resolution: "luckycoinjs-lib@https://github.com/impredmet/luckycoinjs-lib.git#commit=6f20920fcc58c8fb95daef25393f6b16eb825233"
+  version: 0.0.2
+  resolution: "luckycoinjs-lib@https://github.com/impredmet/luckycoinjs-lib.git#commit=8ab36047b31c2a84ce64d005fe8405c6144db20b"
   dependencies:
     "@noble/hashes": "npm:1.3.3"
     bech32: "npm:2.0.0"
@@ -4249,19 +4241,19 @@ __metadata:
     bs58check: "npm:3.0.1"
     typeforce: "npm:1.18.0"
     varuint-bitcoin: "npm:1.1.2"
-  checksum: 10c0/89d6f0dbd10989c21916b6bff190cabc1a378912cab77b7d0c79aa1b1963b8424f4b53ce817d4e5d6aa83182074065a86f187090a3973771c10b25e3b912b26a
+  checksum: 10c0/1fe22e6478db07239073a7148d133a0bf4e26a3b3cb888bc084664972e7f282733ce377d085cf8f6d61c31f0c82e2326c98286c1958964b1ad80b0723fc02026
   languageName: node
   linkType: hard
 
 "luckycoinpair@github:impredmet/luckycoinpair":
-  version: 0.0.1
-  resolution: "luckycoinpair@https://github.com/impredmet/luckycoinpair.git#commit=15e18b4d53a2724999ac245f7baafad86e5a5ba1"
+  version: 0.0.2
+  resolution: "luckycoinpair@https://github.com/impredmet/luckycoinpair.git#commit=1b7f8dd04f8901bff5f6babd4827f5061db22adb"
   dependencies:
     "@noble/hashes": "npm:1.3.3"
     luckycoinjs-lib: "github:impredmet/luckycoinjs-lib"
     typeforce: "npm:1.18.0"
     wif: "npm:4.0.0"
-  checksum: 10c0/e1d5634db8d07366f3aa6a785e536f40090d579d291f8ff42c01489e1f7920bdef34d885f70b065367a03f0a579c18028681eb01bb9fa9dbbde40a6728bf8793
+  checksum: 10c0/3ecebfb3691ee56dff68e2ed2f4256982f7e121e8cbd7af02e549d62c6b4b77a04a3036abfb83fc0c6c183a53c58931c1294c21870a5f9559f1c2eb4fd851f04
   languageName: node
   linkType: hard
 
@@ -4282,7 +4274,6 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^8.0.0"
     "@typescript-eslint/parser": "npm:^8.0.0"
     autoprefixer: "npm:^10.4.20"
-    bel-ord-utils: "npm:^0.2.11"
     bells-inscriber: "npm:^0.2.5"
     bun: "npm:^1.1.33"
     bun-types: "npm:^1.1.21"
@@ -4304,6 +4295,7 @@ __metadata:
     i18next: "npm:23.12.2"
     immer: "npm:^10.1.1"
     koa-compose: "npm:4.1.0"
+    luckycoin-ord-utils: "github:impredmet/luckycoin-ord-utils"
     luckycoinhdw: "github:impredmet/luckycoinhdw"
     luckycoinjs-lib: "github:impredmet/luckycoinjs-lib"
     luckycoinpair: "github:impredmet/luckycoinpair"
@@ -5481,8 +5473,8 @@ __metadata:
   linkType: hard
 
 "sass-loader@npm:^16.0.0":
-  version: 16.0.2
-  resolution: "sass-loader@npm:16.0.2"
+  version: 16.0.3
+  resolution: "sass-loader@npm:16.0.3"
   dependencies:
     neo-async: "npm:^2.6.2"
   peerDependencies:
@@ -5502,21 +5494,24 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/9c5165b44fc6229d8f36fb2af3ebb9d1e3a837bcc80040d3f3fc5793cd2998407e2ed55853c2b342cca2b5e17fa141160198ad034685a95b17126200c320ae11
+  checksum: 10c0/2dc188dd0d5276ed0251eee7f245848ccf9df6ec121227462403f322c17a3dbe100fb60d47968f078e585e4aced452eb7fa1a8e55b415d5de3151fa1bbf2d561
   languageName: node
   linkType: hard
 
 "sass@npm:^1.69.7, sass@npm:^1.71.1":
-  version: 1.80.5
-  resolution: "sass@npm:1.80.5"
+  version: 1.80.6
+  resolution: "sass@npm:1.80.6"
   dependencies:
     "@parcel/watcher": "npm:^2.4.1"
     chokidar: "npm:^4.0.0"
     immutable: "npm:^4.0.0"
     source-map-js: "npm:>=0.6.2 <2.0.0"
+  dependenciesMeta:
+    "@parcel/watcher":
+      optional: true
   bin:
     sass: sass.js
-  checksum: 10c0/d592e57c037315f4c5976af3d37ce4c7758b1b4e89d064455d6992829ea59888c71b9dbc86f7fc8dca87ac98ebc9cece10e5c8fc5509bf192db81712a34fd579
+  checksum: 10c0/04ce40d4dcf06cf2a94a66c1cc4fd4a9eb4033fd039291acd0be9d1d4123860da568c5cbef9de8493ffbedd8acae1cd0b8346f5da21c6f7cf0ffd3477730beca
   languageName: node
   linkType: hard
 
@@ -6022,9 +6017,9 @@ __metadata:
   linkType: hard
 
 "tslib@npm:^2.0.3, tslib@npm:^2.4.0":
-  version: 2.8.0
-  resolution: "tslib@npm:2.8.0"
-  checksum: 10c0/31e4d14dc1355e9b89e4d3c893a18abb7f90b6886b089c2da91224d0a7752c79f3ddc41bc1aa0a588ac895bd97bb99c5bc2bfdb2f86de849f31caeb3ba79bbe5
+  version: 2.8.1
+  resolution: "tslib@npm:2.8.1"
+  checksum: 10c0/9c4759110a19c53f992d9aae23aac5ced636e99887b51b9e61def52611732872ff7668757d4e4c61f19691e36f4da981cd9485e869b4a7408d689f6bf1f14e62
   languageName: node
   linkType: hard
 

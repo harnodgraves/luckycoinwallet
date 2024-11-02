@@ -1,6 +1,6 @@
 {
   "name": "luckycoinwallet",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "The only wallet you need to store, send and receive LuckyCoin!",
   "private": true,
   "scripts": {
@@ -43,7 +43,7 @@
     "i18next": "23.12.2",
     "immer": "^10.1.1",
     "koa-compose": "4.1.0",
-    "lky-ord-utils": "github:encloinc/lky-ord-utils",
+    "luckycoin-ord-utils": "github:impredmet/luckycoin-ord-utils",
     "luckycoinhdw": "github:impredmet/luckycoinhdw",
     "luckycoinjs-lib": "github:impredmet/luckycoinjs-lib",
     "luckycoinpair": "github:impredmet/luckycoinpair",
