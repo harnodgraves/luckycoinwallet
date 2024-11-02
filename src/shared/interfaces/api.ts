@@ -1,18 +1,20 @@
-export interface ApiUTXO {
+export type ApiUTXO = {
   txid: string;
   vout: number;
-  status: Status;
-  value: number;
-  hex?: string;
-}
-
+  address: string;
+  amount: string;
+  hex: string;
+  block: number;
+  block_hash: string;
+};
+/*
 export interface Status {
   confirmed: boolean;
   block_height: number;
   block_hash: string;
   block_time: number;
 }
-
+*/
 export interface AccountBalanceResponse {
   address: string;
   chain_stats: ChainStats;

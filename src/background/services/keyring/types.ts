@@ -20,7 +20,7 @@ interface SendBase {
   network: Network;
 }
 
-export interface SendBEL extends SendBase {
+export interface SendLKY extends SendBase {
   utxos: ApiUTXO[];
 }
 

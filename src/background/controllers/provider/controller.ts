@@ -155,7 +155,7 @@ class ProviderController implements IProviderController {
 
     if (!utxos?.length) throw new Error("Not enough utxos");
 
-    const tx = await keyringService.sendBEL({
+    const tx = await keyringService.sendLKY({
       ...payload,
       utxos,
       network,

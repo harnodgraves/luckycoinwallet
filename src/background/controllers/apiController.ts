@@ -1,4 +1,6 @@
-import { EXPLORER_URL } from "@/shared/constant";
+
+import { EXPLORER_URL, RPC_URL } from "@/shared/constant";
+
 import type {
   ApiUTXO,
   IAccountStats,
@@ -70,34 +72,33 @@ class ApiController implements IApiController {
   };
 
   async getUtxos(address: string, params?: UtxoQueryParams) {
-    const data = await this.fetch<ApiUTXO[]>({
-      path: `/address/${address}/utxo`,
-      params: params as Record<string, string>,
-      service: "content",
-    });
+    const res = await fetch(
+      `${RPC_URL}/utxos/fetch_by_address/${address}/${params?.amount}`
+    );
+
+    const data = await res.json();
+
     if (Array.isArray(data)) {
       return data;
     }
   }
 
   async pushTx(rawTx: string) {
-    const data = await this.fetch<string>({
-      path: "/tx",
+    const res = await fetch(`${RPC_URL}/transaction/broadcast`, {
       method: "POST",
       headers: {
-        "content-type": "text/plain",
+        "content-type": "application/json",
       },
-      json: false,
-      body: rawTx,
-      service: "content",
+      body: JSON.stringify({ signedtxhex: rawTx }),
     });
-    if (isValidTXID(data) && data) {
-      return {
-        txid: data,
-      };
+
+    const data = await res.json();
+
+    if (isValidTXID(data.txid) && data.txid) {
+      return data;
     } else {
       return {
-        error: data,
+        error: data.error?.message ?? "unknown error",
       };
     }
   }

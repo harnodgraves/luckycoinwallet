@@ -105,7 +105,7 @@ const buildOptions: BuildOptions = {
     "import.meta.url": '""',
     "process.browser": "false",
   },
-  target: ["chrome58", "firefox57"],
+  target: ["chrome80", "firefox72"],
   treeShaking: true,
   platform: "browser",
   sourcemap: Bun.argv.includes("--sourcemap") || Bun.argv.includes("-s"),
@@ -143,6 +143,7 @@ const buildOptions: BuildOptions = {
       modules: {
         buffer: true,
         process: true,
+        stream: true,
       },
     }),
     mergeManifests(),

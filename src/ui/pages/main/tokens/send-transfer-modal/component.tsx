@@ -26,7 +26,7 @@ interface FormType {
 const DEFAULT_FORM = {
   address: "",
   txIds: [],
-  feeRate: 10,
+  feeRate: 10000,
 };
 
 const SendTransferModal: FC<Props> = ({
