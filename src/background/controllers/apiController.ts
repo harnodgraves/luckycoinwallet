@@ -1,5 +1,4 @@
-
-import { EXPLORER_URL, RPC_URL } from "@/shared/constant";
+import { API_URL, RPC_URL } from "@/shared/constant";
 
 import type {
   ApiUTXO,
@@ -106,7 +105,7 @@ class ApiController implements IApiController {
   async getTransactions(address: string): Promise<ITransaction[] | undefined> {
     try {
       const res = await fetch(
-        `${EXPLORER_URL}/ext/getaddresstxs/${address}/0/20` // 20 latest transactions
+        `${API_URL}/ext/getaddresstxs/${address}/0/20` // 20 latest transactions
       );
 
       if (!res.ok) return undefined;
@@ -120,7 +119,7 @@ class ApiController implements IApiController {
       }[];
 
       const transactionPromises = transactions.map(async (tx) => {
-        const txRes = await fetch(`${EXPLORER_URL}/ext/gettx/${tx.txid}`);
+        const txRes = await fetch(`${API_URL}/ext/gettx/${tx.txid}`);
 
         if (!txRes.ok) return undefined;
 
@@ -153,7 +152,7 @@ class ApiController implements IApiController {
   }
 
   async getLastBlockLKY() {
-    const res = await fetch(`${EXPLORER_URL}/api/getblockcount`);
+    const res = await fetch(`${API_URL}/api/getblockcount`);
 
     if (!res.ok) {
       return undefined;
@@ -186,7 +185,7 @@ class ApiController implements IApiController {
 
   async getAccountStats(address: string): Promise<IAccountStats | undefined> {
     try {
-      const res = await fetch(`${EXPLORER_URL}/ext/getaddress/${address}`);
+      const res = await fetch(`${API_URL}/ext/getaddress/${address}`);
 
       if (!res.ok) throw new Error("Failed to fetch account stats");
 

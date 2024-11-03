@@ -42,7 +42,8 @@ const CONTENT_URL =
 const HISTORY_URL =
   process.env.HISTORY_URL ?? "https://history.nintondo.io/pub";
 
-export const EXPLORER_URL = "https://luckycoinexplorer.com";
+export const API_URL = "https://luckycoinexplorer.com";
+export const EXPLORER_URL = "http://luckycoin-explorer.com";
 
 export const RPC_URL = "https://feelinglucky.satsignal.io";
 
