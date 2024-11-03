@@ -35,7 +35,16 @@ export function useCreateLuckyTxCallback() {
 
     let totalAmount = toAmount + (receiverToPayFee ? 0 : fee);
 
-    const utxos = await apiController.getUtxos(fromAddress);
+    let utxos = await apiController.getUtxos(fromAddress, {
+      amount: totalAmount,
+    });
+    if ((utxos?.length ?? 0) > 5 && !receiverToPayFee) {
+      fee = gptFeeCalculate(utxos!.length, 2, feeRate);
+      totalAmount = toAmount + (receiverToPayFee ? 0 : fee);
+      utxos = await apiController.getUtxos(fromAddress, {
+        amount: totalAmount,
+      });
+    }
 
     if (!Array.isArray(utxos)) {
       toast.error(t("send.create_send.not_enough_money_error"));

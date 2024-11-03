@@ -1,6 +1,6 @@
 {
   "name": "luckycoinwallet",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "The only wallet you need to store, send and receive LuckyCoin!",
   "private": true,
   "scripts": {
