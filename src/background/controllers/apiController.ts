@@ -71,9 +71,19 @@ class ApiController implements IApiController {
   };
 
   async getUtxos(address: string, params?: UtxoQueryParams) {
-    const res = await fetch(
-      `${RPC_URL}/utxos/fetch_by_address/${address}/${params?.amount}`
-    );
+    if (params?.amount) {
+      const res = await fetch(
+        `${RPC_URL}/utxos/fetch_by_address/${address}/${params.amount}`
+      );
+
+      const data = await res.json();
+
+      if (Array.isArray(data)) {
+        return data;
+      }
+    }
+
+    const res = await fetch(`${RPC_URL}/utxos/all_by_address/${address}`);
 
     const data = await res.json();
 
