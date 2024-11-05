@@ -64,4 +64,4 @@ yarn install
 
 ---
 
-Whether you’re a user or a developer, LuckyCoin Wallet has everything you need to get started with managing your LuckyCoins. Welcome to the future of LuckyCoin!
+Special thanks to [NintondoWallet](https://github.com/nintondo/extension) ❤️
