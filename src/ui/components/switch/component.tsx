@@ -35,7 +35,7 @@ const SwitchComponent: FC<Props> = ({
             onChange(v);
           }}
           className={cn(
-            { "bg-orange-600": value, "bg-gray-500": !value },
+            { "bg-green-600": value, "bg-gray-500": !value },
             s.switch
           )}
         >

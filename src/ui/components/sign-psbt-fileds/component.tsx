@@ -23,7 +23,7 @@ const SignPsbtFileds: FC<SignPsbtFiledsProps> = ({
             <span>
               {f.label}{" "}
               {f.important && f.input ? (
-                <span className="text-light-orange border-2 rounded-lg border-light-orange p-1 ml-2">
+                <span className="text-light-green border-2 rounded-lg border-light-green p-1 ml-2">
                   To sign
                 </span>
               ) : undefined}
@@ -31,7 +31,7 @@ const SignPsbtFileds: FC<SignPsbtFiledsProps> = ({
             {f.value.anyonecanpay && f.important && (
               <span>
                 <ExclamationTriangleIcon
-                  className="w-6 h-6 text-light-orange cursor-pointer"
+                  className="w-6 h-6 text-light-green cursor-pointer"
                   onClick={() => {
                     setModalInputIndexHandler(i);
                   }}

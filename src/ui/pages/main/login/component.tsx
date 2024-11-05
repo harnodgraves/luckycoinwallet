@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import s from "./styles.module.scss";
-
+import Dice from "@/ui/components/dice";
 interface FormType {
   password: string;
 }
@@ -60,7 +60,7 @@ const Login = () => {
     >
       <div className="flex flex-col gap-7 items-center w-full">
         <div className="flex justify-center p-2 rounded-xl">
-          <img src="/logo-128.png" width={70} height={70} />
+          <Dice />
         </div>
         <div className="text-lg text-center font-[Roboto] uppercase tracking-widest">
           {t("login.welcome_back")}

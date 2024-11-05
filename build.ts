@@ -131,7 +131,7 @@ const buildOptions: BuildOptions = {
     }),
     copy({
       assets: {
-        from: ["./configs/_raw/**/*"],
+        from: ["./src/assets/**/*"],
         to: ["."],
       },
     }),

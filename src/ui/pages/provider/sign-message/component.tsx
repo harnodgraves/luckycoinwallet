@@ -28,11 +28,11 @@ const SignMessage = () => {
   return (
     <Layout
       documentTitle={t("provider.sign_request")}
-      resolveBtnClassName="bg-text text-bg hover:bg-orange-500 hover:text-bg"
+      resolveBtnClassName="bg-text text-bg hover:bg-green-500 hover:text-bg"
       resolveBtnText={t("provider.sign")}
     >
       <>
-        <KeyIcon className="w-10 h-10 text-orange-500" />
+        <KeyIcon className="w-10 h-10 text-green-500" />
         <h4 className="text-xl font-medium">{t("provider.sign_request")}</h4>
         <div className="text-sm text-gray-400">
           {t("provider.you_are_signing")}
