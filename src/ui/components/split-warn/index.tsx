@@ -22,7 +22,7 @@ export default function SplitWarn({ extraWidth = false, message }: Props) {
 
   return (
     <div
-      className="text-black bg-orange-400 py-1 flex items-center gap-2 w-full px-3 cursor-pointer hover:underline"
+      className="text-black bg-green-400 py-1 flex items-center gap-2 w-full px-3 cursor-pointer hover:underline"
       style={
         extraWidth
           ? {

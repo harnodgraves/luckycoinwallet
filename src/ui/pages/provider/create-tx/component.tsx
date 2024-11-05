@@ -50,7 +50,7 @@ const CreateTx = () => {
       resolveBtnText={t("components.layout.send")}
     >
       <>
-        <KeyIcon className="w-10 h-10 text-orange-500" />
+        <KeyIcon className="w-10 h-10 text-green-500" />
         <h4 className="text-xl font-medium mb-6">{t("provider.send_lky")}</h4>
         <div className="flex flex-col gap-4 w-full">
           {fields.map((i) => (

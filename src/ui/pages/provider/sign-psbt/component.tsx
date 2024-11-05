@@ -46,12 +46,12 @@ const SignPsbt = () => {
   return (
     <Layout
       documentTitle={t("provider.sign_tx")}
-      resolveBtnClassName="bg-text text-bg hover:bg-orange-500 hover:text-bg"
+      resolveBtnClassName="bg-text text-bg hover:bg-green-500 hover:text-bg"
       resolveBtnText={t("provider.sign")}
     >
       <div className="flex flex-col overflow-y-scroll max-h-[420px] standard:max-h-full standard:overflow-hidden items-center gap-3 p-3 text-sm">
         <div className="flex items-center justify-center gap-4 mb-3">
-          <KeyIcon className="w-8 h-8 text-orange-500" />
+          <KeyIcon className="w-8 h-8 text-green-500" />
           <h4 className="text-xl font-medium">{t("provider.sign_tx")}</h4>
         </div>
         <SignPsbtFileds
@@ -63,7 +63,7 @@ const SignPsbt = () => {
             {t("provider.fee") + ":"}
           </label>
           <div className="rounded-xl px-5 py-2 break-all w-full flex gap-1 bg-input-bg">
-            <p className="text-light-orange">{fee}</p>
+            <p className="text-light-green">{fee}</p>
           </div>
         </div>
       </div>

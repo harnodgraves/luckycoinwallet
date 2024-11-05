@@ -5,7 +5,7 @@ import {
   ComboboxOptions,
   Transition,
 } from "@headlessui/react";
-import { FC, Fragment, useEffect, useState } from "react";
+import { FC, Fragment, useEffect, useState, useMemo } from "react";
 import englishWords from "nintondo-bip39/src/wordlists/english.json";
 import cn from "classnames";
 
@@ -56,6 +56,10 @@ const SelectWithHint: FC<Props> = ({ selected, setSelected }) => {
     }
   }, [selected, setQuery]);
 
+  const isWordValid = useMemo(() => {
+    return englishWords.includes(query.trim());
+  }, [query]);
+
   return (
     <Combobox value={selected} onChange={setSelected} nullable={true}>
       <div className="relative w-full">
@@ -63,7 +67,8 @@ const SelectWithHint: FC<Props> = ({ selected, setSelected }) => {
           <ComboboxInput
             autoComplete="off"
             className={cn(s.input, {
-              [s.error]: unblured && selected !== query,
+              [s.accept]: unblured && isWordValid,
+              [s.error]: unblured && !isWordValid && query.length > 0,
             })}
             displayValue={(word: string) => word}
             onChange={onChange}

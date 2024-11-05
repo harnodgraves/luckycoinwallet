@@ -135,6 +135,12 @@ const buildOptions: BuildOptions = {
         to: ["."],
       },
     }),
+    copy({
+      assets: {
+        from: ["./src/assets/**/*"],
+        to: ["."],
+      },
+    }),
     nodeModulesPolyfillPlugin({
       globals: {
         Buffer: true,

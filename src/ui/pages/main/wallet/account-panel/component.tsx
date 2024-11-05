@@ -43,7 +43,7 @@ const AccountPanel = () => {
                 </span>
               </div>
             )}
-            <span className="text-xl pb-0.5 text-slate-300">LKY</span>
+            <span className="text-xl pb-0.5">LKY</span>
           </div>
         </div>
 

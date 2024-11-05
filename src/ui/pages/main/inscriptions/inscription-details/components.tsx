@@ -194,7 +194,7 @@ const InscriptionDetails = () => {
                     }/${inscription.inscription_id}`
                   );
                 }}
-                className="text-orange-400 cursor-pointer text-sm font-medium"
+                className="text-green-400 cursor-pointer text-sm font-medium"
               >
                 link
               </div>

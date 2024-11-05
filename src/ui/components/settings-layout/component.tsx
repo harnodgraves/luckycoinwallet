@@ -25,6 +25,7 @@ const SettingsLayout: FC<SettingsLayoutProps> = ({ children }) => {
         >
           LuckyCoin Community
         </a>
+        <div>Special thanks to NintondoWallet ❤️</div>
       </div>
     </div>
   );
