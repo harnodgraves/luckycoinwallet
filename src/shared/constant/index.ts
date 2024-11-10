@@ -37,9 +37,8 @@ export const EVENTS = {
 };
 
 export const LUCKYCOIN_URL = "https://luckycoinfoundation.org";
-export const API_URL = "https://luckycoinexplorer.com";
-export const EXPLORER_URL = "http://luckycoin-explorer.com";
-export const RPC_URL = "https://feelinglucky.satsignal.io";
+export const API_URL = "https://luckyscan.org/api";
+export const EXPLORER_URL = "https://luckyscan.org";
 
 const CONTENT_URL =
   process.env.CONTENT_URL ?? "https://content.nintondo.io/api/pub";
