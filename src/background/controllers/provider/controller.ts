@@ -1,5 +1,4 @@
 import permission from "@/background/services/permission";
-import { gptFeeCalculate } from "@/ui/utils";
 import { ethErrors } from "eth-rpc-errors";
 import { networks, Psbt } from "luckycoinjs-lib";
 import { INintondoProvider } from "nintondo-sdk";
@@ -131,25 +130,14 @@ class ProviderController implements IProviderController {
     const network = networks.luckycoin;
 
     let utxos = await apiController.getUtxos(
-      storageService.currentAccount.address,
-      {
-        amount:
-          payload.amount +
-          (payload.receiverToPayFee
-            ? 0
-            : gptFeeCalculate(2, 2, payload.feeRate)),
-      }
+      storageService.currentAccount.address
     );
 
     if ((utxos?.length ?? 0) > 500) throw new Error("Consolidate utxos");
 
     if ((utxos?.length ?? 0) > 5 && !payload.receiverToPayFee) {
       utxos = await apiController.getUtxos(
-        storageService.currentAccount.address,
-        {
-          amount:
-            payload.amount + gptFeeCalculate(utxos!.length, 2, payload.feeRate),
-        }
+        storageService.currentAccount.address
       );
     }
 

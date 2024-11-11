@@ -20,10 +20,7 @@ export interface UtxoQueryParams {
 }
 
 export interface IApiController {
-  getUtxos(
-    address: string,
-    params?: UtxoQueryParams
-  ): Promise<ApiUTXO[] | undefined>;
+  getUtxos(address: string): Promise<ApiUTXO[] | undefined>;
   pushTx(rawTx: string): Promise<{ txid?: string; error?: string }>;
   getTransactions(address: string): Promise<ITransaction[] | undefined>;
   getPaginatedTransactions(
@@ -70,14 +67,12 @@ class ApiController implements IApiController {
     }
   };
 
-  async getUtxos(address: string) {
+  async getUtxos(address: string): Promise<ApiUTXO[] | undefined> {
     const res = await fetch(`${API_URL}/address/${address}/utxo`);
 
-    const data = await res.json();
+    if (!res.ok) return undefined;
 
-    if (Array.isArray(data)) {
-      return data;
-    }
+    return (await res.json()) as ApiUTXO[] | undefined;
   }
 
   async pushTx(txHex: string) {

@@ -35,15 +35,11 @@ export function useCreateLuckyTxCallback() {
 
     let totalAmount = toAmount + (receiverToPayFee ? 0 : fee);
 
-    let utxos = await apiController.getUtxos(fromAddress, {
-      amount: totalAmount,
-    });
+    let utxos = await apiController.getUtxos(fromAddress);
     if ((utxos?.length ?? 0) > 5 && !receiverToPayFee) {
       fee = gptFeeCalculate(utxos!.length, 2, feeRate);
       totalAmount = toAmount + (receiverToPayFee ? 0 : fee);
-      utxos = await apiController.getUtxos(fromAddress, {
-        amount: totalAmount,
-      });
+      utxos = await apiController.getUtxos(fromAddress);
     }
 
     if (!Array.isArray(utxos)) {
@@ -55,7 +51,7 @@ export function useCreateLuckyTxCallback() {
       throw new Error(t("hooks.transaction.too_many_utxos"));
     }
 
-    const safeBalance = utxos.reduce((pre, cur) => pre + Number(cur.amount), 0);
+    const safeBalance = utxos.reduce((pre, cur) => pre + Number(cur.value), 0);
 
     if (receiverToPayFee && fee > toAmount) {
       toast.error(t("send.create_send.fee_exceeds_amount_error"));
@@ -112,9 +108,7 @@ export function useCreateLuckyTxCallback() {
 
 //     const fee = gptFeeCalculate(3, 2, feeRate);
 
-//     const utxos = await apiController.getUtxos(fromAddress, {
-//       amount: fee,
-//     });
+//     const utxos = await apiController.getUtxos(fromAddress);
 //     if (!utxos) {
 //       throw new Error(
 //         `${t("hooks.transaction.insufficient_balance_0")} (${satoshisToAmount(
@@ -151,10 +145,7 @@ export function useCreateLuckyTxCallback() {
 //   return async (toAddress: string, txIds: ITransfer[], feeRate: number) => {
 //     if (!currentAccount || !currentAccount.address) return;
 //     const fee = gptFeeCalculate(txIds.length + 1, txIds.length + 1, feeRate);
-//     const utxos = await apiController.getUtxos(currentAccount.address, {
-//       amount: fee,
-//       hex: true,
-//     });
+//     const utxos = await apiController.getUtxos(currentAccount.address);
 //     if (!utxos) {
 //       throw new Error(
 //         `${t("hooks.transaction.insufficient_balance_0")} (${satoshisToAmount(
