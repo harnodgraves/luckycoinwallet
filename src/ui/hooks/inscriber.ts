@@ -18,7 +18,7 @@ export const useInscribeTransferToken = () => {
     return ((await apiController.getUtxos(currentAccount!.address!)) ?? []).map(
       (f) => ({
         ...f,
-        hex: f.txid,
+        hex: f.hex,
         value: f.value,
       })
     );

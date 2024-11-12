@@ -12,6 +12,7 @@ import {
 } from "@/shared/interfaces/inscriptions";
 import { IToken } from "@/shared/interfaces/token";
 import { customFetch, fetchProps } from "@/shared/utils";
+import { assembleTransactionHex } from "@/shared/utils/transactions";
 import { isValidTXID } from "@/ui/utils";
 
 export interface UtxoQueryParams {
@@ -72,21 +73,65 @@ class ApiController implements IApiController {
 
     if (!res.ok) return undefined;
 
-    return (await res.json()) as ApiUTXO[] | undefined;
+    const utxos = await res.json();
+    if (!utxos || !Array.isArray(utxos)) return undefined;
+
+    const utxosWithHex: ApiUTXO[] = await Promise.all(
+      utxos.map(async (utxo) => {
+        const txRes = await fetch(`https://luckyscan.org/api/tx/${utxo.txid}`);
+
+        if (!txRes.ok) {
+          console.error(
+            `Failed to fetch transaction details for txid: ${utxo.txid}`
+          );
+          return {
+            ...utxo,
+            hex: "",
+          };
+        }
+
+        const txData = await txRes.json();
+
+        const hex = assembleTransactionHex({
+          version: txData.version,
+          locktime: txData.locktime,
+          vin: txData.vin.map((input: any) => ({
+            txid: input.txid,
+            vout: input.vout,
+            sequence: input.sequence,
+            scriptsig: input.scriptsig,
+          })),
+          vout: txData.vout.map((output: any) => ({
+            scriptpubkey: output.scriptpubkey,
+            value: output.value,
+          })),
+        });
+
+        return {
+          txid: utxo.txid,
+          vout: utxo.vout,
+          status: utxo.status,
+          value: utxo.value,
+          hex,
+        };
+      })
+    );
+
+    return utxosWithHex;
   }
 
   async pushTx(txHex: string) {
     const res = await fetch(`${API_URL}/tx`, {
       method: "POST",
       headers: {
-        "content-type": "application/json",
+        "content-type": "text/plain",
       },
-      body: JSON.stringify({ txHex }),
+      body: txHex,
     });
 
     const data = await res.json();
 
-    if (isValidTXID(data.txid) && data.txid) {
+    if (data && isValidTXID(data.txid)) {
       return data;
     } else {
       return {

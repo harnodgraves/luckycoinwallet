@@ -207,7 +207,7 @@ class KeyringService {
         return {
           txId: v.txid,
           outputIndex: v.vout,
-          satoshis: Number(v.amount),
+          satoshis: Number(v.value),
           scriptPk: scriptPk.toString("hex"),
           addressType: wallet?.addressType,
           address: account.address!,

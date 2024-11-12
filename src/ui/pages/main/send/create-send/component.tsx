@@ -99,6 +99,8 @@ const CreateSend = () => {
           includeFeeInAmount
         );
       } catch (e) {
+        console.error(e);
+
         if (e instanceof Error) toast.error(e.message);
       }
 

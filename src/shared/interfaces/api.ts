@@ -8,6 +8,7 @@ export type ApiUTXO = {
     block_time: number;
   };
   value: number;
+  hex: string;
 };
 
 export interface AccountBalanceResponse {
