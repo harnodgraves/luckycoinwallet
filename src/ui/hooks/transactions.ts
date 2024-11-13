@@ -35,11 +35,11 @@ export function useCreateLuckyTxCallback() {
 
     let totalAmount = toAmount + (receiverToPayFee ? 0 : fee);
 
-    let utxos = await apiController.getUtxos(fromAddress);
+    let utxos = await apiController.getUtxos(fromAddress, totalAmount);
     if ((utxos?.length ?? 0) > 5 && !receiverToPayFee) {
       fee = gptFeeCalculate(utxos!.length, 2, feeRate);
       totalAmount = toAmount + (receiverToPayFee ? 0 : fee);
-      utxos = await apiController.getUtxos(fromAddress);
+      utxos = await apiController.getUtxos(fromAddress, totalAmount);
     }
 
     if (!Array.isArray(utxos)) {
@@ -108,7 +108,7 @@ export function useCreateLuckyTxCallback() {
 
 //     const fee = gptFeeCalculate(3, 2, feeRate);
 
-//     const utxos = await apiController.getUtxos(fromAddress);
+//     const utxos = await apiController.getUtxos(fromAddress, fee);
 //     if (!utxos) {
 //       throw new Error(
 //         `${t("hooks.transaction.insufficient_balance_0")} (${satoshisToAmount(
@@ -145,7 +145,7 @@ export function useCreateLuckyTxCallback() {
 //   return async (toAddress: string, txIds: ITransfer[], feeRate: number) => {
 //     if (!currentAccount || !currentAccount.address) return;
 //     const fee = gptFeeCalculate(txIds.length + 1, txIds.length + 1, feeRate);
-//     const utxos = await apiController.getUtxos(currentAccount.address);
+//     const utxos = await apiController.getUtxos(currentAccount.address, fee);
 //     if (!utxos) {
 //       throw new Error(
 //         `${t("hooks.transaction.insufficient_balance_0")} (${satoshisToAmount(

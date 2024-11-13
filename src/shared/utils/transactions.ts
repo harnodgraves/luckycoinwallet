@@ -1,41 +1,6 @@
 import type { ITransaction } from "@/shared/interfaces/api";
 import { AddressType } from "luckycoinhdw/src/hd/types";
-import { payments, Transaction } from "luckycoinjs-lib";
-
-export function assembleTransactionHex(txData: {
-  version: number;
-  locktime: number;
-  vin: {
-    txid: string;
-    vout: number;
-    sequence: number;
-    scriptsig: string;
-  }[];
-  vout: {
-    scriptpubkey: string;
-    value: number;
-  }[];
-}): string {
-  const tx = new Transaction();
-
-  tx.version = txData.version;
-  tx.locktime = txData.locktime;
-
-  txData.vin.forEach((input: any) => {
-    tx.addInput(
-      Buffer.from(input.txid, "hex").reverse(),
-      input.vout,
-      input.sequence,
-      Buffer.from(input.scriptsig, "hex")
-    );
-  });
-
-  txData.vout.forEach((output: any) => {
-    tx.addOutput(Buffer.from(output.scriptpubkey, "hex"), output.value);
-  });
-
-  return tx.toHex();
-}
+import { payments } from "luckycoinjs-lib";
 
 export const getTransactionValue = (
   transaction: ITransaction,

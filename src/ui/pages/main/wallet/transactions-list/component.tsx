@@ -110,7 +110,7 @@ const TransactionList = () => {
                           )
                         ) : (
                           <span className="text-base font-medium leading-3">
-                            Unconfirmed
+                            ⌛
                           </span>
                         )}
                       </div>

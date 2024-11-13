@@ -12,7 +12,6 @@ import {
 } from "@/shared/interfaces/inscriptions";
 import { IToken } from "@/shared/interfaces/token";
 import { customFetch, fetchProps } from "@/shared/utils";
-import { assembleTransactionHex } from "@/shared/utils/transactions";
 import { isValidTXID } from "@/ui/utils";
 
 export interface UtxoQueryParams {
@@ -21,8 +20,8 @@ export interface UtxoQueryParams {
 }
 
 export interface IApiController {
-  getUtxos(address: string): Promise<ApiUTXO[] | undefined>;
-  pushTx(rawTx: string): Promise<{ txid?: string; error?: string }>;
+  getUtxos(address: string, amount?: number): Promise<ApiUTXO[] | undefined>;
+  pushTx(rawTx: string): Promise<string>;
   getTransactions(address: string): Promise<ITransaction[] | undefined>;
   getPaginatedTransactions(
     address: string,
@@ -68,8 +67,17 @@ class ApiController implements IApiController {
     }
   };
 
-  async getUtxos(address: string): Promise<ApiUTXO[] | undefined> {
-    const res = await fetch(`${API_URL}/address/${address}/utxo`);
+  async getUtxos(
+    address: string,
+    amount?: number
+  ): Promise<ApiUTXO[] | undefined> {
+    let res;
+
+    if (amount) {
+      res = await fetch(`${API_URL}/address/${address}/fetch-utxos/${amount}`);
+    } else {
+      res = await fetch(`${API_URL}/address/${address}/utxo`);
+    }
 
     if (!res.ok) return undefined;
 
@@ -78,41 +86,12 @@ class ApiController implements IApiController {
 
     const utxosWithHex: ApiUTXO[] = await Promise.all(
       utxos.map(async (utxo) => {
-        const txRes = await fetch(`https://luckyscan.org/api/tx/${utxo.txid}`);
-
-        if (!txRes.ok) {
-          console.error(
-            `Failed to fetch transaction details for txid: ${utxo.txid}`
-          );
-          return {
-            ...utxo,
-            hex: "",
-          };
-        }
-
-        const txData = await txRes.json();
-
-        const hex = assembleTransactionHex({
-          version: txData.version,
-          locktime: txData.locktime,
-          vin: txData.vin.map((input: any) => ({
-            txid: input.txid,
-            vout: input.vout,
-            sequence: input.sequence,
-            scriptsig: input.scriptsig,
-          })),
-          vout: txData.vout.map((output: any) => ({
-            scriptpubkey: output.scriptpubkey,
-            value: output.value,
-          })),
-        });
-
         return {
           txid: utxo.txid,
           vout: utxo.vout,
           status: utxo.status,
           value: utxo.value,
-          hex,
+          hex: utxo.raw,
         };
       })
     );
@@ -129,14 +108,18 @@ class ApiController implements IApiController {
       body: txHex,
     });
 
-    const data = await res.json();
+    if (!res.ok) {
+      console.error("Failed to push transaction:", res);
+      return "";
+    }
 
-    if (data && isValidTXID(data.txid)) {
+    const data = await res.text();
+
+    if (data && isValidTXID(data)) {
       return data;
     } else {
-      return {
-        error: data.error?.message ?? "unknown error",
-      };
+      console.error("Failed to push transaction:", data);
+      return "";
     }
   }
 
@@ -217,7 +200,9 @@ class ApiController implements IApiController {
       return {
         amount: 0, // TODO: implement
         count: 0, // TODO: implement
-        balance: data.chain_stats.funded_txo_sum / 10 ** 8,
+        balance:
+          (data.chain_stats.funded_txo_sum - data.chain_stats.spent_txo_sum) /
+          1e8,
       };
     } catch {
       return { amount: 0, count: 0, balance: 0 };
