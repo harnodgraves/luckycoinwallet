@@ -30,7 +30,7 @@ const useTransactionManager = (): TransactionManagerContextType | undefined => {
   const updateTransactions = useUpdateFunction(
     setTransactions,
     apiController.getTransactions,
-    "tx"
+    "txid"
   );
 
   const updateLastBlock = useCallback(async () => {
@@ -43,7 +43,7 @@ const useTransactionManager = (): TransactionManagerContextType | undefined => {
     if (transactions.length < 50) return;
     const additionalTransactions = await apiController.getPaginatedTransactions(
       currentAccount.address,
-      transactions[transactions.length - 1]?.tx.txid
+      transactions[transactions.length - 1]?.txid
     );
     if (!additionalTransactions) return;
     if (additionalTransactions.length > 0) {

@@ -16,14 +16,11 @@ export const useInscribeTransferToken = () => {
 
   const getUtxos = async (amount: number): Promise<ApiUTXO[]> => {
     return (
-      (await apiController.getUtxos(currentAccount!.address!, {
-        amount,
-        hex: true,
-      })) ?? []
+      (await apiController.getUtxos(currentAccount!.address!, amount)) ?? []
     ).map((f) => ({
       ...f,
       hex: f.hex!,
-      value: parseFloat(f.amount),
+      value: f.value,
     }));
   };
 
@@ -48,7 +45,7 @@ export const useInscribeTransferToken = () => {
     const txIds: string[] = [];
 
     for (const i of txs) {
-      txIds.push((await apiController.pushTx(i))?.txid ?? "");
+      txIds.push(await apiController.pushTx(i));
     }
 
     if (txIds.every(isValidTXID))

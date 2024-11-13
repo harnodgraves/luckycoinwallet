@@ -1,4 +1,4 @@
-import { API_URL, RPC_URL } from "@/shared/constant";
+import { API_URL } from "@/shared/constant";
 
 import type {
   ApiUTXO,
@@ -20,11 +20,8 @@ export interface UtxoQueryParams {
 }
 
 export interface IApiController {
-  getUtxos(
-    address: string,
-    params?: UtxoQueryParams
-  ): Promise<ApiUTXO[] | undefined>;
-  pushTx(rawTx: string): Promise<{ txid?: string; error?: string }>;
+  getUtxos(address: string, amount?: number): Promise<ApiUTXO[] | undefined>;
+  pushTx(rawTx: string): Promise<string>;
   getTransactions(address: string): Promise<ITransaction[] | undefined>;
   getPaginatedTransactions(
     address: string,
@@ -70,77 +67,69 @@ class ApiController implements IApiController {
     }
   };
 
-  async getUtxos(address: string, params?: UtxoQueryParams) {
-    if (params?.amount) {
-      const res = await fetch(
-        `${RPC_URL}/utxos/fetch_by_address/${address}/${params.amount}`
-      );
+  async getUtxos(
+    address: string,
+    amount?: number
+  ): Promise<ApiUTXO[] | undefined> {
+    let res;
 
-      const data = await res.json();
-
-      if (Array.isArray(data)) {
-        return data;
-      }
+    if (amount) {
+      res = await fetch(`${API_URL}/address/${address}/fetch-utxos/${amount}`);
+    } else {
+      res = await fetch(`${API_URL}/address/${address}/utxo`);
     }
 
-    const res = await fetch(`${RPC_URL}/utxos/all_by_address/${address}`);
+    if (!res.ok) return undefined;
 
-    const data = await res.json();
+    const utxos = await res.json();
+    if (!utxos || !Array.isArray(utxos)) return undefined;
 
-    if (Array.isArray(data)) {
-      return data;
-    }
+    const utxosWithHex: ApiUTXO[] = await Promise.all(
+      utxos.map(async (utxo) => {
+        return {
+          txid: utxo.txid,
+          vout: utxo.vout,
+          status: utxo.status,
+          value: utxo.value,
+          hex: utxo.raw,
+        };
+      })
+    );
+
+    return utxosWithHex;
   }
 
-  async pushTx(rawTx: string) {
-    const res = await fetch(`${RPC_URL}/transaction/broadcast`, {
+  async pushTx(txHex: string) {
+    const res = await fetch(`${API_URL}/tx`, {
       method: "POST",
       headers: {
-        "content-type": "application/json",
+        "content-type": "text/plain",
       },
-      body: JSON.stringify({ signedtxhex: rawTx }),
+      body: txHex,
     });
 
-    const data = await res.json();
+    if (!res.ok) {
+      console.error("Failed to push transaction:", res);
+      return "";
+    }
 
-    if (isValidTXID(data.txid) && data.txid) {
+    const data = await res.text();
+
+    if (data && isValidTXID(data)) {
       return data;
     } else {
-      return {
-        error: data.error?.message ?? "unknown error",
-      };
+      console.error("Failed to push transaction:", data);
+      return "";
     }
   }
 
   async getTransactions(address: string): Promise<ITransaction[] | undefined> {
     try {
-      const res = await fetch(
-        `${API_URL}/ext/getaddresstxs/${address}/0/20` // 20 latest transactions
-      );
+      const res = await fetch(`${API_URL}/address/${address}/txs`);
 
       if (!res.ok) return undefined;
 
-      const transactions = (await res.json()) as {
-        timestamp: number;
-        txid: string;
-        sent: number;
-        received: number;
-        balance: number;
-      }[];
-
-      const transactionPromises = transactions.map(async (tx) => {
-        const txRes = await fetch(`${API_URL}/ext/gettx/${tx.txid}`);
-
-        if (!txRes.ok) return undefined;
-
-        return (await txRes.json()) as ITransaction;
-      });
-
-      const resolvedTransactions = await Promise.all(transactionPromises);
-
-      return resolvedTransactions.filter(
-        (tx): tx is ITransaction => tx !== undefined
-      );
+      return (await res.json()) as ITransaction[];
     } catch (error) {
       console.error("Error fetching transactions:", error);
       return undefined;
@@ -162,7 +151,7 @@ class ApiController implements IApiController {
   }
 
   async getLastBlockLKY() {
-    const res = await fetch(`${API_URL}/api/getblockcount`);
+    const res = await fetch(`${API_URL}/blocks/tip/height`);
 
     if (!res.ok) {
       return undefined;
@@ -172,47 +161,48 @@ class ApiController implements IApiController {
   }
 
   async getLKYPrice() {
-    const res = await fetch(
-      `https://api.coinmarketcap.com/data-api/v3/cryptocurrency/market-pairs/latest?slug=luckycoin&start=1&limit=10&category=spot&centerType=all&sort=cmc_rank_advanced&direction=desc&spotUntracked=true`
-    );
+    const res = await fetch(`https://luckyscan.org/api/v1/prices`);
 
     if (!res.ok) {
       return undefined;
     }
 
     const data = (await res.json()) as {
-      data: {
-        marketPairs: {
-          price: number;
-        }[];
-      };
+      USD: number;
     };
 
     return {
-      usd: data.data.marketPairs[0].price,
+      usd: data.USD,
     };
   }
 
   async getAccountStats(address: string): Promise<IAccountStats | undefined> {
     try {
-      const res = await fetch(`${API_URL}/ext/getaddress/${address}`);
+      const res = await fetch(`${API_URL}/address/${address}`);
 
       if (!res.ok) throw new Error("Failed to fetch account stats");
 
-      const data = (await res.json()) as
-        | {
-            balance: number;
-          }
-        | {
-            error: string;
-          };
+      const data = (await res.json()) as {
+        address: string;
+        chain_stats: {
+          funded_txo_count: number;
+          funded_txo_sum: number;
+          spent_txo_count: number;
+          spent_txo_sum: number;
+          tx_count: number;
+        };
+      };
 
-      if ("error" in data) throw new Error(data.error);
+      if (!data.chain_stats) {
+        return { amount: 0, count: 0, balance: 0 };
+      }
 
       return {
         amount: 0, // TODO: implement
         count: 0, // TODO: implement
-        balance: data.balance,
+        balance:
+          (data.chain_stats.funded_txo_sum - data.chain_stats.spent_txo_sum) /
+          1e8,
       };
     } catch {
       return { amount: 0, count: 0, balance: 0 };

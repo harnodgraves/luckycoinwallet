@@ -102,6 +102,7 @@ const InscriptionDetails = () => {
         inscription_number: data.number,
         content: inscription_id,
         preview: inscription_id,
+        hex: "",
         // @ts-ignore // TODO: uncomment when inscription transactions are implemented
         value: value ? value[0] : 0,
         owner: location.owner,

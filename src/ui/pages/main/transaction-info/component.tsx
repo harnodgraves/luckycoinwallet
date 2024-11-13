@@ -26,7 +26,7 @@ const TransactionInfo = () => {
   const { transactions } = useTransactionManagerContext();
   const [tx, setTx] = useState(
     (state?.transaction as ITransaction | undefined) ??
-      transactions?.find((i) => i.tx.txid === txId)
+      transactions?.find((i) => i.txid === txId)
   );
 
   const onOpenExplorer = async () => {
@@ -53,25 +53,20 @@ const TransactionInfo = () => {
             <div className={s.group}>
               <p className={s.transactionP}>{t("transaction_info.txid")}</p>
 
-              <span>{tx.tx.txid}</span>
+              <span>{tx.txid}</span>
             </div>
             <div className={s.group}>
               <p className={s.transactionP}>
                 {t("transaction_info.confirmations_label")}
               </p>
-              <span>
-                {tx.confirmations >= 0
-                  ? `${tx.confirmations} Confirmations`
-                  : "Unconfirmed"}
-              </span>
+              <span>{tx.status.confirmed ? `Confirmed` : "Unconfirmed"}</span>
             </div>
             <div className={s.group}>
               <p className={s.transactionP}>
                 {t("transaction_info.value_label")}
               </p>
               <span>
-                {tx.tx.vout.reduce((acc, cur) => cur.amount + acc, 0) / 10 ** 8}{" "}
-                LKY
+                {tx.vout.reduce((acc, cur) => cur.value + acc, 0) / 10 ** 8} LKY
               </span>
             </div>
 
@@ -88,17 +83,17 @@ const TransactionInfo = () => {
                 <TableItem
                   label={t("transaction_info.inputs")}
                   currentAddress={currentAccount?.address}
-                  items={tx.tx.vin.map((i) => ({
-                    scriptpubkey_address: i.addresses,
-                    value: i.amount,
+                  items={tx.vin.map((i) => ({
+                    scriptpubkey_address: i.prevout.scriptpubkey_address,
+                    value: i.prevout.value,
                   }))}
                 />
                 <TableItem
                   label={t("transaction_info.outputs")}
                   currentAddress={currentAccount?.address}
-                  items={tx.tx.vout.map((i) => ({
-                    scriptpubkey_address: i.addresses,
-                    value: i.amount,
+                  items={tx.vout.map((i) => ({
+                    scriptpubkey_address: i.scriptpubkey_address,
+                    value: i.value,
                   }))}
                 />
               </div>

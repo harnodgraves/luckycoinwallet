@@ -45,10 +45,10 @@ const TransactionList = () => {
     <div className={s.transactionsDiv}>
       {Object.entries(
         Object.groupBy(transactions, (i) => {
-          if (!i.tx.timestamp) {
+          if (!i.status.block_time) {
             return "0";
           }
-          const date = new Date(i.tx.timestamp * 1000);
+          const date = new Date(i.status.block_time * 1000);
 
           date.setHours(0, 0, 0, 0);
 
@@ -71,13 +71,12 @@ const TransactionList = () => {
                 t,
                 currentAccount.address ?? ""
               );
-              const isConfirmed = t.confirmations >= 0;
 
               return (
                 <Link
                   className={s.transaction}
                   key={key + ":" + txidx}
-                  to={`/pages/transaction-info/${t.tx.txid}`}
+                  to={`/pages/transaction-info/${t.txid}`}
                   state={{
                     transaction: t,
                   }}
@@ -88,9 +87,9 @@ const TransactionList = () => {
                         "rounded-full size-9 text-bg flex items-center justify-center relative",
                         {
                           "bg-gradient-to-r from-green-500/75 to-emerald-600/75":
-                            isConfirmed,
+                            t.status.confirmed,
                           "bg-gradient-to-r from-gray-500/75 to-gray-600/75":
-                            !isConfirmed,
+                            !t.status.confirmed,
                         }
                       )}
                     >
@@ -98,38 +97,34 @@ const TransactionList = () => {
                         className={cn(
                           "absolute inset-0 flex items-center justify-center",
                           {
-                            "text-green-200": isConfirmed,
-                            "text-white": !isConfirmed,
+                            "text-green-200": t.status.confirmed,
+                            "text-white": !t.status.confirmed,
                           }
                         )}
                       >
-                        {isConfirmed ? (
+                        {t.status.confirmed ? (
                           !isIncome ? (
                             <ArrowUpIcon className="size-5" />
                           ) : (
                             <ArrowDownIcon className="size-5" />
                           )
-                        ) : t.confirmations >= 0 ? (
-                          <span className="text-base font-medium leading-3">
-                            {t.confirmations} Confirmations
-                          </span>
                         ) : (
                           <span className="text-base font-medium leading-3">
-                            Unconfirmed
+                            ⌛
                           </span>
                         )}
                       </div>
                     </div>
                     <div className="font-mono text-opacity-80 pt-1">
-                      {shortAddress(t.tx.txid)}
+                      {shortAddress(t.txid)}
                     </div>
                   </div>
                   <div>
                     <div
                       className={cn(s.value, {
-                        "text-green-500": isIncome && isConfirmed,
-                        "text-red-400": !isIncome && isConfirmed,
-                        "text-gray-400": !isConfirmed,
+                        "text-green-500": isIncome && t.status.confirmed,
+                        "text-red-400": !isIncome && t.status.confirmed,
+                        "text-gray-400": !t.status.confirmed,
                       })}
                     >
                       {isIncome ? "+ " : "- "}

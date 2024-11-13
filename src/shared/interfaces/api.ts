@@ -1,20 +1,16 @@
 export type ApiUTXO = {
   txid: string;
   vout: number;
-  address: string;
-  amount: string;
+  status: {
+    confirmed: boolean;
+    block_height: number;
+    block_hash: string;
+    block_time: number;
+  };
+  value: number;
   hex: string;
-  block: number;
-  block_hash: string;
 };
-/*
-export interface Status {
-  confirmed: boolean;
-  block_height: number;
-  block_hash: string;
-  block_time: number;
-}
-*/
+
 export interface AccountBalanceResponse {
   address: string;
   chain_stats: ChainStats;
@@ -38,22 +34,41 @@ export interface MempoolStats {
 }
 
 export interface ITransaction {
-  tx: {
-    txid: string;
-    vin: {
-      addresses: string;
-      amount: number;
-    }[];
-    vout: {
-      addresses: string;
-      amount: number;
-    }[];
-    total: number;
-    timestamp: number;
-    blockindex: number;
+  txid: string;
+  version: number;
+  locktime: number;
+  vin: [
+    {
+      txid: string;
+      vout: number;
+      prevout: {
+        scriptpubkey_address: string;
+        value: number;
+      };
+      is_coinbase: boolean;
+      sequence: number;
+    }
+  ];
+  vout: [
+    {
+      scriptpubkey_address: string;
+      value: number;
+    },
+    {
+      scriptpubkey_address: string;
+      value: number;
+    }
+  ];
+  size: number;
+  weight: number;
+  sigops: number;
+  fee: number;
+  status: {
+    confirmed: boolean;
+    block_height: number;
+    block_hash: string;
+    block_time: number;
   };
-  confirmations: number;
-  blockcount: number;
 }
 
 export interface Prevout {

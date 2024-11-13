@@ -24,8 +24,9 @@ const ConfirmSend = () => {
     setLoading(true);
     try {
       const data = await pushTx(location.state.hex);
-      if (!data || !data.txid) {
-        throw new Error(data?.error ?? "Failed pushing transaction");
+      if (!data || data.length === 0) {
+        console.error("Failed pushing transaction", data);
+        throw new Error("Failed pushing transaction");
       }
 
       setTimeout(() => {
@@ -35,7 +36,7 @@ const ConfirmSend = () => {
         }
       }, 100);
 
-      navigate(`/pages/finalle-send/${data.txid}`);
+      navigate(`/pages/finalle-send/${data}`);
 
       if (location.state.save) {
         await updateAddressBook(location.state.toAddress);
