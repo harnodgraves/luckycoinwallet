@@ -24,6 +24,7 @@ export const ADDRESS_TYPES: {
   },
 ];
 export const DEFAULT_HD_PATH = ADDRESS_TYPES[0].hdPath;
+export const DEFAULT_TYPE = ADDRESS_TYPES[0].value;
 
 export const EVENTS = {
   broadcastToUI: "broadcastToUI",

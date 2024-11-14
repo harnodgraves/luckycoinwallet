@@ -139,7 +139,8 @@
       },
       "address_book": {
         "address_book": "地址簿",
-        "no_addresses": "还没有地址"
+        "no_addresses": "还没有地址",
+        "enter_address": "输入地址"
       }
     },
     "final_send": {

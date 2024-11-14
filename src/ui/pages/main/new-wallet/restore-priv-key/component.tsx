@@ -1,3 +1,4 @@
+import { DEFAULT_TYPE } from "@/shared/constant";
 import PasswordInput from "@/ui/components/password-input";
 import Select from "@/ui/components/select";
 import SwitchAddressType from "@/ui/components/switch-address-type";
@@ -21,9 +22,7 @@ const waysToRestore: { name: "wif" | "hex" }[] = [
 ];
 
 const RestorePrivKey = () => {
-  const [addressType, setAddressType] = useState<AddressType>(
-    AddressType.P2WPKH
-  );
+  const [addressType, setAddressType] = useState<AddressType>(DEFAULT_TYPE);
   const [step, setStep] = useState(1);
   const { register, handleSubmit } = useForm<FormType>({
     defaultValues: {

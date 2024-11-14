@@ -66,7 +66,7 @@ const CreateSend = () => {
       if (amount < 0.00000001 && !inscriptionTransaction) {
         return toast.error(t("send.create_send.minimum_amount_error"));
       }
-      if (address.trim().length <= 0) {
+      if (!address || address.trim().length <= 0) {
         return toast.error(t("send.create_send.address_error"));
       }
       if (feeRate % 1 !== 0) {
@@ -101,7 +101,9 @@ const CreateSend = () => {
       } catch (e) {
         console.error(e);
 
-        if (e instanceof Error) toast.error(e.message);
+        if ((e as Error).message) {
+          toast.error((e as Error).message);
+        }
       }
 
       if (!data) return;

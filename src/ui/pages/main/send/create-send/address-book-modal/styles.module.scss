@@ -17,3 +17,7 @@
 .item {
   @apply cursor-pointer flex gap-1;
 }
+
+.enteraddress {
+  @apply px-4 py-2 rounded-xl bg-input-bg select-none transition-colors;
+}

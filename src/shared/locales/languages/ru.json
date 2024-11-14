@@ -145,7 +145,8 @@
       },
       "address_book": {
         "address_book": "Адресная книга",
-        "no_addresses": "Адресов пока нет"
+        "no_addresses": "Адресов пока нет",
+        "enter_address": "Введите адрес"
       }
     },
     "finalle_send": {

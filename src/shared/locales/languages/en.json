@@ -185,7 +185,8 @@
       },
       "address_book": {
         "address_book": "Address book",
-        "no_addresses": "No addresses here"
+        "no_addresses": "No addresses here",
+        "enter_address": "Enter address"
       }
     },
     "finalle_send": {

@@ -139,7 +139,8 @@
       },
       "address_book": {
         "address_book": "주소록",
-        "no_addresses": "여기에 주소가 없습니다"
+        "no_addresses": "여기에 주소가 없습니다",
+        "enter_address": "주소 입력"
       }
     },
     "finalle_send": {

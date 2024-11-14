@@ -1,11 +1,11 @@
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import "dayjs/locale/en";
-import "dayjs/locale/ru";
-import "dayjs/locale/zh-cn";
-import "dayjs/locale/ko";
 import { useAppState } from "@/ui/states/appState";
 import { ss } from "@/ui/utils";
+import dayjs from "dayjs";
+import "dayjs/locale/en";
+import "dayjs/locale/ko";
+import "dayjs/locale/ru";
+import "dayjs/locale/zh-cn";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 dayjs.extend(relativeTime);
 
@@ -16,14 +16,14 @@ interface Props {
 const locales = {
   en: "en",
   ru: "ru",
-  zh: "zh-cn",
+  ch: "zh-cn",
   kr: "ko",
 };
 
 const todayLocale = {
   en: "Today",
   ru: "Сегодня",
-  zh: "今天",
+  ch: "今天",
   kr: "오늘",
 };
 
