@@ -3,14 +3,16 @@
     "transactions": "Транзакции",
     "no_transactions": "Нет транзакций",
     "receive": "Получить",
-    "send": "Отправить"
+    "send": "Отправить",
+    "nft": "NFT",
+    "available_balance": "Доступный баланс"
   },
   "settings": {
     "language": "Язык",
     "logout": "Выйти",
     "connected_sites": "Подключенные сайты",
     "expand_view": "Развернуть обзор",
-    "change_password": "Сменить пароль",
+    "security_settings": "Настройки безопасности",
     "address_type": "Тип адреса"
   },
   "components": {
@@ -30,7 +32,11 @@
       "show_mnemonic": "Показать мнемонику",
       "show_private_key": "Показать приватный ключ",
       "restore_from_mnemonic": "Восстановить из мнемоника",
-      "restore_from_private_key": "Восстановить кошелек"
+      "restore_from_private_key": "Восстановить кошелек",
+      "security": "Безопасность",
+      "discover": "Открыть",
+      "inscriptions": "Надписи",
+      "wallet_settings": "Настройки кошелька"
     },
     "check_password": {
       "incorrect_password_error": "Неверный пароль",
@@ -73,7 +79,8 @@
   },
   "login": {
     "password": "Пароль",
-    "login": "Войти"
+    "login": "Войти",
+    "welcome_back": "Добро пожаловать"
   },
   "new_account": {
     "max_length_error": "Максимальная длина имени - 16",
@@ -141,7 +148,8 @@
         "custom": "Свой вариант"
       },
       "address_input": {
-        "address_book": "Адресная книга"
+        "address_book": "Адресная книга",
+        "address_placeholder": "Введите адрес"
       },
       "address_book": {
         "address_book": "Адресная книга",

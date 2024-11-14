@@ -1,52 +1,25 @@
 import { ADDRESS_TYPES, DEFAULT_HD_PATH } from "@/shared/constant";
-import Select from "@/ui/components/select";
 import SelectWithHint from "@/ui/components/select-hint/component";
-import Switch from "@/ui/components/switch";
 import SwitchAddressType from "@/ui/components/switch-address-type";
 import { useCreateNewWallet } from "@/ui/hooks/wallet";
 import cn from "classnames";
 import { t } from "i18next";
 import { networks } from "luckycoinjs-lib";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { TailSpin } from "react-loading-icons";
 import { useNavigate } from "react-router-dom";
 import s from "./styles.module.scss";
 
-const selectOptions = [
-  {
-    label: "Default",
-    value: DEFAULT_HD_PATH,
-    lecacyDerivation: false,
-    passphrase: "lky",
-  },
-  {
-    label: "Ordinals",
-    value: "m/44'/3'/0'/0/0",
-    lecacyDerivation: true,
-    isLegacySwitchLocked: true,
-    passphrase: "",
-  },
-  {
-    label: "Custom",
-    value: "",
-  },
-];
-
 const RestoreMnemonic = () => {
   const [step, setStep] = useState(1);
   const [addressType, setAddressType] = useState(ADDRESS_TYPES[0].value);
-  const [hdPath, setHdPath] = useState<string | undefined>(DEFAULT_HD_PATH);
-  const [passphrase, setPassphrase] = useState(
-    selectOptions[0].passphrase ?? ""
-  );
   const [mnemonicPhrase, setMnemonicPhrase] = useState<(string | undefined)[]>(
     new Array(12).fill("")
   );
   const createNewWallet = useCreateNewWallet();
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
-  const [showRootAcc, setShowRootAcc] = useState<boolean>(false);
 
   const setMnemonic = (v: string, index: number) => {
     if (!v) {
@@ -75,10 +48,9 @@ const RestoreMnemonic = () => {
         payload: mnemonicPhrase.join(" "),
         walletType: "root",
         addressType,
-        hideRoot: !showRootAcc,
+        hideRoot: !false,
         network: networks.luckycoin,
-        hdPath,
-        passphrase,
+        hdPath: DEFAULT_HD_PATH,
       });
       navigate("/home");
     } catch (e) {
@@ -89,14 +61,6 @@ const RestoreMnemonic = () => {
       setLoading(false);
     }
   };
-
-  const selectedOption = useMemo(() => {
-    const v = selectOptions.find((i) => i.value === hdPath)?.label;
-
-    if (v) return { name: v };
-
-    return { name: selectOptions[selectOptions.length - 1].label };
-  }, [hdPath]);
 
   if (loading) return <TailSpin className="animate-spin" />;
 
@@ -130,62 +94,6 @@ const RestoreMnemonic = () => {
           <SwitchAddressType
             handler={setAddressType}
             selectedType={addressType}
-          />
-
-          <div className="w-full flex flex-col gap-2">
-            <div className="flex w-full gap-2 text-sm">
-              <input
-                disabled={selectedOption.name !== "Custom"}
-                className={cn("input w-full mt-1 py-1", s.input)}
-                placeholder={t("new_wallet.hd_path")}
-                value={hdPath ?? ""}
-                onChange={(e) =>
-                  e.target.value.length
-                    ? setHdPath(e.target.value)
-                    : setHdPath(undefined)
-                }
-              />
-              <Select
-                anchor="top"
-                selected={selectedOption}
-                setSelected={({ name }) => {
-                  const v = selectOptions.find((i) => i.label === name);
-
-                  if (typeof v !== "undefined") {
-                    if (v.lecacyDerivation) {
-                      setShowRootAcc(true);
-                    } else if (v.lecacyDerivation === false) {
-                      setShowRootAcc(false);
-                    }
-                    setHdPath(v.value);
-                    setPassphrase(v.passphrase ?? "");
-                  }
-                }}
-                values={selectOptions.map((i) => ({
-                  name: i.label,
-                }))}
-                className="w-28"
-              />
-            </div>
-
-            <input
-              disabled={selectedOption.name !== "Custom"}
-              className={cn(s.input, "input w-full py-2")}
-              placeholder={t("new_wallet.passphrase")}
-              value={passphrase}
-              onChange={(e) => setPassphrase(e.target.value)}
-            />
-          </div>
-
-          <Switch
-            label={t("new_wallet.restore_mnemonic.show_root_acc")}
-            value={showRootAcc}
-            onChange={() => setShowRootAcc((p) => !p)}
-            className="flex gap-2 items-center"
-            disabled={
-              selectOptions.find((i) => i.value === hdPath)
-                ?.isLegacySwitchLocked === true
-            }
           />
 
           <div className="h-11">

@@ -1,5 +1,6 @@
 import { storageService } from "@/background/services";
 import keyringService from "@/background/services/keyring";
+import { DEFAULT_TYPE } from "@/shared/constant";
 import type {
   DeleteWalletResult,
   IAccount,
@@ -9,7 +10,7 @@ import type {
   SaveWalletsPayload,
 } from "@/shared/interfaces";
 import { excludeKeysFromObj } from "@/shared/utils";
-import { AddressType, HDPrivateKey } from "luckycoinhdw";
+import { HDPrivateKey } from "luckycoinhdw";
 import * as bip39 from "nintondo-bip39";
 
 class WalletController implements IWalletController {
@@ -35,7 +36,7 @@ class WalletController implements IWalletController {
       name: !props.name ? storageService.getUniqueName("Wallet") : props.name,
       id: walletId,
       type: props.walletType,
-      addressType: props.addressType ?? AddressType.P2PKH,
+      addressType: props.addressType ?? DEFAULT_TYPE,
       accounts: [account],
       hideRoot: props.hideRoot,
     };

@@ -1,7 +1,7 @@
 import { EXPLORER_URL } from "@/shared/constant";
 import { ITransaction } from "@/shared/interfaces/api";
 import { browserTabsCreate } from "@/shared/utils/browser";
-import { shortAddress } from "@/shared/utils/transactions";
+import { getTransactionValue, shortAddress } from "@/shared/utils/transactions";
 import Modal from "@/ui/components/modal";
 import { useControllersState } from "@/ui/states/controllerState";
 import { useGetCurrentAccount } from "@/ui/states/walletState";
@@ -28,6 +28,7 @@ const TransactionInfo = () => {
     (state?.transaction as ITransaction | undefined) ??
       transactions?.find((i) => i.txid === txId)
   );
+  const [txValue, setTxValue] = useState<string | undefined>();
 
   const onOpenExplorer = async () => {
     await browserTabsCreate({
@@ -45,9 +46,16 @@ const TransactionInfo = () => {
     }
   }, [state?.transaction, txId]);
 
+  useEffect(() => {
+    if (tx && currentAccount?.address) {
+      const value = getTransactionValue(tx, currentAccount.address);
+      setTxValue(value);
+    }
+  }, [tx, currentAccount]);
+
   return (
     <div className={s.transactionInfoDiv}>
-      {tx ? (
+      {tx && txValue ? (
         <>
           <div className={s.transaction}>
             <div className={s.group}>
@@ -65,9 +73,7 @@ const TransactionInfo = () => {
               <p className={s.transactionP}>
                 {t("transaction_info.value_label")}
               </p>
-              <span>
-                {tx.vout.reduce((acc, cur) => cur.value + acc, 0) / 10 ** 8} LKY
-              </span>
+              <span>{txValue} LKY</span>
             </div>
 
             <div className={s.summary} onClick={() => setOpenModal(true)}>

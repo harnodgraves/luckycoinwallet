@@ -1,11 +1,11 @@
-import { FC, useId } from "react";
-import s from "./styles.module.scss";
 import { useAppState } from "@/ui/states/appState";
-import toast from "react-hot-toast";
-import { useForm } from "react-hook-form";
-import { t } from "i18next";
 import { ss } from "@/ui/utils";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { t } from "i18next";
+import { FC, useId } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import s from "./styles.module.scss";
 
 interface Props {
   handler: (password?: string) => void;
@@ -32,7 +32,6 @@ const CheckPassword: FC<Props> = ({ handler }) => {
 
   return (
     <form className={s.form} onSubmit={handleSubmit(checkPassword)}>
-
       <div className="flex flex-col gap-2">
         <label htmlFor={pwdId} className={s.formTitle}>
           {t("components.check_password.password")}
@@ -53,10 +52,10 @@ const CheckPassword: FC<Props> = ({ handler }) => {
           <ExclamationTriangleIcon className="w-6 h-6 text-red-400" />
         </div>
         <span className="text-sm text-gray-200">
-          The next screen will display sensitive data, such as your private key. Ensure you're in a secure environment before proceeding.
+          The next screen will display sensitive data. Ensure you're in a secure
+          environment before proceeding.
         </span>
       </div>
-
     </form>
   );
 };

@@ -3,14 +3,15 @@
     "transactions": "거래",
     "no_transactions": "거래 없음",
     "receive": "받기",
-    "send": "보내기"
+    "send": "보내기",
+    "available_balance": "잔액"
   },
   "settings": {
     "language": "언어",
     "logout": "로그아웃",
     "connected_sites": "연결된 사이트",
     "expand_view": "보기 확대",
-    "change_password": "비밀번호 변경",
+    "security_settings": "보안 설정",
     "address_type": "주소 유형"
   },
   "components": {
@@ -30,7 +31,11 @@
       "show_mnemonic": "니모닉 표시",
       "show_private_key": "비밀 키 표시",
       "restore_from_mnemonic": "니모닉에서 복원",
-      "restore_from_private_key": "개인 키에서 복원"
+      "restore_from_private_key": "개인 키에서 복원",
+      "security": "보안",
+      "discover": "발견",
+      "inscriptions": "문구",
+      "wallet_settings": "지갑 설정"
     },
     "check_password": {
       "incorrect_password_error": "잘못된 비밀번호",
@@ -68,7 +73,8 @@
   },
   "login": {
     "password": "비밀번호",
-    "login": "로그인"
+    "login": "로그인",
+    "welcome_back": "다시 오신 것을 환영합니다"
   },
   "new_account": {
     "max_length_error": "이름의 최대 길이는 16입니다",
@@ -135,7 +141,8 @@
         "custom": "사용자 지정"
       },
       "address_input": {
-        "address_book": "주소록"
+        "address_book": "주소록",
+        "address_placeholder": "주소 입력"
       },
       "address_book": {
         "address_book": "주소록",

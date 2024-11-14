@@ -32,7 +32,6 @@ export interface INewWalletProps {
   hideRoot?: boolean;
   restoreFrom?: "wif" | "hex";
   hdPath?: string;
-  passphrase?: string;
   network: Network;
 }
 

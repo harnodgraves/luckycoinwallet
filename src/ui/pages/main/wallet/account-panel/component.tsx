@@ -50,7 +50,7 @@ const AccountPanel = () => {
         {currentAccount?.balance !== undefined ? (
           currentPrice !== undefined ? (
             <div className="text-gray-500 text-sm">
-              ~{(cardinalBalance * currentPrice)?.toFixed(3)}$
+              ~${(cardinalBalance * currentPrice)?.toFixed(3)}
             </div>
           ) : undefined
         ) : undefined}

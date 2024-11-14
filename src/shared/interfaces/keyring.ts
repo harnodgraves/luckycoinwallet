@@ -6,7 +6,6 @@ interface DeserializeOption {
   mnemonic?: string;
   xpriv?: string;
   activeIndexes?: number[];
-  passphrase?: string;
 }
 
 export interface Keyring {

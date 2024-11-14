@@ -284,7 +284,7 @@ const CreateSend = () => {
         {!inscriptionTransaction && (
           <div className="flex justify-between py-2 px-4 mb-11">
             <div className="text-xs uppercase text-gray-400">{`${t(
-              "wallet_page.amount_in_transactions"
+              "wallet_page.available_balance"
             )}`}</div>
             <span className="text-sm font-medium">
               {`${Number(currentAccount?.balance ?? 0).toFixed(5)} LKY`}

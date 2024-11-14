@@ -1,16 +1,16 @@
 import { useGetCurrentWallet, useWalletState } from "@/ui/states/walletState";
+import { KeyIcon, TagIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import s from "./styles.module.scss";
-import { TagIcon, KeyIcon, TrashIcon } from "@heroicons/react/24/outline";
 
-import { useDeleteWallet, useSwitchWallet } from "@/ui/hooks/wallet";
-import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
-import Modal from "@/ui/components/modal";
 import Card from "@/ui/components/card";
+import Modal from "@/ui/components/modal";
 import Rename from "@/ui/components/rename";
-import { t } from "i18next";
+import { useDeleteWallet, useSwitchWallet } from "@/ui/hooks/wallet";
 import { ss } from "@/ui/utils";
+import { t } from "i18next";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const SwitchWallet = () => {
   const [renameId, setRenameId] = useState<number | undefined>(undefined);

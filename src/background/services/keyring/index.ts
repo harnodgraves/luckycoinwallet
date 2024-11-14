@@ -2,6 +2,7 @@ import { storageService } from "@/background/services";
 import { INewWalletProps } from "@/shared/interfaces";
 //import { ApiUTXO } from "@/shared/interfaces/api";
 //import { ApiOrdUTXO, OrdUTXO } from "@/shared/interfaces/inscriptions";
+import { DEFAULT_TYPE } from "@/shared/constant";
 import { getScriptForAddress, toXOnly } from "@/shared/utils/transactions";
 import { createSendLKY } from "luckycoin-ord-utils";
 import { AddressType, HDPrivateKey, SimpleKey } from "luckycoinhdw";
@@ -55,11 +56,10 @@ class KeyringService {
   async newKeyring({
     walletType,
     payload,
-    addressType = AddressType.P2PKH,
+    addressType = DEFAULT_TYPE,
     hideRoot,
     restoreFrom,
     hdPath,
-    passphrase,
   }: INewWalletProps) {
     let keyring: HDPrivateKey | HDSimpleKey;
     if (walletType === "root") {
@@ -68,7 +68,6 @@ class KeyringService {
         hideRoot,
         addressType,
         hdPath,
-        passphrase,
       });
     } else {
       keyring = HDSimpleKey.deserialize({
@@ -78,7 +77,7 @@ class KeyringService {
       });
     }
     keyring.addressType =
-      typeof addressType === "number" ? addressType : AddressType.P2PKH;
+      typeof addressType === "number" ? addressType : DEFAULT_TYPE;
     this.keyrings.push(keyring);
     if (!keyring.getAccounts().length)
       return (keyring as HDPrivateKey).addAccounts(1)[0];
