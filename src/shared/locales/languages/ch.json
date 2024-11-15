@@ -179,6 +179,8 @@
   "transaction_info": {
     "txid": "TxId",
     "confirmations_label": "确认：",
+    "confirmed": "已确认",
+    "unconfirmed": "未确认",
     "fee_label": "费用：",
     "value_label": "价值：",
     "open_in_explorer": "在查找器中打开",

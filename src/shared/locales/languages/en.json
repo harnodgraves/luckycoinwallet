@@ -218,6 +218,8 @@
   "transaction_info": {
     "txid": "TxId",
     "confirmations_label": "Confirmations",
+    "confirmed": "Confirmed",
+    "unconfirmed": "Unconfirmed",
     "fee_label": "Fee",
     "value_label": "Value",
     "open_in_explorer": "Open in explorer",

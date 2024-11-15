@@ -178,6 +178,8 @@
   "transaction_info": {
     "txid": "TxId",
     "confirmations_label": "확인:",
+    "confirmed": "확인됨",
+    "unconfirmed": "미확인",
     "fee_label": "수수료:",
     "value_label": "값:",
     "open_in_explorer": "탐색기에서 열기",

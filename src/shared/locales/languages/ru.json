@@ -185,6 +185,8 @@
   "transaction_info": {
     "txid": "TxId",
     "confirmations_label": "Подтверждения:",
+    "confirmed": "Подтверждено",
+    "unconfirmed": "Не подтверждено",
     "fee_label": "Сбор:",
     "value_label": "Значение:",
     "open_in_explorer": "Открыть в обозревателе",

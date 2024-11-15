@@ -67,7 +67,11 @@ const TransactionInfo = () => {
               <p className={s.transactionP}>
                 {t("transaction_info.confirmations_label")}
               </p>
-              <span>{tx.status.confirmed ? `Confirmed` : "Unconfirmed"}</span>
+              <span>
+                {tx.status.confirmed
+                  ? t("transaction_info.confirmed")
+                  : t("transaction_info.unconfirmed")}
+              </span>
             </div>
             <div className={s.group}>
               <p className={s.transactionP}>
