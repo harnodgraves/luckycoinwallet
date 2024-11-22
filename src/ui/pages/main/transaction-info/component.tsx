@@ -94,16 +94,17 @@ const TransactionInfo = () => {
                   label={t("transaction_info.inputs")}
                   currentAddress={currentAccount?.address}
                   items={tx.vin.map((i) => ({
-                    scriptpubkey_address: i.prevout.scriptpubkey_address,
-                    value: i.prevout.value,
+                    scriptpubkey_address:
+                      i.prevout?.scriptpubkey_address || "N/A",
+                    value: i.prevout?.value || 0,
                   }))}
                 />
                 <TableItem
                   label={t("transaction_info.outputs")}
                   currentAddress={currentAccount?.address}
                   items={tx.vout.map((i) => ({
-                    scriptpubkey_address: i.scriptpubkey_address,
-                    value: i.value,
+                    scriptpubkey_address: i.scriptpubkey_address || "N/A",
+                    value: i.value || 0,
                   }))}
                 />
               </div>

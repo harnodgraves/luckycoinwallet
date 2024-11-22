@@ -8,10 +8,17 @@ export const getTransactionValue = (
   fixed: number = 2
 ) => {
   const outputsSum = transaction.vout
-    .filter((i) => i.scriptpubkey_address === targetAddress)
+    .filter(
+      (i) => i.scriptpubkey_address && i.scriptpubkey_address === targetAddress
+    )
     .reduce((acc, cur) => acc + cur.value, 0);
+
   const inputsSum = transaction.vin
-    .filter((i) => i.prevout.scriptpubkey_address === targetAddress)
+    .filter(
+      (i) =>
+        i.prevout?.scriptpubkey_address &&
+        i.prevout.scriptpubkey_address === targetAddress
+    )
     .reduce((acc, cur) => acc + cur.prevout.value, 0);
 
   const value = Math.abs(outputsSum - inputsSum) / 10 ** 8;
@@ -28,11 +35,19 @@ export const isIncomeTx = (
   targetAddress: string
 ) => {
   const outputsSum = transaction.vout
-    .filter((i) => i.scriptpubkey_address === targetAddress)
+    .filter(
+      (i) => i.scriptpubkey_address && i.scriptpubkey_address === targetAddress
+    )
     .reduce((acc, cur) => acc + cur.value, 0);
+
   const inputsSum = transaction.vin
-    .filter((i) => i.prevout.scriptpubkey_address === targetAddress)
+    .filter(
+      (i) =>
+        i.prevout?.scriptpubkey_address &&
+        i.prevout.scriptpubkey_address === targetAddress
+    )
     .reduce((acc, cur) => acc + cur.prevout.value, 0);
+
   return outputsSum - inputsSum > 0;
 };
 
